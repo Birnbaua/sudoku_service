@@ -24,7 +24,7 @@ class Sudoku(
 
     @ManyToOne
     @JoinColumn(name = "`difficulty`")
-    var difficulty: Difficulty? = Difficulty(0),
+    var difficulty: Difficulty? = Difficulty(1),
 
     @Size(min = 81, max = 81)
     @Column(name = "`solved_sudoku`", length = 81)
@@ -35,7 +35,19 @@ class Sudoku(
     var unsolved: String? = null,
 
     @Column(name = "`desc`")
-    var desc: String? = null
+    var desc: String? = null,
+
+    @Size(min = 81, max = 81)
+    @Column(name = "`grouping`", length = 81, nullable = false)
+    var grouping: String? = "111222333" +
+            "111222333" +
+            "111222333" +
+            "444555666" +
+            "444555666" +
+            "444555666" +
+            "777888999" +
+            "777888999" +
+            "777888999"
 
 ) {
 
