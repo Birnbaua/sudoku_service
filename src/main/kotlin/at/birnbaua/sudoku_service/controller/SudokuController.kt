@@ -1,5 +1,6 @@
 package at.birnbaua.sudoku_service.controller
 
+import at.birnbaua.sudoku_service.exception.SudokuNotExistingException
 import at.birnbaua.sudoku_service.jpa.Sudoku
 import at.birnbaua.sudoku_service.jpa.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.SudokuInfo
@@ -26,7 +27,19 @@ class SudokuController {
 
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int) : ResponseEntity<SudokuGetInfo> {
-        return ResponseEntity.ok(ss.findByIdGetInfo(id))
+        val sudoku = ss.findByIdGetInfo(id) ?: throw SudokuNotExistingException(id,log)
+        return ResponseEntity.ok(sudoku)
+    }
+
+    @GetMapping("/{id}/validate")
+    fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved") solvedParam: String?) : ResponseEntity<Boolean> {
+        return if(solvedParam != null) {
+            ResponseEntity.ok(ss.findById(id).orElseThrow{SudokuNotExistingException(id,log)}.solved.equals(solvedParam))
+        } else if(solved != null) {
+            ResponseEntity.ok(ss.findById(id).orElseThrow{SudokuNotExistingException(id,log)}.solved.equals(solved))
+        } else {
+            ResponseEntity.badRequest().build()
+        }
     }
 
     @PostMapping
@@ -42,11 +55,5 @@ class SudokuController {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int) : ResponseEntity<Any> {
         return ResponseEntity.accepted().build()
-    }
-
-    @ExceptionHandler
-    fun handle(e: Exception) : ResponseEntity<Any> {
-        log.error(e.stackTraceToString())
-        return ResponseEntity.badRequest().build()
     }
 }

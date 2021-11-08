@@ -4,8 +4,8 @@ import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Invalid format of sudoku!")
-class InvalidSudokuException(msg: String, log: Logger) : RuntimeException(msg) {
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Sudoku not existing!")
+class SudokuNotExistingException(id: Int, log: Logger) : RuntimeException("Sudoku with id: $id is not existing in the database!") {
     init {
         log.warn(this.stackTraceToString())
     }
