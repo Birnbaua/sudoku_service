@@ -1,3 +1,5 @@
+import { BoardComponent } from './core/components/board/board.component';
+import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -6,7 +8,9 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
