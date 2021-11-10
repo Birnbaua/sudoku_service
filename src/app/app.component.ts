@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { SidebarComponent } from './core/components/sidebar/sidebar.component';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Sudoku';
+  unsolved = '';
+  
+  test(newSudoku: string){
+    this.unsolved = newSudoku
+  }
 }
