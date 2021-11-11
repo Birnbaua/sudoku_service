@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.jpa
+package at.birnbaua.sudoku_service.jpa.sudoku
 
 import at.birnbaua.sudoku_service.jpaservice.JpaService
 import org.hibernate.annotations.NaturalId

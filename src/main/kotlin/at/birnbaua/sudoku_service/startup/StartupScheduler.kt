@@ -1,9 +1,9 @@
 package at.birnbaua.sudoku_service.startup
 
-import at.birnbaua.sudoku_service.jpa.Difficulty
-import at.birnbaua.sudoku_service.jpa.DifficultyService
-import at.birnbaua.sudoku_service.jpa.Sudoku
-import at.birnbaua.sudoku_service.jpa.SudokuService
+import at.birnbaua.sudoku_service.jpa.sudoku.Difficulty
+import at.birnbaua.sudoku_service.jpa.sudoku.DifficultyService
+import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling

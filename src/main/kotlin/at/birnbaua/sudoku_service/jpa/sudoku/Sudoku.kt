@@ -1,6 +1,5 @@
-package at.birnbaua.sudoku_service.jpa
+package at.birnbaua.sudoku_service.jpa.sudoku
 
-import at.birnbaua.sudoku_service.controller.SudokuController
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
 import at.birnbaua.sudoku_service.jpaservice.JpaService
 import org.slf4j.LoggerFactory
@@ -9,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
-import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Size
 
@@ -59,10 +57,14 @@ class Sudoku(
     @PreUpdate
     fun checkConstraint() {
         if(solved?.matches("^[1-9]*\$".toRegex()) == false) {
-            throw InvalidSudokuException("The solved Sudoku contains invalid characters. It may only contain digits from 1 to 9",log)
+            throw InvalidSudokuException("The solved Sudoku contains invalid characters. It may only contain digits from 1 to 9",
+                log
+            )
         }
         if(unsolved?.matches("^[0-9]*\$".toRegex()) == false) {
-            throw InvalidSudokuException("The unsolved Sudoku contains invalid characters. It may only contain digits from 0 to 9",log)
+            throw InvalidSudokuException("The unsolved Sudoku contains invalid characters. It may only contain digits from 0 to 9",
+                log
+            )
         }
     }
 }
