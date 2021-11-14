@@ -1,3 +1,4 @@
+import { HomePageComponent } from './core/components/home/home.component';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -21,9 +22,9 @@ describe('AppComponent', () => {
   });
 
   it(`should have as title 'sudoku'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('sudoku');
+    const fixture = TestBed.createComponent(HomePageComponent);
+    const home = fixture.componentInstance;
+    expect(home.title).toEqual('sudoku');
   });
 
   it('should render title', () => {
