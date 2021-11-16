@@ -1,5 +1,5 @@
-import { HomePageComponent } from './core/components/home/home.component';
-import { LoginComponent } from './core/components/login/login.component';
+import { HomePageComponent } from './pages/home/home.component';
+import { LoginPageComponent } from './pages/login/login.component';
 import { SudokuService } from './core/services/sudoku.service';
 import { BoardComponent } from './core/components/board/board.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
     AppComponent,
     SidebarComponent,
     BoardComponent,
-    LoginComponent,
+    LoginPageComponent,
     HomePageComponent
   ],
   imports: [

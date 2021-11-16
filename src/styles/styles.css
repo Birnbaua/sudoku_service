@@ -1,0 +1,58 @@
+/* Sidebar */
+
+.sidebar{
+    left: 0;
+    position: fixed;
+    min-width: 15rem;
+}
+
+.sb-icon{
+    width: 16px;
+    height: 16px;
+}
+
+/*Generals */
+.full-width{
+    width:100% !important;
+}
+
+/* Home Page */
+.home-page{
+    max-width: 100% !important;
+}
+
+.sud-hist-table{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem
+}
+
+.ctrl-btn{
+    display: flex;
+    background-color: #0d6efd;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    opacity: 1; 
+    width: 300px; 
+    height: 100px;
+    border-radius: 1rem;
+}
+.ctrl-btn > p{
+    margin: auto !important;
+}
+
+/* Profile */
+.username{
+    font-size: large;
+    font-weight: bold;
+}
+
+.profile-pic{
+    width:100px;
+    height:100px;
+}
+
+.logout{
+    font-weight: bold;
+}

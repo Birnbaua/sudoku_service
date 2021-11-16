@@ -1,4 +1,4 @@
-import { SudokuService } from '../../services/sudoku.service';
+import { SudokuService } from '../../core/services/sudoku.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginPageComponent {
 }
