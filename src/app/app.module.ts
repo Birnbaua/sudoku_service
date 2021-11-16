@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PlayComponent } from './pages/play/play.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AppComponent } from './app.component';
     SidebarComponent,
     BoardComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,
