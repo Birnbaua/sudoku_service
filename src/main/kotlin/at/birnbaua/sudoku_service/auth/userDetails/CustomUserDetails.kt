@@ -1,6 +1,6 @@
 package at.birnbaua.sudoku_service.auth.userDetails
 
-import at.birnbaua.sudoku_service.auth.User
+import at.birnbaua.sudoku_service.jpa.user.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

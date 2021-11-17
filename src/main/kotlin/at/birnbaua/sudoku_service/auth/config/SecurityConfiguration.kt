@@ -2,6 +2,7 @@ package at.birnbaua.sudoku_service.auth.config
 
 import at.birnbaua.sudoku_service.auth.userDetails.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.password.PasswordEncoder
 import kotlin.jvm.Throws
 
+@EnableConfigurationProperties
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @Configuration
@@ -40,15 +42,5 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .and()
             .logout()
             .permitAll()
-    }
-
-    private class MyEncoder : PasswordEncoder {
-        override fun encode(rawPassword: CharSequence?): String {
-            return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(4))
-        }
-
-        override fun matches(rawPassword: CharSequence?, encodedPassword: String?): Boolean {
-            return BCrypt.checkpw(rawPassword.toString(), encodedPassword)
-        }
     }
 }

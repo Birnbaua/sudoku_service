@@ -1,6 +1,6 @@
 package at.birnbaua.sudoku_service.auth.userDetails
 
-import at.birnbaua.sudoku_service.auth.UserService
+import at.birnbaua.sudoku_service.jpa.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
