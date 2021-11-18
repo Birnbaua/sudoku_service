@@ -15,7 +15,7 @@ class TokenService {
     @Value(value = "\${jwt.expiration}")
     lateinit var expiration: String
 
-    fun genToken(username: String?): String {
+    fun genToken(username: String): String {
         val creationDate = Date()
         val expirationDate = calcExpireDate(creationDate)
         return Jwts.builder()

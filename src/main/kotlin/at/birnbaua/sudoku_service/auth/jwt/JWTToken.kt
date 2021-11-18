@@ -1,3 +1,3 @@
 package at.birnbaua.sudoku_service.auth.jwt
 
-class JWTToken(token: String)
+class JWTToken(val token: String)

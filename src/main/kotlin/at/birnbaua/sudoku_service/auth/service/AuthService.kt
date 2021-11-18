@@ -23,7 +23,7 @@ class AuthService {
         val opt = us.findUserByUsername(username)
         if (opt.isPresent) {
             if(encoder.matches(password.subSequence(0,password.length),opt.get().password)) {
-                return JWTToken(ts.genToken(opt.get().username))
+                return JWTToken(ts.genToken(username))
             }
         }
         throw RuntimeException("No user present")
