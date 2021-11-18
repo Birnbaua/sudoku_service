@@ -1,3 +1,4 @@
+import { SetupPageComponent } from './pages/setup/setup.component';
 import { HomePageComponent } from './pages/home/home.component';
 import { LoginPageComponent } from './pages/login/login.component';
 import { SudokuService } from './core/services/sudoku.service';
@@ -17,7 +18,8 @@ import { PlayComponent } from './pages/play/play.component';
     BoardComponent,
     LoginPageComponent,
     HomePageComponent,
-    PlayComponent
+    PlayComponent,
+    SetupPageComponent
   ],
   imports: [
     BrowserModule,
