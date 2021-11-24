@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.auth.service
+package at.birnbaua.sudoku_service.auth.jwt.server.service
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
