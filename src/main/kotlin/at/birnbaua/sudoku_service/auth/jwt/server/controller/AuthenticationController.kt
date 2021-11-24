@@ -1,6 +1,8 @@
-package at.birnbaua.sudoku_service.auth.jwt
+package at.birnbaua.sudoku_service.auth.jwt.server.controller
 
-import at.birnbaua.sudoku_service.auth.service.AuthService
+import at.birnbaua.sudoku_service.auth.jwt.server.AuthRequest
+import at.birnbaua.sudoku_service.auth.jwt.server.JWTToken
+import at.birnbaua.sudoku_service.auth.jwt.server.service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

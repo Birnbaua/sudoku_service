@@ -1,9 +1,7 @@
-package at.birnbaua.sudoku_service.auth.service
+package at.birnbaua.sudoku_service.auth.jwt.server.service
 
 import at.birnbaua.sudoku_service.auth.config.MyEncoder
-import at.birnbaua.sudoku_service.auth.jwt.JWTToken
-import at.birnbaua.sudoku_service.auth.userDetails.CustomUserDetailsService
-import at.birnbaua.sudoku_service.jpa.user.User
+import at.birnbaua.sudoku_service.auth.jwt.server.JWTToken
 import at.birnbaua.sudoku_service.jpa.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
