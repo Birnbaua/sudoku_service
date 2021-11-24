@@ -1,9 +1,19 @@
+<h3>{{sudoku.desc}}</h3>
+<h4>{{sudoku.difficulty?.name}}</h4>
 <table>
-  <tbody>
-    <ng-container *ngFor="let i of [].constructor(9)">
+  <tbody class="text-center">
+    <ng-container *ngFor="let i of [0,1,2,3,4,5,6,7,8]">
       <tr>
-        <ng-container *ngFor="let i of [].constructor(9)">
-          <td class="cell"><input type="text"></td>
+        <ng-container *ngFor="let k of [0,1,2,3,4,5,6,7,8]">
+          <div *ngIf="preview == true; then previewBlock else playBlock"></div>
+          <ng-template #previewBlock>
+            <td *ngIf="sudokuGrid[k + i*9] != '0' " class="cell"> {{sudokuGrid[k + i*9]}}</td>
+            <td *ngIf="sudokuGrid[k + i*9] == '0' " class="cell"></td>
+          </ng-template>
+          <ng-template #playBlock>
+            <td *ngIf="sudokuGrid[k + i*9] != '0' " class="cell sud-bold"> {{sudokuGrid[k + i*9]}}</td>
+            <td *ngIf="sudokuGrid[k + i*9] == '0' " class="cell"> <input type="text"></td>
+          </ng-template>
         </ng-container>
       </tr>
     </ng-container>

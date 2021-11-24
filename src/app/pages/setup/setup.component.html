@@ -3,15 +3,15 @@
     <div class = "row">
 
     <div class = "col-7">
-        <sudoku-board></sudoku-board>
+        <sudoku-board [preview]="true"></sudoku-board>
     </div>
     <div class = "col-4">
         <div class="card mt-3">
             <div class="row text-center">
                 <h3> Game Settings </h3> 
                 <div class="col">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="difficultyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown mx-2">
+                        <button data-bs-toggle="dropdown" class="btn btn-secondary dropdown-toggle full-width" type="button" id="difficultyButton" aria-haspopup="true" aria-expanded="false">
                         Difficulty
                         </button>
                         <div class="dropdown-menu" aria-labelledby="difficultyButton">
@@ -22,8 +22,8 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="gamemodeButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown mx-2">
+                        <button data-bs-toggle="dropdown" class="btn btn-secondary dropdown-toggle full-width" type="button" id="gamemodeButton" aria-haspopup="true" aria-expanded="false">
                         Sudoku-Mode
                         </button>
                         <div class="dropdown-menu" aria-labelledby="gamemodeButton">
@@ -34,17 +34,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col text-center">
-                    <button type="button" class="btn btn-secondary full-width">Play</button>
+            <div class="row mt-4">
+                <div class="col text-center mx-2 mb-2">
+                    <button type="button" class="btn btn-secondary full-width">Fetch Sudokus</button>
                 </div>
             </div>
+            <hr>
             <div class="row mt-2">
                 <div class="col">
-                    test
+                    <div class="sud-preview">
+                        <button (click) = "getSudokuById(1)" class="sud-prev-btn"> Preview </button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="sud-preview mb-2">
+                        <button (click) = "getSudokuById(2)" class="sud-prev-btn"> Preview </button>
+                    </div>
                 </div>
             </div>
-
+            <hr>
+            <div class="row mt-2">
+                <div class="col text-center mx-2 mb-2">
+                    <button [routerLink]="'/play'" type="button" class="btn btn-secondary full-width">Play</button>
+                </div>
+            </div>
         </div>
     </div>
     </div>

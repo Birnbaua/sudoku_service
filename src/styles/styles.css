@@ -56,3 +56,15 @@
 .logout{
     font-weight: bold;
 }
+
+/* Setup Page */
+.sud-preview{
+    margin: auto;
+    width: 180px;
+    height: 180px;
+}
+.sud-prev-btn{
+    background-color:lightpink;
+    height:100%;
+    width:100%;
+}

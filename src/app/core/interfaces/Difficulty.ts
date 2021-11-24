@@ -1,5 +1,5 @@
 export interface Difficulty{
-    desc: string;
-    name: string;
-    no: number;
+    desc?: string;
+    name?: string;
+    no?: number;
 }

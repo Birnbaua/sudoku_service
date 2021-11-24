@@ -1,4 +1,4 @@
-import { SudokuService } from '../../core/services/sudoku.service';
+import { SudokuRequestService } from '../../core/services/sudoku.request.service';
 import { Component } from '@angular/core';
 
 @Component({

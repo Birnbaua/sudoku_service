@@ -1,7 +1,7 @@
 import { SetupPageComponent } from './pages/setup/setup.component';
 import { HomePageComponent } from './pages/home/home.component';
 import { LoginPageComponent } from './pages/login/login.component';
-import { SudokuService } from './core/services/sudoku.service';
+import { SudokuRequestService } from './core/services/sudoku.request.service';
 import { BoardComponent } from './core/components/board/board.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
@@ -27,7 +27,7 @@ import { PlayComponent } from './pages/play/play.component';
     HttpClientModule
   ],
   providers: [
-    SudokuService
+    SudokuRequestService
   ],
   bootstrap: [AppComponent]
 })

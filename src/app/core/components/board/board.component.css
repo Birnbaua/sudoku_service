@@ -33,3 +33,7 @@ input {
 input:hover {
 	background: #ffffff;
 }
+
+.sud-bold {
+	font-weight: bold;
+}

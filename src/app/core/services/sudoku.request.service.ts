@@ -1,5 +1,5 @@
-import { SudokuWrapper } from './../interfaces/SudokuWrapper';
-import { Difficulty } from './../interfaces/Difficulty';
+import { SudokuWrapper } from '../interfaces/SudokuWrapper';
+import { Difficulty } from '../interfaces/Difficulty';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
@@ -10,7 +10,7 @@ import { Validators } from '@angular/forms';
 @Injectable({
     providedIn: 'root'
 })
-export class SudokuService{
+export class SudokuRequestService{
     constructor(
         private http: HttpClient
         ) { }
@@ -18,7 +18,7 @@ export class SudokuService{
     serviceUrl = 'http://localhost:8080/api/sudoku/'
 
     getSudokuById(id: number): Observable<Sudoku>{
-        console.log('In Function: SudokuService.getSudokuById('+id+')');
+        console.log('In Function: SudokuRequestService.getSudokuById('+id+')');
         return this.http.get<Sudoku>(this.serviceUrl + id);
     }
 }
