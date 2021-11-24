@@ -2,6 +2,7 @@ package at.birnbaua.sudoku_service.jpa.sudoku
 
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
 import at.birnbaua.sudoku_service.jpaservice.JpaService
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.jpa.repository.JpaRepository
@@ -13,31 +14,31 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "`sudoku`")
-class Sudoku(
+open class Sudoku(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`id`")
-    var id: Int? = null,
+    open var id: Int? = null,
 
     @ManyToOne
     @JoinColumn(name = "`difficulty`")
-    var difficulty: Difficulty? = Difficulty(1),
+    open var difficulty: Difficulty? = Difficulty(1),
 
     @Size(min = 81, max = 81)
     @Column(name = "`solved_sudoku`", length = 81)
-    var solved: String? = null,
+    open var solved: String? = null,
 
     @Size(min = 81, max = 81)
     @Column(name = "`unsolved_sudoku`")
-    var unsolved: String? = null,
+    open var unsolved: String? = null,
 
     @Column(name = "`desc`")
-    var desc: String? = null,
+    open var desc: String? = null,
 
     @Size(min = 81, max = 81)
     @Column(name = "`grouping`", length = 81, nullable = false)
-    var grouping: String? = "111222333" +
+    open var grouping: String? = "111222333" +
             "111222333" +
             "111222333" +
             "444555666" +
@@ -45,7 +46,11 @@ class Sudoku(
             "444555666" +
             "777888999" +
             "777888999" +
-            "777888999"
+            "777888999",
+
+    @ManyToOne
+    @JoinColumn(name = "`type`", referencedColumnName = "`name`")
+    open var type: SudokuType? = null
 
 ) {
 
