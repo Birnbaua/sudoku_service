@@ -5,6 +5,9 @@ import at.birnbaua.sudoku_service.jpaservice.JpaService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -77,20 +80,26 @@ open class Sudoku(
 @Repository
 interface SudokuRepository : JpaRepository<Sudoku,Int> {
     @Query("SELECT s FROM Sudoku s")
-    fun overview(): Set<SudokuInfo>
+    fun overview(pageable: Pageable): Page<SudokuInfo>
 
     @Query("SELECT s FROM Sudoku s WHERE s.id=?1")
     fun findByIdGetInfo(id: Int) : SudokuGetInfo?
+
+    fun findSudokusByDifficulty(difficulty: Difficulty, pageable: Pageable) : Page<SudokuInfo>
 }
 
 @Service
 class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaService<Sudoku, Int>(rep) {
 
-    fun overview() : Set<SudokuInfo> {
-        return rep.overview()
+    fun overview(page: Int = 0, size: Int = 30) : Page<SudokuInfo> {
+        return rep.overview(PageRequest.of(page,size))
     }
 
     fun findByIdGetInfo(id: Int) : SudokuGetInfo? {
         return rep.findByIdGetInfo(id)
+    }
+
+    fun findSudokusByDifficulty(difficulty: Int, pageable: Pageable = PageRequest.of(0,30)) : Page<SudokuInfo> {
+        return rep.findSudokusByDifficulty(Difficulty(difficulty),pageable)
     }
 }

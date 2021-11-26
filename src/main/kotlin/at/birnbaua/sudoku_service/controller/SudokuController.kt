@@ -8,6 +8,7 @@ import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -22,8 +23,16 @@ class SudokuController {
     lateinit var ss: SudokuService
 
     @GetMapping
-    fun all() : ResponseEntity<Set<SudokuInfo>> {
-        return ResponseEntity.ok(ss.overview())
+    fun all(@RequestParam(required = false) difficulty: Int?, @RequestParam(required = false) page: Int?, @RequestParam(required = false) size: Int?) : ResponseEntity<Page<SudokuInfo>> {
+        return if(difficulty != null) {
+            ResponseEntity.ok(ss.findSudokusByDifficulty(difficulty))
+        } else if(size != null) {
+           ResponseEntity.ok(ss.overview(0,size))
+        } else if(page != null && size != null) {
+            ResponseEntity.ok(ss.overview(page,size))
+        } else {
+            ResponseEntity.ok(ss.overview())
+        }
     }
 
     @GetMapping("/{id}")
