@@ -24,21 +24,12 @@ class SudokuController {
 
     @GetMapping
     fun all(@RequestParam(required = false) difficulty: Int?, @RequestParam(required = false) page: Int?, @RequestParam(required = false) size: Int?) : ResponseEntity<Page<SudokuInfo>> {
-        return if(difficulty != null) {
-            ResponseEntity.ok(ss.findSudokusByDifficulty(difficulty))
-        } else if(size != null) {
-           ResponseEntity.ok(ss.overview(0,size))
-        } else if(page != null && size != null) {
-            ResponseEntity.ok(ss.overview(page,size))
-        } else {
-            ResponseEntity.ok(ss.overview())
-        }
+        return ResponseEntity.ok(ss.overview(difficulty,page,size))
     }
 
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int) : ResponseEntity<SudokuGetInfo> {
-        val sudoku = ss.findByIdGetInfo(id) ?: throw SudokuNotExistingException(id,log)
-        return ResponseEntity.ok(sudoku)
+        return ResponseEntity.ok(ss.findByIdGetInfo(id).orElseThrow { SudokuNotExistingException(id,log) })
     }
 
     @GetMapping("/{id}/validate")

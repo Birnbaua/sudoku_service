@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Size
 
@@ -82,8 +83,11 @@ interface SudokuRepository : JpaRepository<Sudoku,Int> {
     @Query("SELECT s FROM Sudoku s")
     fun overview(pageable: Pageable): Page<SudokuInfo>
 
+    @Query("SELECT s FROM Sudoku s WHERE s.difficulty=?1")
+    fun overview(difficulty: Int, pageable: Pageable): Page<SudokuInfo>
+
     @Query("SELECT s FROM Sudoku s WHERE s.id=?1")
-    fun findByIdGetInfo(id: Int) : SudokuGetInfo?
+    fun findByIdGetInfo(id: Int) : Optional<SudokuGetInfo>
 
     fun findSudokusByDifficulty(difficulty: Difficulty, pageable: Pageable) : Page<SudokuInfo>
 }
@@ -91,11 +95,23 @@ interface SudokuRepository : JpaRepository<Sudoku,Int> {
 @Service
 class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaService<Sudoku, Int>(rep) {
 
-    fun overview(page: Int = 0, size: Int = 30) : Page<SudokuInfo> {
-        return rep.overview(PageRequest.of(page,size))
+    fun overview(difficulty: Int?, page: Int?, size: Int?) : Page<SudokuInfo> {
+        var requestPage: Int? = page
+        var requestSize: Int? = size
+        if(page == null) {
+            requestPage = 0
+        }
+        if(size == null) {
+            requestSize = 30
+        }
+        return if(difficulty != null) {
+            rep.overview(difficulty, PageRequest.of(requestPage!!,requestSize!!))
+        } else {
+            rep.overview(PageRequest.of(requestPage!!,requestSize!!))
+        }
     }
 
-    fun findByIdGetInfo(id: Int) : SudokuGetInfo? {
+    fun findByIdGetInfo(id: Int) : Optional<SudokuGetInfo> {
         return rep.findByIdGetInfo(id)
     }
 
