@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/sudoku")
+@RequestMapping("/sudoku")
 class SudokuController {
 
     val log: Logger = LoggerFactory.getLogger(SudokuController::class.java)
@@ -50,6 +50,7 @@ class SudokuController {
 
     @PutMapping("/{id}")
     fun put(@PathVariable id: Int, @RequestBody sudoku: Sudoku) : ResponseEntity<Sudoku> {
+        sudoku.id = id
         return ResponseEntity.ok(ss.save(sudoku))
     }
 
