@@ -4,6 +4,7 @@ import at.birnbaua.sudoku_service.jpa.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.sudoku.DifficultyService
 import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
+import at.birnbaua.sudoku_service.validation.SudokuValidation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
@@ -18,6 +19,9 @@ class StartupScheduler {
 
     @Autowired
     lateinit var ss: SudokuService
+
+    @Autowired
+    lateinit var vs: SudokuValidation
 
     @Scheduled(initialDelay = 500, fixedRate = 1000*60*999)
     fun startup() {
@@ -85,6 +89,8 @@ class StartupScheduler {
         sudoku.desc = "This is a sample sudoku!"
 
         ss.save(sudoku)
+
+        vs.validate(1,sudoku.solved!!)
 
     }
 }

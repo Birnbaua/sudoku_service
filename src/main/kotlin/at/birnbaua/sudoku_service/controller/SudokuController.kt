@@ -5,6 +5,7 @@ import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.sudoku.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.sudoku.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
+import at.birnbaua.sudoku_service.validation.SudokuValidation
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,6 +23,9 @@ class SudokuController {
     @Autowired
     lateinit var ss: SudokuService
 
+    @Autowired
+    lateinit var sv: SudokuValidation
+
     @GetMapping
     fun all(@RequestParam(required = false) difficulty: Int?, @RequestParam(required = false) page: Int?, @RequestParam(required = false) size: Int?) : ResponseEntity<Page<SudokuInfo>> {
         return ResponseEntity.ok(ss.overview(difficulty,page,size))
@@ -35,11 +39,11 @@ class SudokuController {
     @GetMapping("/{id}/validate")
     fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved") solvedParam: String?) : ResponseEntity<Boolean> {
         return if(solvedParam != null) {
-            ResponseEntity.ok(ss.findById(id).orElseThrow{SudokuNotExistingException(id,log)}.solved.equals(solvedParam))
+            ResponseEntity.ok(sv.validate(id,solvedParam))
         } else if(solved != null) {
-            ResponseEntity.ok(ss.findById(id).orElseThrow{SudokuNotExistingException(id,log)}.solved.equals(solved))
+            ResponseEntity.ok(sv.validate(id,solved))
         } else {
-            ResponseEntity.badRequest().build()
+            ResponseEntity.ok(false)
         }
     }
 

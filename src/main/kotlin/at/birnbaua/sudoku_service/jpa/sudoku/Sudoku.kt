@@ -52,8 +52,8 @@ open class Sudoku(
             "777888999" +
             "777888999",
 
-    @ManyToOne
-    @JoinColumn(name = "`type`", referencedColumnName = "`name`")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "`type`")
     open var type: SudokuType? = null
 
 ) {
