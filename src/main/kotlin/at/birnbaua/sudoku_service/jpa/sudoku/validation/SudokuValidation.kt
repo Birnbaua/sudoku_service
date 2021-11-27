@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.validation
+package at.birnbaua.sudoku_service.jpa.sudoku.validation
 
 import org.slf4j.Logger
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException

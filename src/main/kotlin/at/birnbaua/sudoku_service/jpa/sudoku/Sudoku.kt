@@ -1,8 +1,9 @@
 package at.birnbaua.sudoku_service.jpa.sudoku
 
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
+import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
+import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpaservice.JpaService
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page

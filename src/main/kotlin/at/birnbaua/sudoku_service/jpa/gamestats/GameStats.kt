@@ -1,10 +1,11 @@
 package at.birnbaua.sudoku_service.jpa.gamestats
 
 import at.birnbaua.sudoku_service.jpa.AbstractEntity
+import at.birnbaua.sudoku_service.jpa.projection.GameStatsInfo
 import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.user.User
 import at.birnbaua.sudoku_service.jpaservice.JpaService
-import at.birnbaua.sudoku_service.validation.SudokuValidation
+import at.birnbaua.sudoku_service.jpa.sudoku.validation.SudokuValidation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.jpa.gamestats
+package at.birnbaua.sudoku_service.jpa.projection
 
 import at.birnbaua.sudoku_service.jpa.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.sudoku.SudokuType

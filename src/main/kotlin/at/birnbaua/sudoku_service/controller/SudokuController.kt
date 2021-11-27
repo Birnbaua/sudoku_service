@@ -2,10 +2,10 @@ package at.birnbaua.sudoku_service.controller
 
 import at.birnbaua.sudoku_service.exception.SudokuNotExistingException
 import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
-import at.birnbaua.sudoku_service.jpa.sudoku.SudokuGetInfo
-import at.birnbaua.sudoku_service.jpa.sudoku.SudokuInfo
+import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
+import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
-import at.birnbaua.sudoku_service.validation.SudokuValidation
+import at.birnbaua.sudoku_service.jpa.sudoku.validation.SudokuValidation
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
