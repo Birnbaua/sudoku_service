@@ -35,6 +35,14 @@ class SudokuValidation {
             }
             return true
         }
+
+        fun to2DArray(sudoku: String) : Array<ByteArray> {
+            val arr = Array(9) { ByteArray(9) }
+            for(c in sudoku.toCharArray()?.withIndex()!!) {
+                arr[c.index/9][c.index%9] = c.value.toString().toByte()
+            }
+            return arr
+        }
     }
 
 
@@ -64,14 +72,6 @@ class SudokuValidation {
             }
         }
         return true
-    }
-
-    private fun to2DArray(sudoku: String) : Array<ByteArray> {
-        val arr = Array(9) { ByteArray(9) }
-        for(c in sudoku.toCharArray()?.withIndex()!!) {
-            arr[c.index/9][c.index%9] = c.value.toString().toByte()
-        }
-        return arr
     }
 
     private fun validateNormal(sudoku: Array<ByteArray>) : Boolean {

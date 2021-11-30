@@ -31,10 +31,6 @@ open class Sudoku(
     open var difficulty: Difficulty? = Difficulty(1),
 
     @Size(min = 81, max = 81)
-    @Column(name = "`solved_sudoku`", length = 81)
-    open var solved: String? = null,
-
-    @Size(min = 81, max = 81)
     @Column(name = "`unsolved_sudoku`")
     open var unsolved: String? = null,
 
@@ -66,11 +62,6 @@ open class Sudoku(
     @PrePersist
     @PreUpdate
     fun checkConstraint() {
-        if(solved?.matches("^[1-9]*\$".toRegex()) == false) {
-            throw InvalidSudokuException("The solved Sudoku contains invalid characters. It may only contain digits from 1 to 9",
-                log
-            )
-        }
         if(unsolved?.matches("^[0-9]*\$".toRegex()) == false) {
             throw InvalidSudokuException("The unsolved Sudoku contains invalid characters. It may only contain digits from 0 to 9",
                 log

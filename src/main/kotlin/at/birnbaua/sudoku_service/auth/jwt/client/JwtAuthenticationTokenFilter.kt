@@ -20,10 +20,12 @@ class JwtAuthenticationTokenFilter : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         var token = request.getHeader(header)
-        if(token.startsWith("$header ")) {
-            token = token.substring(header.length)
-            val jwtAuth = JwtAuthentication(token)
-            SecurityContextHolder.getContext().authentication = jwtAuth
+        if(token != null) {
+            if(token.startsWith("$header ")) {
+                token = token.substring(header.length)
+                val jwtAuth = JwtAuthentication(token)
+                SecurityContextHolder.getContext().authentication = jwtAuth
+            }
         }
         filterChain.doFilter(request,response)
     }

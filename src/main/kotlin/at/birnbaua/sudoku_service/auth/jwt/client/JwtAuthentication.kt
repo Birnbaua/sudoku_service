@@ -1,10 +1,13 @@
 package at.birnbaua.sudoku_service.auth.jwt.client
 
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jwts
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import kotlin.jvm.Throws
 
 class JwtAuthentication(private val token: String) : Authentication {
+
     override fun getName(): String {
         TODO("Not yet implemented")
     }
@@ -26,7 +29,7 @@ class JwtAuthentication(private val token: String) : Authentication {
     }
 
     override fun isAuthenticated(): Boolean {
-        return false
+        return true
     }
 
     @Throws(IllegalArgumentException::class)

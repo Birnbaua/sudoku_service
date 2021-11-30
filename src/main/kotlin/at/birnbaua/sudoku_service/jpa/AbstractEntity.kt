@@ -7,7 +7,7 @@ import javax.persistence.Column
 import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
-open abstract class AbstractEntity(
+abstract class AbstractEntity(
 
     @CreatedDate
     @Column(name = "`created_at`")
