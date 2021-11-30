@@ -1,0 +1,64 @@
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" lang="de">
+<head>
+    <style>
+        td {
+            display: block;
+            float: left;
+            border: 1px solid black;
+            width: 11.11%;
+            padding-bottom: 32%;
+        }
+        td div {
+            position: absolute;
+            text-align: center;
+            vertical-align: middle;
+        }
+        table {
+            display: block;
+            width: 100%;
+        }
+        tr {
+            display: block;
+            width: 100%;
+        }
+        tbody {
+            display: block;
+            width: 100%;
+        }
+        td:after {
+            content: '';
+            display: block;
+            margin-top: 100%;
+        }
+        td .content {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: gold;
+        }
+        td:first-child {
+            border-left:solid;
+        }
+        td:nth-child(3n) {
+            border-right:solid ;
+        }
+        tr:first-child {
+            border-top:solid;
+        }
+        tr:nth-child(3n) td {
+            border-bottom:solid ;
+        }
+    </style>
+</head>
+    <body>
+        <table>
+            <tr th:each="i: ${sudoku}">
+                <td th:each="number: ${i}" class="content">
+                    <div th:if="${number != 0}" th:text="${number}"></div >
+                </td>
+            <tr>
+        </table>
+    </body>
+</html>

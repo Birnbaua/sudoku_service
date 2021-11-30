@@ -1,43 +1,45 @@
 package at.birnbaua.sudoku_service.jpa.sudoku
 
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
+import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
+import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpaservice.JpaService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "`sudoku`")
-class Sudoku(
+open class Sudoku(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`id`")
-    var id: Int? = null,
+    open var id: Int? = null,
 
     @ManyToOne
     @JoinColumn(name = "`difficulty`")
-    var difficulty: Difficulty? = Difficulty(1),
-
-    @Size(min = 81, max = 81)
-    @Column(name = "`solved_sudoku`", length = 81)
-    var solved: String? = null,
+    open var difficulty: Difficulty? = Difficulty(1),
 
     @Size(min = 81, max = 81)
     @Column(name = "`unsolved_sudoku`")
-    var unsolved: String? = null,
+    open var unsolved: String? = null,
 
     @Column(name = "`desc`")
-    var desc: String? = null,
+    open var desc: String? = null,
 
     @Size(min = 81, max = 81)
     @Column(name = "`grouping`", length = 81, nullable = false)
-    var grouping: String? = "111222333" +
+    open var grouping: String? = "111222333" +
             "111222333" +
             "111222333" +
             "444555666" +
@@ -45,7 +47,11 @@ class Sudoku(
             "444555666" +
             "777888999" +
             "777888999" +
-            "777888999"
+            "777888999",
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "`type`")
+    open var type: SudokuType? = null
 
 ) {
 
@@ -56,11 +62,6 @@ class Sudoku(
     @PrePersist
     @PreUpdate
     fun checkConstraint() {
-        if(solved?.matches("^[1-9]*\$".toRegex()) == false) {
-            throw InvalidSudokuException("The solved Sudoku contains invalid characters. It may only contain digits from 1 to 9",
-                log
-            )
-        }
         if(unsolved?.matches("^[0-9]*\$".toRegex()) == false) {
             throw InvalidSudokuException("The unsolved Sudoku contains invalid characters. It may only contain digits from 0 to 9",
                 log
@@ -72,20 +73,41 @@ class Sudoku(
 @Repository
 interface SudokuRepository : JpaRepository<Sudoku,Int> {
     @Query("SELECT s FROM Sudoku s")
-    fun overview(): Set<SudokuInfo>
+    fun overview(pageable: Pageable): Page<SudokuInfo>
+
+    @Query("SELECT s FROM Sudoku s WHERE s.difficulty=?1")
+    fun overview(difficulty: Int, pageable: Pageable): Page<SudokuInfo>
 
     @Query("SELECT s FROM Sudoku s WHERE s.id=?1")
-    fun findByIdGetInfo(id: Int) : SudokuGetInfo?
+    fun findByIdGetInfo(id: Int) : Optional<SudokuGetInfo>
+
+    fun findSudokusByDifficulty(difficulty: Difficulty, pageable: Pageable) : Page<SudokuInfo>
 }
 
 @Service
 class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaService<Sudoku, Int>(rep) {
 
-    fun overview() : Set<SudokuInfo> {
-        return rep.overview()
+    fun overview(difficulty: Int?, page: Int?, size: Int?) : Page<SudokuInfo> {
+        var requestPage: Int? = page
+        var requestSize: Int? = size
+        if(page == null) {
+            requestPage = 0
+        }
+        if(size == null) {
+            requestSize = 30
+        }
+        return if(difficulty != null) {
+            rep.overview(difficulty, PageRequest.of(requestPage!!,requestSize!!))
+        } else {
+            rep.overview(PageRequest.of(requestPage!!,requestSize!!))
+        }
     }
 
-    fun findByIdGetInfo(id: Int) : SudokuGetInfo? {
+    fun findByIdGetInfo(id: Int) : Optional<SudokuGetInfo> {
         return rep.findByIdGetInfo(id)
+    }
+
+    fun findSudokusByDifficulty(difficulty: Int, pageable: Pageable = PageRequest.of(0,30)) : Page<SudokuInfo> {
+        return rep.findSudokusByDifficulty(Difficulty(difficulty),pageable)
     }
 }

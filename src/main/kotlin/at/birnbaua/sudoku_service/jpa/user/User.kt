@@ -25,11 +25,15 @@ open class User(
     @Column(name = "`last_name`")
     open var lastName: String? = null,
 
+    @Lob
+    @Column(name = "`profile_picture`")
+    open var picture: ByteArray? = null,
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "`user_role`", joinColumns = [JoinColumn(name = "`username`")], inverseJoinColumns = [JoinColumn(name = "`name`")])
     open var roles: MutableSet<Role> = mutableSetOf()
 ) {
-    constructor(user: User) : this(user.username,user.password,user.firstName,user.lastName,user.roles)
+    constructor(user: User) : this(user.username,user.password,user.firstName,user.lastName,user.picture,user.roles)
 }
 
 @Repository
