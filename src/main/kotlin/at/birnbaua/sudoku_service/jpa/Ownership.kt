@@ -1,6 +1,6 @@
 package at.birnbaua.sudoku_service.jpa
 
-import at.birnbaua.sudoku_service.jpa.user.User
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
