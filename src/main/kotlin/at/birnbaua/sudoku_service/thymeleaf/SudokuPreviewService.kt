@@ -1,6 +1,6 @@
 package at.birnbaua.sudoku_service.thymeleaf
 
-import at.birnbaua.sudoku_service.jpa.sudoku.validation.SudokuValidation
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.validation.SudokuValidation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.thymeleaf.context.Context

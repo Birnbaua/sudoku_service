@@ -1,22 +1,21 @@
 package at.birnbaua.sudoku_service.startup
 
-import at.birnbaua.sudoku_service.auth.config.MyEncoder
-import at.birnbaua.sudoku_service.jpa.gamestats.GameStats
-import at.birnbaua.sudoku_service.jpa.gamestats.GameStatsService
-import at.birnbaua.sudoku_service.jpa.sudoku.Difficulty
-import at.birnbaua.sudoku_service.jpa.sudoku.DifficultyService
-import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
-import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
-import at.birnbaua.sudoku_service.jpa.sudoku.validation.SudokuValidation
-import at.birnbaua.sudoku_service.jpa.user.Role
-import at.birnbaua.sudoku_service.jpa.user.RoleService
-import at.birnbaua.sudoku_service.jpa.user.User
-import at.birnbaua.sudoku_service.jpa.user.UserService
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.Role
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
+import at.birnbaua.sudoku_service.auth.user.jpa.service.RoleService
+import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
+import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.jpaservice.DifficultyService
+import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
+import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
 import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.sql.Time
 
 @Configuration
@@ -28,9 +27,6 @@ class StartupScheduler {
 
     @Autowired
     lateinit var ss: SudokuService
-
-    @Autowired
-    lateinit var vs: SudokuValidation
 
     @Autowired
     lateinit var rs: RoleService
@@ -105,16 +101,18 @@ class StartupScheduler {
         val adminRole = Role("ADMIN")
         val guestRole = Role("GUEST")
 
-        rs.saveAndFlush(adminRole)
-        rs.saveAndFlush(guestRole)
+        rs.save(adminRole)
+        rs.save(guestRole)
 
         val admin = User()
         admin.username = "admin"
+        admin.nickname = "admin"
         admin.firstName = "Max"
         admin.lastName = "Mustermann"
+        admin.email = "max.mustermann@example.com"
         admin.roles.add(adminRole)
         admin.roles.add(guestRole)
-        admin.password = MyEncoder().encode("admin")
+        admin.password = BCryptPasswordEncoder().encode("admin")
         us.save(admin)
 
         val stats = GameStats()
