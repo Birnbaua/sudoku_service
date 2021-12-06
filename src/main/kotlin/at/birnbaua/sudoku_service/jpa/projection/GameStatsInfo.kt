@@ -1,7 +1,7 @@
 package at.birnbaua.sudoku_service.jpa.projection
 
-import at.birnbaua.sudoku_service.jpa.sudoku.Difficulty
-import at.birnbaua.sudoku_service.jpa.sudoku.SudokuType
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import java.sql.Time
 import java.sql.Timestamp
 

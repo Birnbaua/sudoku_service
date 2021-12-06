@@ -1,11 +1,6 @@
-package at.birnbaua.sudoku_service.jpa.sudoku
+package at.birnbaua.sudoku_service.jpa.entity.sudoku
 
-import at.birnbaua.sudoku_service.jpaservice.JpaService
 import org.hibernate.annotations.NaturalId
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
-import org.springframework.stereotype.Service
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -32,8 +27,4 @@ class Difficulty(
     var desc: String? = null
 )
 
-@Repository
-interface DifficultyRepository : JpaRepository<Difficulty,Int>
 
-@Service
-class DifficultyService @Autowired constructor(rep: DifficultyRepository) : JpaService<Difficulty, Int>(rep)

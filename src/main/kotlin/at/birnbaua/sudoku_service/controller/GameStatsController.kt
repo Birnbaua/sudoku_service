@@ -1,11 +1,10 @@
 package at.birnbaua.sudoku_service.controller
 
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
-import at.birnbaua.sudoku_service.exception.UserNotAuthenticatedException
-import at.birnbaua.sudoku_service.jpa.gamestats.GameStats
-import at.birnbaua.sudoku_service.jpa.gamestats.GameStatsService
+import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
 import at.birnbaua.sudoku_service.jpa.projection.GameStatsInfo
-import at.birnbaua.sudoku_service.jpa.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus

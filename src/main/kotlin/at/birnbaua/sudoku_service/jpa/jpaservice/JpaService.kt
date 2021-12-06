@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.jpaservice
+package at.birnbaua.sudoku_service.jpa.jpaservice
 
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.Page

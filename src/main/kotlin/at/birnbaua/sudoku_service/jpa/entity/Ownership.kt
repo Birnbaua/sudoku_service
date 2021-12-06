@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.jpa
+package at.birnbaua.sudoku_service.jpa.entity
 
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import javax.persistence.FetchType

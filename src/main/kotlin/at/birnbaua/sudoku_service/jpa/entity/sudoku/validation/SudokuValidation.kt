@@ -1,10 +1,10 @@
-package at.birnbaua.sudoku_service.jpa.sudoku.validation
+package at.birnbaua.sudoku_service.jpa.entity.sudoku.validation
 
 import org.slf4j.Logger
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
 import at.birnbaua.sudoku_service.exception.SudokuNotExistingException
-import at.birnbaua.sudoku_service.jpa.sudoku.SudokuService
-import at.birnbaua.sudoku_service.jpa.sudoku.SudokuType
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
+import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

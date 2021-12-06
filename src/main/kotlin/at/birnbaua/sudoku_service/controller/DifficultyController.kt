@@ -1,8 +1,8 @@
 package at.birnbaua.sudoku_service.controller
 
 import at.birnbaua.sudoku_service.exception.EntityNotFoundException
-import at.birnbaua.sudoku_service.jpa.sudoku.Difficulty
-import at.birnbaua.sudoku_service.jpa.sudoku.DifficultyService
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
+import at.birnbaua.sudoku_service.jpa.jpaservice.DifficultyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

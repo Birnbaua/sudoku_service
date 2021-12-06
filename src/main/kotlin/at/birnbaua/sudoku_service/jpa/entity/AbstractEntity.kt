@@ -1,4 +1,4 @@
-package at.birnbaua.sudoku_service.jpa
+package at.birnbaua.sudoku_service.jpa.entity
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
