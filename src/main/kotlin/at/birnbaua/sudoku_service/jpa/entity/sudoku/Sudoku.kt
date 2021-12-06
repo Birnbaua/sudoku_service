@@ -1,6 +1,7 @@
 package at.birnbaua.sudoku_service.jpa.entity.sudoku
 
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
+import at.birnbaua.sudoku_service.jpa.entity.Ownership
 import org.slf4j.LoggerFactory
 import javax.persistence.*
 import javax.validation.constraints.Size
@@ -41,7 +42,7 @@ open class Sudoku(
     @Column(name = "`type`")
     open var type: SudokuType? = null
 
-) {
+) : Ownership() {
 
     companion object Logger {
         val log = LoggerFactory.getLogger(Sudoku::class.java)

@@ -1,5 +1,6 @@
 package at.birnbaua.sudoku_service.jpa.jpaservice
 
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.repository.SudokuRepository
@@ -38,5 +39,9 @@ class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaServi
 
     fun findSudokusByDifficulty(difficulty: Int, pageable: Pageable = PageRequest.of(0,30)) : Page<SudokuInfo> {
         return rep.findSudokusByDifficulty(Difficulty(difficulty),pageable)
+    }
+
+    fun existsSudokuByIdAndOwner(id: Int, user: User) : Boolean {
+        return rep.existsSudokuByIdAndOwner(id,user)
     }
 }

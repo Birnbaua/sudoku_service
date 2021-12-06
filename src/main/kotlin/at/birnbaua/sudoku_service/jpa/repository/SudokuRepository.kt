@@ -1,5 +1,6 @@
 package at.birnbaua.sudoku_service.jpa.repository
 
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
@@ -24,4 +25,6 @@ interface SudokuRepository : JpaRepository<Sudoku, Int> {
     fun findByIdGetInfo(id: Int) : Optional<SudokuGetInfo>
 
     fun findSudokusByDifficulty(difficulty: Difficulty, pageable: Pageable) : Page<SudokuInfo>
+
+    fun existsSudokuByIdAndOwner(id: Int, owner: User) : Boolean
 }
