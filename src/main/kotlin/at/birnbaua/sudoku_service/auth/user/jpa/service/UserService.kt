@@ -12,11 +12,13 @@ import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 @Service
+@Suppress("unused")
 class UserService {
 
     @Autowired
     private lateinit var ur: UserRepository
 
+    @CachePut(value = ["users"], key = "#user.getUserUsername")
     fun save(user: User) : User {
         return ur.save(user)
     }
@@ -26,7 +28,7 @@ class UserService {
         return ur.findUserByUsername(username).orElseThrow { UserNotFoundException(username) }
     }
 
-    @CacheEvict(value = ["users"], key = "#a0")
+    @CacheEvict("users")
     fun deleteById(username: String) {
         try{
             ur.deleteById(username)
