@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 @Service
+@Suppress("unused")
 class PrivilegeService {
 
     @Autowired
@@ -28,5 +29,9 @@ class PrivilegeService {
     @CacheEvict(value = ["privileges"], key = "id")
     fun deleteById(id: String) {
         return pr.deleteById(id)
+    }
+
+    fun findAll(): MutableList<Privilege> {
+        return pr.findAll()
     }
 }

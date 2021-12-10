@@ -7,8 +7,15 @@ import org.springframework.security.core.userdetails.UserDetails
 
 class CustomUserDetails(user: User) : User(user), UserDetails {
 
+    private val authSet: MutableSet<GrantedAuthority> = mutableSetOf()
+
+    init {
+        authSet.addAll(toRoleSet())
+        authSet.addAll(toPrivilegeSet())
+    }
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return this.roles.map { role -> "ROLE_${role.name}" }.map { str -> SimpleGrantedAuthority(str) }.toMutableSet()
+        return this.authSet
     }
 
     override fun getPassword(): String {

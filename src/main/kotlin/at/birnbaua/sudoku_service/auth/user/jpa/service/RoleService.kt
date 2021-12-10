@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 @Service
+@Suppress("unused")
 class RoleService {
 
     @Autowired
@@ -20,13 +21,17 @@ class RoleService {
         return rr.save(role)
     }
 
-    @Cacheable(value = ["roles"], key = "id")
+    @Cacheable(value = ["roles"])
     fun findById(id: String) : Role {
         return rr.findById(id).orElseThrow { RoleNotFoundException(id) }
     }
 
-    @CacheEvict(value = ["roles"], key = "id")
+    @CacheEvict(value = ["roles"])
     fun deleteById(id: String) {
         return rr.deleteById(id)
+    }
+
+    fun findAll(): MutableList<Role> {
+        return rr.findAll()
     }
 }
