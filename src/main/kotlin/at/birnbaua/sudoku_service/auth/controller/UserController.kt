@@ -29,8 +29,17 @@ class UserController {
         return ResponseEntity.created(URI("/${user.username}")).body(us.save(user))
     }
 
+    /**
+     * Returns the info of the currently authenticated user
+     */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping
+    fun current(auth: Authentication) : ResponseEntity<PrivateUserInfo> {
+        return ResponseEntity.ok(us.findPrivateUserInfoById(auth.name))
+    }
+
     @GetMapping("/{username}")
-    fun create(@PathVariable username: String, auth: Authentication) : ResponseEntity<UserInfo> {
+    fun get(@PathVariable username: String, auth: Authentication) : ResponseEntity<UserInfo> {
         return ResponseEntity.ok(
             if(pc.hasPrivateDetailsPermission(username,auth)) {
                 us.findPrivateUserInfoById(username)
