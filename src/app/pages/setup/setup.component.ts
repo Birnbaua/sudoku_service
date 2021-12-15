@@ -17,6 +17,24 @@ export class SetupPageComponent{
       private sudokuDataService: SudokuDataService
     ) {}
   
+  sudokuPreviewList : Sudoku[] = []
+  difficulty : string = ""
+  mode : string = ""
+
+  changeMode(mode : string){
+    this.mode = mode
+  }
+
+  changeDifficulty(diff : string){
+    this.difficulty = diff
+  }
+
+  fetchSudokus(){
+    console.log('In Function: SetupPageComponent.fetchSudokus()')
+    this.sudokuPreviewList = []
+    this.sudokuRequestService.getSudokuIdsBySettings(this.difficulty, this.mode).subscribe(sudokuList => sudokuList.content.forEach(sudoku => this.sudokuPreviewList.push(sudoku)))
+  }
+
   getSudokuById(id: number): void{
     console.log('In Function: SetupPageComponent.getSudokuById()')
     this.sudokuRequestService.getSudokuById(id).subscribe(sudoku => this.sudokuDataService.setSudoku(sudoku));

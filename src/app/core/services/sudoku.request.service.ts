@@ -16,10 +16,25 @@ export class SudokuRequestService{
         private http: HttpClient
         ) { }
 
+    difficultyMap = new Map([
+        ["Easy", '1'],
+        ["Medium", '2'],
+        ["Hard", '3']
+    ])
     url = environment.serviceDomain + '/sudoku/'
 
     getSudokuById(id: number): Observable<Sudoku>{
         console.log('In Function: SudokuRequestService.getSudokuById('+id+')');
         return this.http.get<Sudoku>(this.url+ id);
+    }
+
+    getSudokuIdsBySettings(diff : string | undefined, mode : string){
+        let url : string = this.url
+        if(diff != ''){
+            diff = this.difficultyMap.get(diff!)
+            url = url + "?difficulty="+ diff
+        }
+        console.log(url)
+        return this.http.get<SudokuWrapper>(url);
     }
 }

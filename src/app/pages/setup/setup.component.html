@@ -12,45 +12,46 @@
                 <div class="col">
                     <div class="dropdown mx-2">
                         <button data-bs-toggle="dropdown" class="btn btn-secondary dropdown-toggle full-width" type="button" id="difficultyButton" aria-haspopup="true" aria-expanded="false">
-                        Difficulty
+                            <div *ngIf="difficulty == ''; then thenBlockDiff else elseBlockDiff"></div>
+                            <ng-template #thenBlockDiff>Difficulty</ng-template>
+                            <ng-template #elseBlockDiff>{{difficulty}}</ng-template>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="difficultyButton">
-                            <a class="dropdown-item" href="#">Easy</a>
-                            <a class="dropdown-item" href="#">Medium</a>
-                            <a class="dropdown-item" href="#">Hard</a>
+                            <button (click)="changeDifficulty('Easy')" class="dropdown-item" >Easy</button>
+                            <button (click)="changeDifficulty('Medium')" class="dropdown-item" >Medium</button>
+                            <button (click)="changeDifficulty('Hard')" class="dropdown-item" >Hard</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="dropdown mx-2">
                         <button data-bs-toggle="dropdown" class="btn btn-secondary dropdown-toggle full-width" type="button" id="gamemodeButton" aria-haspopup="true" aria-expanded="false">
-                        Sudoku-Mode
+                            <div *ngIf="mode == ''; then thenBlockMode else elseBlockMode"></div>
+                            <ng-template #thenBlockMode>Sudoku-Mode</ng-template>
+                            <ng-template #elseBlockMode>{{mode}}</ng-template>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="gamemodeButton">
-                            <a class="dropdown-item" href="#">Normal</a>
-                            <a class="dropdown-item" href="#">TBD</a>
-                            <a class="dropdown-item" href="#">TBD</a>
+                        <div class="dropdown-menu" aria-labelledby="difficultyButton">
+                            <button (click)="changeMode('Normal')" class="dropdown-item" >Normal</button>
+                            <button (click)="changeMode('Samurai')" class="dropdown-item" >Samurai</button>
+                            <button (click)="changeMode('Funky')" class="dropdown-item" >Funky</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="col text-center mx-2 mb-2">
-                    <button type="button" class="btn btn-secondary full-width">Fetch Sudokus</button>
+                    <button (click)="fetchSudokus()" type="button" class="btn btn-secondary full-width">Fetch Sudokus</button>
                 </div>
             </div>
             <hr>
             <div class="row mt-2">
-                <div class="col">
-                    <div class="sud-preview">
-                        <button (click) = "getSudokuById(1)" class="sud-prev-btn"> Preview </button>
+                <ng-container *ngFor="let sudoku of sudokuPreviewList; index as i">
+                    <div class="col">
+                        <div class="sud-preview">
+                            <button (click) = "getSudokuById(i +1)" class="sud-prev-btn"> Preview </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="sud-preview mb-2">
-                        <button (click) = "getSudokuById(2)" class="sud-prev-btn"> Preview </button>
-                    </div>
-                </div>
+                </ng-container>
             </div>
             <hr>
             <div class="row mt-2">
