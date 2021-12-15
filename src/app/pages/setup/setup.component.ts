@@ -21,4 +21,5 @@ export class SetupPageComponent{
     console.log('In Function: SetupPageComponent.getSudokuById()')
     this.sudokuRequestService.getSudokuById(id).subscribe(sudoku => this.sudokuDataService.setSudoku(sudoku));
   }
+  
 }

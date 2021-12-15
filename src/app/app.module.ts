@@ -1,5 +1,5 @@
 import { ProfileComponent } from './core/components/profile/profile.component';
-import { UserService } from './core/services/user.service';
+import { UserRequestService } from './core/services/user.request.service';
 import { RegisterPageComponent } from './pages/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { SudokuDataService } from './core/services/sudoku.data.service';
@@ -42,7 +42,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SudokuDataService,
     AuthService,
     AuthGuard,
-    UserService
+    UserRequestService
   ],
   bootstrap: [AppComponent]
 })
