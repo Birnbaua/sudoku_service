@@ -14,7 +14,7 @@ class CustomUserDetailsService : UserDetailsService {
     @Autowired
     lateinit var ur: UserRepository
 
-    @Cacheable("usersDetails")
+    @Cacheable("userDetails")
     override fun loadUserByUsername(username: String?): UserDetails {
         return CustomUserDetails(ur.findUserByUsername(username!!).orElseThrow { UserNotFoundException(username) })
     }
