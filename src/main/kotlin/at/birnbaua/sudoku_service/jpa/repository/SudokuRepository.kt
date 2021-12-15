@@ -18,7 +18,7 @@ interface SudokuRepository : JpaRepository<Sudoku, Int> {
     @Query("SELECT s FROM Sudoku s")
     fun overview(pageable: Pageable): Page<SudokuInfo>
 
-    @Query("SELECT s FROM Sudoku s WHERE s.difficulty=?1")
+    @Query("SELECT s FROM Sudoku s WHERE s.difficulty.no=?1")
     fun overview(difficulty: Int, pageable: Pageable): Page<SudokuInfo>
 
     @Query("SELECT s FROM Sudoku s WHERE s.id=?1")
