@@ -6,6 +6,7 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map, retry } from 'rxjs/operators';
 import { Sudoku } from "../interfaces/Sudoku";
 import { Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -15,10 +16,10 @@ export class SudokuRequestService{
         private http: HttpClient
         ) { }
 
-    serviceUrl = 'http://localhost:8080/api/sudoku/'
+    url = environment.serviceDomain + '/sudoku/'
 
     getSudokuById(id: number): Observable<Sudoku>{
         console.log('In Function: SudokuRequestService.getSudokuById('+id+')');
-        return this.http.get<Sudoku>(this.serviceUrl + id);
+        return this.http.get<Sudoku>(this.url+ id);
     }
 }

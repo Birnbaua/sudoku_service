@@ -1,0 +1,59 @@
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+              <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+                <h3 class="mb-4">Create new account</h3>
+    
+                <div class="form-group mb-2">
+                  <input type="username" id="name-input" class="form-control form-control-lg" placeholder="Username *" formControlName="username"/>
+                  <div class="text-danger" *ngIf="invalidForm">
+                    Username is a required field!
+                  </div>
+                </div>
+    
+                <div class="form-group mb-2">
+                  <input type="password" id="password-input" class="form-control form-control-lg" placeholder="Password *" formControlName="password" />
+                  <div class="text-danger" *ngIf="invalidForm">
+                    Password is a required field!
+                  </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    <input type="password" id="rep-password-input" class="form-control form-control-lg" placeholder="Re-enter password *" formControlName="reppassword" />
+                    <div class="text-danger" *ngIf="invalidForm">
+                        Password is a required field!
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    <input type="email" id="email-input" class="form-control form-control-lg" placeholder="E-Mail *" formControlName="email" />
+                    <div class="text-danger" *ngIf="invalidForm">
+                        E-Mail is a required field!
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    <input type="name" id="firstname-input" class="form-control form-control-lg" placeholder="Firstname" formControlName="firstname" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="name" id="lastname-input" class="form-control form-control-lg" placeholder="Lastname" formControlName="lastname" />
+                </div>
+    
+                <div class="text-primary mb-2">
+                    Fields marked  with '*' are mandatory
+                </div>
+
+                <div class="btn-group full-width">
+                  <button class="btn btn-primary btn-lg btn-block" type="submit">Create Account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'home-page',
@@ -6,12 +7,11 @@ import { Component } from '@angular/core';
     styleUrls: ['./home.component.css']
   })
   
-  export class HomePageComponent {
+  export class HomePageComponent{
+    constructor(
+      private authService: AuthService
+    ){}
+
     title = 'Sudoku';
-    unsolved = '';
-    
-    test(newSudoku: string){
-      this.unsolved = newSudoku
-    }
   }
   

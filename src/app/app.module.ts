@@ -1,3 +1,8 @@
+import { ProfileComponent } from './core/components/profile/profile.component';
+import { UserService } from './core/services/user.service';
+import { RegisterPageComponent } from './pages/register/register.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { SudokuDataService } from './core/services/sudoku.data.service';
 import { SetupPageComponent } from './pages/setup/setup.component';
 import { HomePageComponent } from './pages/home/home.component';
 import { LoginPageComponent } from './pages/login/login.component';
@@ -6,10 +11,12 @@ import { BoardComponent } from './core/components/board/board.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlayComponent } from './pages/play/play.component';
+import { AuthService } from './core/services/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,15 +26,23 @@ import { PlayComponent } from './pages/play/play.component';
     LoginPageComponent,
     HomePageComponent,
     PlayComponent,
-    SetupPageComponent
+    SetupPageComponent,
+    RegisterPageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
-    SudokuRequestService
+    SudokuRequestService,
+    SudokuDataService,
+    AuthService,
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
