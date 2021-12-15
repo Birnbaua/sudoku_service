@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit{
 
   ngOnInit(): void {
     const jwtToken = localStorage.getItem('token')
-    console.log(jwtToken)
     if(jwtToken != null){
       this.userRequestService.getUserByToken(jwtToken).subscribe(res => this.userDataServkce.setUser(res))
       this.userDataServkce.getUser().subscribe(user => this.username = user.username)
