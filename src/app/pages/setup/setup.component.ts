@@ -26,7 +26,11 @@ export class SetupPageComponent{
   }
 
   changeDifficulty(diff : string){
-    this.difficulty = diff
+    if(diff == "All"){
+      this.difficulty = ""
+    } else {
+      this.difficulty = diff
+    }
   }
 
   fetchSudokus(){

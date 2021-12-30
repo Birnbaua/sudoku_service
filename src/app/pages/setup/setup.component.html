@@ -17,6 +17,7 @@
                             <ng-template #elseBlockDiff>{{difficulty}}</ng-template>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="difficultyButton">
+                            <button (click)="changeDifficulty('All')" class="dropdown-item" >All</button>
                             <button (click)="changeDifficulty('Easy')" class="dropdown-item" >Easy</button>
                             <button (click)="changeDifficulty('Medium')" class="dropdown-item" >Medium</button>
                             <button (click)="changeDifficulty('Hard')" class="dropdown-item" >Hard</button>
@@ -31,6 +32,7 @@
                             <ng-template #elseBlockMode>{{mode}}</ng-template>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="difficultyButton">
+                            <button (click)="changeMode('All')" class="dropdown-item" >All</button>
                             <button (click)="changeMode('Normal')" class="dropdown-item" >Normal</button>
                             <button (click)="changeMode('Samurai')" class="dropdown-item" >Samurai</button>
                             <button (click)="changeMode('Funky')" class="dropdown-item" >Funky</button>
@@ -45,13 +47,15 @@
             </div>
             <hr>
             <div class="row mt-2">
-                <ng-container *ngFor="let sudoku of sudokuPreviewList; index as i">
-                    <div class="col">
-                        <div class="sud-preview">
-                            <button (click) = "getSudokuById(i +1)" class="sud-prev-btn"> Preview </button>
-                        </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body sud-scrollable-panel">
+                        <ng-container *ngFor="let sudoku of sudokuPreviewList; index as i">
+                            <div class="sud-preview">
+                                 <button (click) = "getSudokuById(sudoku.id!)" class="sud-prev-btn"> Preview </button>
+                            </div>
+                        </ng-container>
                     </div>
-                </ng-container>
+                </div>
             </div>
             <hr>
             <div class="row mt-2">
