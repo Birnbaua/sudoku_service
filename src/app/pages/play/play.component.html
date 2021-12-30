@@ -17,10 +17,10 @@
         <div class="card mt-5">
           <div class="d-flex flex-column">
             <hr>
-            <h4>Timer 00:00:00</h4>
+            <h4>Timer: {{display}}</h4>
             <hr>
           </div>
-          <button type="button" class="btn btn-outline-info">Pause</button>
+          <button (click)="toggleTimer()" type="button" class="btn btn-outline-info active">Pause</button>
           <br>
           <button type="button" class="btn btn-primary">Save</button>
           <br>
