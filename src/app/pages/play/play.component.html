@@ -16,22 +16,24 @@
       <div class="row">
         <div class="card mt-5">
           <div class="d-flex flex-column">
-            <hr>
-            <h4>Timer: {{display}}</h4>
-            <hr>
+            <hr />
+            <h4>Timer: {{ display }}</h4>
+            <hr />
           </div>
-          <button (click)="toggleTimer()" type="button" class="btn btn-outline-info active">Pause</button>
-          <br>
-          <button type="button" class="btn btn-primary">Save</button>
-          <br>
+          <button
+            (click)="toggleTimer()"
+            [class.active]="!timerOn"
+            type="button"
+            class="btn btn-outline-info"
+          >
+            Pause
+          </button>
+          <br />
+          <button (click) = "saveGame()" type="button" class="btn btn-primary">Save</button>
+          <br />
           <button type="button" class="btn btn-success">Finish</button>
-
         </div>
       </div>
-
     </div>
-
-
-
   </div>
 </div>

@@ -1,4 +1,9 @@
+import { Sudoku } from './../../core/interfaces/Sudoku';
+import { SudokuDataService } from './../../core/services/sudoku.data.service';
+import { UserDataService } from './../../core/services/user.data.service';
+import { GameStatsRequestService } from './../../core/services/gamestats.request.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/core/interfaces/User';
 
 @Component({
   selector: 'app-play',
@@ -6,14 +11,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./play.component.css']
 })
 export class PlayComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private gameStatsRequestService: GameStatsRequestService,
+    private userDataService: UserDataService,
+    private SudokuDataService: SudokuDataService
+  ) {   }
 
   time: number = 0;
   display: string = "00:00:00";
   interval: any;
   timerOn: boolean = false;
+  user : User | undefined;
+  sudoku : Sudoku | undefined;
 
   ngOnInit(): void {
+    this.userDataService.getUser().subscribe(user => this.user = user)
+    this.SudokuDataService.getSudoku().subscribe(sudoku => this.sudoku = sudoku)
     this.startTimer()
   }
 
@@ -52,5 +65,9 @@ export class PlayComponent implements OnInit {
     } else {
       this.startTimer()
     }
+  }
+
+  saveGame(){
+    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!)
   }
 }

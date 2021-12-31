@@ -1,3 +1,4 @@
+import { GameStatsRequestService } from './core/services/gamestats.request.service';
 import { ProfileComponent } from './core/components/profile/profile.component';
 import { UserRequestService } from './core/services/user.request.service';
 import { RegisterPageComponent } from './pages/register/register.component';
@@ -42,7 +43,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SudokuDataService,
     AuthService,
     AuthGuard,
-    UserRequestService
+    UserRequestService,
+    GameStatsRequestService
   ],
   bootstrap: [AppComponent]
 })
