@@ -18,19 +18,21 @@ import { AppComponent } from './app.component';
 import { PlayComponent } from './pages/play/play.component';
 import { AuthService } from './core/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {DigitOnlyDirective} from './core/components/board/digit-only.directive';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    BoardComponent,
-    LoginPageComponent,
-    HomePageComponent,
-    PlayComponent,
-    SetupPageComponent,
-    RegisterPageComponent,
-    ProfileComponent
-  ],
+    declarations: [
+        AppComponent,
+        SidebarComponent,
+        BoardComponent,
+        LoginPageComponent,
+        HomePageComponent,
+        PlayComponent,
+        SetupPageComponent,
+        RegisterPageComponent,
+        ProfileComponent,
+        DigitOnlyDirective
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

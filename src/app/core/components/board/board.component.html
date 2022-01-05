@@ -11,8 +11,8 @@
             <td *ngIf="sudokuGrid[k + i*9] == '0' " class="cell"></td>
           </ng-template>
           <ng-template #playBlock>
-            <td *ngIf="sudokuGrid[k + i*9] != '0' " class="cell sud-bold"> {{sudokuGrid[k + i*9]}}</td>
-            <td *ngIf="sudokuGrid[k + i*9] == '0' " class="cell"> <input type="text"></td>
+            <td *ngIf="sudokuGrid[k + i*9] != '0' " class="cell sud-bold" type="text"> {{sudokuGrid[k + i*9]}}</td>
+            <td *ngIf="sudokuGrid[k + i*9] == '0' " class="cell"> <input type="text" digitOnly placeholder="" maxlength="1"></td>
           </ng-template>
         </ng-container>
       </tr>
