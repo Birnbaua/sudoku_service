@@ -24,11 +24,13 @@ class PrivilegeController {
         return ResponseEntity.created(URI("/${privilege.name}")).body(ps.save(privilege))
     }
 
+    @PreAuthorize("hasPermission(#auth,#role,'VIEW_PRIVILEGE')")
     @GetMapping
     fun all() : ResponseEntity<MutableList<Privilege>> {
         return ResponseEntity.ok(ps.findAll())
     }
 
+    @PreAuthorize("hasPermission(#auth,#role,'VIEW_PRIVILEGE')")
     @GetMapping("/{privilege}")
     fun get(@PathVariable privilege: String, auth: Authentication) : ResponseEntity<Privilege> {
         return ResponseEntity.ok(ps.findById(privilege))

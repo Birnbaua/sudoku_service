@@ -1,8 +1,5 @@
 package at.birnbaua.sudoku_service.startup
 
-import at.birnbaua.sudoku_service.auth.user.jpa.entity.Role
-import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
-import at.birnbaua.sudoku_service.auth.user.jpa.service.RoleService
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
@@ -12,11 +9,9 @@ import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
 import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
 import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.sql.Time
 
 @Configuration
@@ -30,9 +25,6 @@ class StartupScheduler {
     lateinit var ss: SudokuService
 
     @Autowired
-    lateinit var rs: RoleService
-
-    @Autowired
     lateinit var us: UserService
 
     @Autowired
@@ -41,7 +33,7 @@ class StartupScheduler {
     @Autowired
     lateinit var sps: SudokuPreviewService
 
-    @Scheduled(initialDelay = 500, fixedRate = 1000*60*999)
+    @Scheduled(initialDelay = 2000, fixedRate = 1000*60*999)
     fun startup() {
         if(ds.existsById(1).not()) {
             val easy = Difficulty()
@@ -99,25 +91,8 @@ class StartupScheduler {
 
         ss.save(sudoku)
 
-        val adminRole = Role("ADMIN")
-        val guestRole = Role("GUEST")
-
-        rs.save(adminRole)
-        rs.save(guestRole)
-
-        val admin = User()
-        admin.username = "admin"
-        admin.nickname = "admin"
-        admin.firstName = "Max"
-        admin.lastName = "Mustermann"
-        admin.email = "max.mustermann@example.com"
-        admin.roles.add(adminRole)
-        admin.roles.add(guestRole)
-        admin.password = BCryptPasswordEncoder().encode("admin")
-        us.save(admin)
-
         val stats = GameStats()
-        stats.user = admin
+        stats.user = us.findUserByUsername("admin")
         stats.sudoku = sudoku
         stats.currentResult = sudoku.unsolved.toString()
         stats.duration = Time.valueOf("00:25:12")

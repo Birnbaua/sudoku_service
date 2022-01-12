@@ -6,6 +6,7 @@ import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.validation.SudokuValidation
 import java.sql.Time
 import javax.persistence.*
+import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "`game_stats`")
@@ -25,6 +26,7 @@ open class GameStats(
     @Column(name = "`duration`", nullable = false)
     open var duration: Time? = null,
 
+    @NotNull
     @Column(name = "`current_result`")
     open var currentResult: String? = null,
 

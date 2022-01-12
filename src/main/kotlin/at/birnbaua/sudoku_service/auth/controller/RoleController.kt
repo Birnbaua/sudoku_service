@@ -24,11 +24,13 @@ class RoleController {
         return ResponseEntity.created(URI("/${role.name}")).body(rs.save(role))
     }
 
+    @PreAuthorize("hasPermission(#auth,#role,'VIEW_USER_ROLE')")
     @GetMapping
     fun all() : ResponseEntity<MutableList<Role>> {
         return ResponseEntity.ok(rs.findAll())
     }
 
+    @PreAuthorize("hasPermission(#auth,#role,'VIEW_USER_ROLE')")
     @GetMapping("/{role}")
     fun get(@PathVariable role: String, auth: Authentication) : ResponseEntity<Role> {
         return ResponseEntity.ok(rs.findById(role))

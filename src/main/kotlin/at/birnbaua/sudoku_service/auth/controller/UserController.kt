@@ -26,7 +26,7 @@ class UserController {
 
     @PostMapping
     fun post(@RequestBody @Valid user: User, auth: Authentication) : ResponseEntity<User> {
-        return ResponseEntity.created(URI("/${user.username}")).body(us.save(user))
+        return ResponseEntity.created(URI("/${user.username}")).body(us.insert(user))
     }
 
     /**
@@ -53,7 +53,7 @@ class UserController {
     @PutMapping("/{username}")
     fun put(@RequestBody user: User, @PathVariable username: String, auth: Authentication) : ResponseEntity<PrivateUserInfo> {
         user.username = username
-        return ResponseEntity.ok(us.findPrivateUserInfoById(us.save(user).username!!))
+        return ResponseEntity.ok(us.findPrivateUserInfoById(us.update(user).username!!))
     }
 
     @PreAuthorize("isAuthenticated() AND (#username==#auth.name OR hasRole('ROLE_ADMIN'))")

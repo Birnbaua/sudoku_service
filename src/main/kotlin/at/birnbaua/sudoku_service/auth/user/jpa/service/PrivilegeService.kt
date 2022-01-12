@@ -34,4 +34,8 @@ class PrivilegeService {
     fun findAll(): MutableList<Privilege> {
         return pr.findAll()
     }
+
+    fun existsById(name: String) : Boolean {
+        return pr.existsById(name)
+    }
 }

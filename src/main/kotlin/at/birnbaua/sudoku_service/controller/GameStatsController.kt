@@ -6,6 +6,7 @@ import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
 import at.birnbaua.sudoku_service.jpa.projection.GameStatsInfo
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
+import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @CrossOrigin
 @RestController
@@ -24,13 +26,14 @@ class GameStatsController {
     lateinit var gss: GameStatsService
 
     @Autowired
-    lateinit var us: UserService
+    lateinit var sps: SudokuPreviewService
 
     @PreAuthorize("isAuthenticated() AND (hasRole('ROLE_ADMIN') OR #auth.name==#username)")
     @PutMapping("/{username}/{sudoku}")
-    fun save(@RequestBody stats: GameStats, @PathVariable username: String, @PathVariable sudoku: Int, auth: Authentication) : ResponseEntity<GameStatsInfo> {
+    fun save(@RequestBody @Valid stats: GameStats, @PathVariable username: String, @PathVariable sudoku: Int, auth: Authentication) : ResponseEntity<GameStatsInfo> {
         stats.user = User(username)
         stats.sudoku = Sudoku(sudoku)
+        stats.preview = sps.toImage(sps.parseThymeleafTemplate(stats.currentResult!!))
         return ResponseEntity.status(HttpStatus.CREATED).body(gss.saveInfo(stats))
     }
 
