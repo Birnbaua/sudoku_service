@@ -47,21 +47,20 @@ class SudokuValidation {
 
 
     fun validate(id: Int, check: String, type: SudokuType = SudokuType.NORMAL) : Boolean {
-        val solved = to2DArray(check)
-
-        if(validateFinishedStructure(check) || checkIfRightSoduku(id,solved)) {
+        if(validateFinishedStructure(check)) {
             return false
         }
 
         //check other constraints
         return when(type) {
-            SudokuType.NORMAL -> validateNormal(solved)
-            SudokuType.SAMURAI -> validateSamurai(solved)
+            SudokuType.NORMAL -> validateNormal(to2DArray(check))
+            SudokuType.DIAGONAL -> validateDiagonal(to2DArray(check))
+            SudokuType.SAMURAI -> validateSamurai(check.split(";").map { x -> to2DArray(x) })
             else -> false
         }
     }
 
-    private fun checkIfRightSoduku(id: Int, solved: Array<ByteArray>) : Boolean {
+    private fun checkIfRightSudoku(id: Int, solved: Array<ByteArray>) : Boolean {
         val original = to2DArray(ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.unsolved!!)
         //check if same sudoku
         for(o1 in original.withIndex()) {
@@ -90,8 +89,8 @@ class SudokuValidation {
         return true
     }
 
-    private fun validateSamurai(sudoku: Array<ByteArray>) : Boolean {
-        if(validateNormal(sudoku)) {
+    private fun validateDiagonal(sudoku: Array<ByteArray>) : Boolean {
+        if(validateNormal(sudoku).not()) {
             return false
         }
         val x1 = ByteArray(9)
@@ -105,4 +104,71 @@ class SudokuValidation {
         }
         return true
     }
+
+    private fun validateSamurai(sudokus: List<Array<ByteArray>>) : Boolean {
+        for(sudoku in sudokus) {
+            if (validateNormal(sudoku).not()) {
+                return false
+            }
+        }
+        return compareFirst(sudokus[0],sudokus[2]) && compareSecond(sudokus[1],sudokus[2]) && comparefourth(sudokus[3],sudokus[2]) && compareFifth(sudokus[4],sudokus[2])
+    }
+
+    private fun compareFirst(first: Array<ByteArray>, third: Array<ByteArray>) : Boolean {
+        return (
+            first[6][6] == third[0][0] &&
+            first[6][7] == third[0][1] &&
+            first[6][8] == third[0][2] &&
+            first[7][6] == third[1][0] &&
+            first[7][7] == third[1][1] &&
+            first[7][8] == third[1][2] &&
+            first[8][6] == third[2][0] &&
+            first[8][7] == third[2][1] &&
+            first[8][8] == third[2][2]
+        )
+    }
+
+    private fun compareSecond(second: Array<ByteArray>, third: Array<ByteArray>) : Boolean {
+        return (
+                second[6][0] == third[0][6] &&
+                        second[6][1] == third[0][7] &&
+                        second[6][2] == third[0][8] &&
+                        second[7][0] == third[1][6] &&
+                        second[7][1] == third[1][7] &&
+                        second[7][2] == third[1][8] &&
+                        second[8][0] == third[2][6] &&
+                        second[8][1] == third[2][7] &&
+                        second[8][2] == third[2][8]
+                )
+    }
+
+    private fun comparefourth(fourth: Array<ByteArray>, third: Array<ByteArray>) : Boolean {
+        return (
+                fourth[0][6] == third[6][0] &&
+                        fourth[0][7] == third[6][1] &&
+                        fourth[0][8] == third[6][2] &&
+                        fourth[1][6] == third[7][0] &&
+                        fourth[1][7] == third[7][1] &&
+                        fourth[1][8] == third[7][2] &&
+                        fourth[2][6] == third[8][0] &&
+                        fourth[2][7] == third[8][1] &&
+                        fourth[2][8] == third[8][2]
+                )
+    }
+
+    private fun compareFifth(fifth: Array<ByteArray>, third: Array<ByteArray>) : Boolean {
+        return (
+                fifth[0][0] == third[6][0] &&
+                        fifth[0][1] == third[6][1] &&
+                        fifth[0][2] == third[6][2] &&
+                        fifth[1][0] == third[7][0] &&
+                        fifth[1][1] == third[7][1] &&
+                        fifth[1][2] == third[7][2] &&
+                        fifth[2][0] == third[8][0] &&
+                        fifth[2][1] == third[8][1] &&
+                        fifth[2][2] == third[8][2]
+                )
+    }
+
+
 }

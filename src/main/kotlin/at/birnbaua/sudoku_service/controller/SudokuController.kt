@@ -42,9 +42,9 @@ class SudokuController {
     @GetMapping("/{id}/validate")
     fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved") solvedParam: String?) : ResponseEntity<Boolean> {
         return if(solvedParam != null) {
-            ResponseEntity.ok(sv.validate(id,solvedParam))
+            ResponseEntity.ok(sv.validate(id,solvedParam,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
         } else if(solved != null) {
-            ResponseEntity.ok(sv.validate(id,solved))
+            ResponseEntity.ok(sv.validate(id,solved,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
         } else {
             ResponseEntity.ok(false)
         }
@@ -67,6 +67,7 @@ class SudokuController {
     @PreAuthorize("isAuthenticated() AND (hasRole('ROLE_ADMIN') OR @ownerChecker.isSudokuOwner(#id,#auth.name))")
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int, auth: Authentication) : ResponseEntity<Any> {
+        ss.deleteById(id)
         return ResponseEntity.accepted().build()
     }
 }
