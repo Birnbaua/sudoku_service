@@ -17,14 +17,24 @@ class Solver {
 
         private val empty = "0".toByte()
 
-        fun solveNormal(solve: String) : String {
-            SudokuValidation.validateUnfinishedStructure(solve)
-            val arr = SudokuValidation.to2DArray(solve)
-            if(solve(arr)) {
-                return arr.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","")
+        fun isSolvable(solve: Array<ByteArray>) : Boolean {
+            val clonedSudoku = Array(9) { ByteArray(9) }
+            solve.forEachIndexed { index, bytes ->  bytes.forEachIndexed{ index1, byte -> clonedSudoku[index][index1] = byte }}
+            return solve(clonedSudoku)
+        }
+
+        fun solveNormal(solve: Array<ByteArray>) : String {
+            if(solve(solve)) {
+                return solve.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","")
             } else {
                 throw NoValidSolutionException("There is no valid solution for the given sudoku")
             }
+        }
+
+        fun solveNormal(solve: String) : String {
+            SudokuValidation.validateUnfinishedStructure(solve)
+            val arr = SudokuValidation.to2DArray(solve)
+            return solveNormal(arr)
         }
 
         private fun solve(solve: Array<ByteArray>) : Boolean {
@@ -47,7 +57,7 @@ class Solver {
             return true
         }
 
-        private fun isCellValid(sudoku: Array<ByteArray>, row: Int, column: Int) : Boolean {
+        fun isCellValid(sudoku: Array<ByteArray>, row: Int, column: Int) : Boolean {
             return incompleteRowValid(sudoku, row) && incompleteColumnValid(sudoku, column) && incompleteSubsectionValid(sudoku,row/3,column/3)
         }
 
@@ -65,9 +75,9 @@ class Solver {
         }
 
         fun incompleteRowValid(sudoku: Array<ByteArray>, row: Int) : Boolean {
-            val emtpyCells = sudoku[row].filter { x -> x == empty }.size
-            if(emtpyCells != 0) {
-                return sudoku[row].distinct().size == 9-emtpyCells+1
+            val emptyCells = sudoku[row].filter { x -> x == empty }.size
+            if(emptyCells != 0) {
+                return sudoku[row].distinct().size == 9-emptyCells+1
             }
             return sudoku[row].distinct().size == 9
         }
@@ -80,7 +90,7 @@ class Solver {
             return sudoku.map { x -> x[column] }.distinct().size == 9
         }
 
-        private fun printSudoku(sudoku: Array<ByteArray>) {
+        fun printSudoku(sudoku: Array<ByteArray>) {
             sudoku.forEach { s ->
                 s.forEach { c -> print("$c ") }
                 println()

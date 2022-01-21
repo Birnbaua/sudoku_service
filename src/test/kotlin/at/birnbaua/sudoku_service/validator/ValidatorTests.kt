@@ -38,7 +38,15 @@ class ValidatorTests {
                 "200100004" +
                 "003040087" +
                 "070053006"
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),0,0))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),0,1))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),0,2))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),1,0))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),1,1))
         assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),1,2))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),2,0))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),2,1))
+        assert(Solver.incompleteSubsectionValid(SudokuValidation.to2DArray(test2),2,2))
     }
 
     @Test
@@ -88,7 +96,7 @@ class ValidatorTests {
                 "385721649" +
                 "197468253" +
                 "256187394" +
-                "913642587" +
+                "913640087" +
                 "874953126"
         val solved = "539876412" +
                 "728314965" +
@@ -99,7 +107,13 @@ class ValidatorTests {
                 "256187394" +
                 "913642587" +
                 "874953126"
-        print(Solver.solveNormal(test2))
+        println(Solver.solveNormal(test2))
+
+        println(Solver.printSudoku(SudokuValidation.to2DArray(Solver.solveNormal(test2))))
+
+        val validator = SudokuValidation()
+        assert(validator.validateNormal(SudokuValidation.to2DArray(Solver.solveNormal(test2))))
+        println(solved)
         assert(Solver.solveNormal(sudoku) == solved)
     }
 }
