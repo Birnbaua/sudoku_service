@@ -12,6 +12,6 @@ class CachingConfig {
 
     @Bean
     fun cacheManager() : CacheManager {
-        return ConcurrentMapCacheManager("users","userDetails","roles","privileges")
+        return ConcurrentMapCacheManager("users","userDetails","roles","privileges","solved")
     }
 }

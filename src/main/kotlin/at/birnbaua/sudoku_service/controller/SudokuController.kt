@@ -7,6 +7,8 @@ import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.validation.SudokuValidation
 import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
+import at.birnbaua.sudoku_service.jpa.solver.Hint
+import at.birnbaua.sudoku_service.jpa.solver.HintService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,6 +31,9 @@ class SudokuController {
     @Autowired
     lateinit var sv: SudokuValidation
 
+    @Autowired
+    private lateinit var hs: HintService
+
     @GetMapping
     fun all(@RequestParam(required = false) difficulty: Int?, @RequestParam(required = false) page: Int?, @RequestParam(required = false) size: Int?) : ResponseEntity<Page<SudokuInfo>> {
         return ResponseEntity.ok(ss.overview(difficulty,page,size))
@@ -48,6 +53,11 @@ class SudokuController {
         } else {
             ResponseEntity.ok(false)
         }
+    }
+
+    @GetMapping("/{id}/hint")
+    fun hint(@PathVariable id: Int, @RequestParam(required = true, name = "sudoku") sudoku: String) : ResponseEntity<Hint> {
+        return ResponseEntity.ok(hs.getHint(id,sudoku))
     }
 
     @PreAuthorize("isAuthenticated()")

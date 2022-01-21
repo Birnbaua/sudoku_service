@@ -9,6 +9,7 @@ import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
 import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
 import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
@@ -32,6 +33,14 @@ class StartupScheduler {
 
     @Autowired
     lateinit var sps: SudokuPreviewService
+
+    @Autowired
+    private lateinit var cacheManager: CacheManager
+
+    @Scheduled(initialDelay = 2000, fixedRate = 1000*60)
+    fun sudokuCache() {
+        cacheManager.getCache("solved")?.clear()
+    }
 
     @Scheduled(initialDelay = 2000, fixedRate = 1000*60*999)
     fun startup() {

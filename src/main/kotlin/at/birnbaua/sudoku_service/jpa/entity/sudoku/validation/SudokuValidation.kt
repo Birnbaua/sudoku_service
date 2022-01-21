@@ -73,16 +73,32 @@ class SudokuValidation {
         return true
     }
 
-    private fun validateNormal(sudoku: Array<ByteArray>) : Boolean {
+    fun validRow(sudoku: Array<ByteArray>, row: Int) : Boolean {
+        return sudoku[row].distinct().size == 9
+    }
+
+    fun validColumn(sudoku: Array<ByteArray>, column: Int) : Boolean {
+        return sudoku.map { x -> x[column] }.distinct().size == 9
+    }
+
+    fun validSubStructure(sudoku: Array<ByteArray>, cellRow: Int, cellColumn: Int) : Boolean {
+        return sudoku.filterIndexed{ index, x -> index/3 == cellRow}.map { x ->
+            x.copyOfRange(cellColumn*3,cellColumn*3+3)
+        }.flatMap { x -> x.asList()
+        }.toByteArray().distinct().size == 9
+    }
+
+    fun validateNormal(sudoku: Array<ByteArray>) : Boolean {
         for(i in 0..8) {
-            if(sudoku[i].distinct().size != 9) {
+            if(!validRow(sudoku,i)) {
                 return false
             }
-            val column = ByteArray(9)
-            for(j in 0..8) {
-                column[j] = sudoku[i][j]
+            if(!validColumn(sudoku,i)) {
+                return false
             }
-            if(column.distinct().size != 9) {
+        }
+        for (i in 0..2) {
+            if(!validSubStructure(sudoku,i,i)) {
                 return false
             }
         }
