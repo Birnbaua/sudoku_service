@@ -12,9 +12,9 @@ export class ProfileComponent implements OnInit{
   constructor(
       private userRequestService: UserRequestService,
       private userDataServkce: UserDataService
-    ) {}  
+    ) {}
 
-    username : string = ""
+    username : string = "";
 
   ngOnInit(): void {
     const jwtToken = localStorage.getItem('token')
@@ -23,4 +23,5 @@ export class ProfileComponent implements OnInit{
       this.userDataServkce.getUser().subscribe(user => this.username = user.username)
     }
   }
+
 }
