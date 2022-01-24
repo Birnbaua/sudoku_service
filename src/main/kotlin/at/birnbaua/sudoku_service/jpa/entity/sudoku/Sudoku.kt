@@ -3,6 +3,8 @@ package at.birnbaua.sudoku_service.jpa.entity.sudoku
 import at.birnbaua.sudoku_service.exception.InvalidSudokuException
 import at.birnbaua.sudoku_service.jpa.entity.Ownership
 import org.slf4j.LoggerFactory
+import java.sql.Timestamp
+import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.Size
 
@@ -57,8 +59,24 @@ open class Sudoku(
     }
 
     @PrePersist
+    private fun prePersist() {
+        /*
+        if(currentResult != null) {
+            SudokuValidation.validateUnfinishedStructure(currentResult!!)
+        }
+         */
+        this.updatedAt = Timestamp.valueOf(LocalDateTime.now())
+        this.createdAt = Timestamp.valueOf(LocalDateTime.now())
+        checkConstraint()
+    }
+
     @PreUpdate
-    fun checkConstraint() {
+    private fun preUpdate() {
+        this.updatedAt = Timestamp.valueOf(LocalDateTime.now())
+        checkConstraint()
+    }
+
+    private fun checkConstraint() {
         if(unsolved?.matches("^[0-9]*\$".toRegex()) == false) {
             throw InvalidSudokuException("The unsolved Sudoku contains invalid characters. It may only contain digits from 0 to 9",
                 log

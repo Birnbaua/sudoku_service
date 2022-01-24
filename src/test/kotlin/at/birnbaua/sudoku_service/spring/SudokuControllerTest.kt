@@ -53,7 +53,9 @@ class SudokuControllerTest {
     fun before() {
         ds.save(Difficulty(1,"easy","description for 1",39,47))
         rs.save(Role("ADMIN"))
-        us.insert(User("admin","max","admin","andre@gmx.at","max","muster",null))
+        val roles = mutableSetOf(Role("ADMIN"))
+        us.insert(User("admin","max","admin","andre@gmx.at","max","muster",null, roles))
+        us.insert(User("guest","max","guest","andre@gmx.at","max","muster",null))
     }
 
 
@@ -90,7 +92,6 @@ class SudokuControllerTest {
     }
 
     @Test
-    @WithUserDetails("Birnbaua")
     fun saveNewSudokuFail() {
 
         var sudoku = Sudoku()
@@ -106,13 +107,9 @@ class SudokuControllerTest {
                 "200100004" +
                 "003040087" +
                 "070053006"
-        var id: Int = -1
         mvc.perform(post("/sudoku").content(ObjectMapper().writeValueAsString(sudoku))
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated)
-            .andDo { x ->
-                id = JsonPath.read<Int>(x.response.contentAsString, "id")
-            }
+            .andExpect(status().isUnauthorized)
     }
 
 }
