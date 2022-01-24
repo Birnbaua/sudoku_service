@@ -19,26 +19,30 @@ import { PlayComponent } from './pages/play/play.component';
 import { AuthService } from './core/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {DigitOnlyDirective} from './core/components/board/digit-only.directive';
+import { PicUploaderComponent } from './core/components/profile/pic-uploader/pic-uploader.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SidebarComponent,
-        BoardComponent,
-        LoginPageComponent,
-        HomePageComponent,
-        PlayComponent,
-        SetupPageComponent,
-        RegisterPageComponent,
-        ProfileComponent,
-        DigitOnlyDirective
-    ],
+  declarations: [
+    AppComponent,
+    SidebarComponent,
+    BoardComponent,
+    LoginPageComponent,
+    HomePageComponent,
+    PlayComponent,
+    SetupPageComponent,
+    RegisterPageComponent,
+    ProfileComponent,
+    DigitOnlyDirective,
+    PicUploaderComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDropzoneModule
   ],
   providers: [
     SudokuRequestService,
