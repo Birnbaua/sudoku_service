@@ -1,8 +1,6 @@
 import { SudokuDataService } from './../../services/sudoku.data.service';
 import { Sudoku } from './../../interfaces/Sudoku';
-import { SudokuRequestService } from '../../services/sudoku.request.service';
-import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
-import { ThrowStmt } from '@angular/compiler';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'sudoku-board',
@@ -10,24 +8,33 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./board.component.css']
 })
 
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit{
   constructor(private sudokuDataService: SudokuDataService) {}
 
   @Input() preview = false
+  @Input() paused = false
+  @Output() sudokuOutput = new EventEmitter<string>()
   sudoku: Sudoku = {}
-  sudokuGrid: string[] = []
-  
+  startGrid: string[] = []
+  currentSud: string[] = []
 
   ngOnInit(){
-    this.sudokuDataService.getSudoku().subscribe(sudoku => this.updateSudoku(sudoku))
+    this.sudokuDataService.getSudoku().subscribe((sudoku : Sudoku) => {
+      this.sudoku = sudoku
+    if(Object.keys(sudoku).length != 0){
+      this.startGrid = sudoku.unsolved?.split("")! // '!' makes Angular not check for null/undefined. We have to ensure this property can not be undefined.
+    } else {
+      this.startGrid = Array.from('0'.repeat(81))
+    }
+    this.currentSud = Object.assign([],this.startGrid)
+    this.sudokuOutput.emit(this.currentSud.join(""))
+    })
   }
 
-  updateSudoku(sudoku : Sudoku){
-    this.sudoku = sudoku
-    if(Object.keys(sudoku).length != 0){
-      this.sudokuGrid = sudoku.unsolved?.split("")! // '!' makes Angular not check for null/undefined. We have to ensure this property can not be undefined.
-    } else {
-      this.sudokuGrid = Array.from('0'.repeat(81))
-    }
+  sudokuChange(event : any){
+    let id = event.target.id
+    let val = event.target.value
+    this.currentSud[id] = val
+    this.sudokuOutput.emit(this.currentSud.join(""))
   }
 }
