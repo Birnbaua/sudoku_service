@@ -1,0 +1,16 @@
+<td>{{ name }}</td>
+<td>{{ diff }}</td>
+<td>{{ mode }}</td>
+<td>{{ time }}</td>
+<div *ngIf="finished; then historyBlock; else openBlock"></div>
+<ng-template #openBlock>
+  <td>
+    <button type="button" class="btn btn-success">Play</button>
+    <button type="button" class="btn btn-danger">Delete</button>
+  </td>
+</ng-template>
+<ng-template #historyBlock>
+  <td>
+    <button type="button" class="btn btn-primary">View</button>
+  </td>
+</ng-template>

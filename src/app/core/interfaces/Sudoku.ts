@@ -6,4 +6,5 @@ export interface Sudoku{
     difficulty?: Difficulty;
     unsolved?: string;
     grouping?: string;
+    type? : string;
 }

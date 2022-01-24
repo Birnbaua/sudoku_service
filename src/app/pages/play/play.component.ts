@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Sudoku } from './../../core/interfaces/Sudoku';
 import { SudokuDataService } from './../../core/services/sudoku.data.service';
 import { UserDataService } from './../../core/services/user.data.service';
@@ -14,7 +15,8 @@ export class PlayComponent implements OnInit {
   constructor(
     private gameStatsRequestService: GameStatsRequestService,
     private userDataService: UserDataService,
-    private SudokuDataService: SudokuDataService
+    private SudokuDataService: SudokuDataService,
+    private router: Router
   ) {   }
 
   time: number = 0;
@@ -77,7 +79,11 @@ export class PlayComponent implements OnInit {
   }
 
   saveGame(){
-    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!, this.time!, this.standing!)
+    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!, this.display!, this.standing!)
+      .subscribe((res) => {
+        console.log(res)
+        this.router.navigate(['home'])
+      }) 
   }
 
   endGame(){

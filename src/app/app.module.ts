@@ -21,11 +21,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {DigitOnlyDirective} from './core/components/board/digit-only.directive';
 import { PicUploaderComponent } from './core/components/profile/pic-uploader/pic-uploader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { Gamestat } from './core/components/gamestat/gamestat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
+    Gamestat,
     BoardComponent,
     LoginPageComponent,
     HomePageComponent,

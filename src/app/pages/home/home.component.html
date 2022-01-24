@@ -1,141 +1,98 @@
 <div class="container home-page">
-    <div class="row">
-        <div class="col-2">
-            <sidebar>
-
-            </sidebar>
-        </div>
-        <div class="col-7">
-            <div class="row text-center">
-                <div class="col my-5 mx-5">
-                    <div class="d-flex justify-content-end">
-                        <a class="ctrl-btn " href="/setup"><p>New Game</p></a>
-                    </div>
-                </div>
-                <div class="col my-5 mx-5">
-                    <div class="d-flex justify-content-start">
-                        <a class="ctrl-btn" href="#"><p>Create Sudoku</p></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row"> 
-                <div class="card sud-hist-table">
-                    <h3>Open Sudokus</h3>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Difficulty</th>
-                            <th scope="col">Mode</th>
-                            <th scope="col">Time</th>
-                            <th scope="col">Control</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>First Sudoku</td>
-                            <td>Easy</td>
-                            <td>Normal</td>
-                            <td>03:03:13</td>
-                            <td>
-                                <button type="button" class="btn btn-success">Play</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Second Sudoku</td>
-                            <td>Medium</td>
-                            <td>Normal</td>
-                            <td>15:32:23</td>
-                            <td>
-                                <button type="button" class="btn btn-success">Play</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Third Sudoku</td>
-                            <td>Hard</td>
-                            <td>Samurai</td>
-                            <td>25:32:10</td>
-                            <td>
-                                <button type="button" class="btn btn-success">Play</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card sud-hist-table">
-                    <h3>Sudoku History</h3>
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Difficulty</th>
-                        <th scope="col">Mode</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Control</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Easy Sudoku</td>
-                        <td>Easy</td>
-                        <td>Normal</td>
-                        <td>03:03:13</td>
-                        <td>
-                            <button type="button" class="btn btn-primary">View</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Med Sudoku</td>
-                        <td>Medium</td>
-                        <td>Normal</td>
-                        <td>15:32:23</td>
-                        <td>
-                            <button type="button" class="btn btn-primary">View</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Samurai Sudoku</td>
-                        <td>Hard</td>
-                        <td>Samurai</td>
-                        <td>25:32:10</td>
-                        <td>
-                            <button type="button" class="btn btn-primary">View</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-3 px-5">
-            <div class="row">
-                <profile></profile>
-            </div>
-            <div class="row">
-                <div class="card mt-5">
-                    <div class="d-flex flex-column">
-                        <h4>Stats</h4>
-                        <hr>
-                        <h5>All: </h5>
-                        <p>Finished: 3</p>
-                        <p>Avg. Difficulty: 2</p>
-                        <p>Avg. Time: 4:00:00</p>
-                        <hr>
-                        <h5>Normal: </h5>
-                        <p>Played: 3</p>
-                        <p>Avg. Difficulty: 1.5</p>
-                        <p>Avg. Time: 4:00:00</p>
-                        <hr>
-                        <h5>Samurai: </h5>
-                        <p>Played: 1</p>
-                        <p>Avg. Difficulty: 3</p>
-                        <p>Avg. Time: 25:32:10</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-2">
+      <sidebar> </sidebar>
     </div>
+    <div class="col-7">
+      <div class="row text-center">
+        <div class="col my-5 mx-5">
+          <div class="d-flex justify-content-end">
+            <a class="ctrl-btn" href="/setup"><p>New Game</p></a>
+          </div>
+        </div>
+        <div class="col my-5 mx-5">
+          <div class="d-flex justify-content-start">
+            <a class="ctrl-btn" href="#"><p>Create Sudoku</p></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card sud-hist-table">
+          <h3>Open Sudokus</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Difficulty</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Time</th>
+                <th scope="col">Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let gamestat of statArray">
+                <tr
+                  *ngIf="!gamestat.finished"
+                  gamestat
+                  [stat]="gamestat"
+                  [finished]="gamestat.finished"
+                ></tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="card sud-hist-table">
+          <h3>Sudoku History</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Difficulty</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Time</th>
+                <th scope="col">Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let gamestat of statArray">
+                <tr
+                  *ngIf="gamestat.finished"
+                  gamestat
+                  [stat]="gamestat"
+                  [finished]="gamestat.finished"
+                ></tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 px-5">
+      <div class="row">
+        <profile></profile>
+      </div>
+      <div class="row">
+        <div class="card mt-5">
+          <div class="d-flex flex-column">
+            <h4>Stats</h4>
+            <hr />
+            <h5>All:</h5>
+            <p>Finished: 3</p>
+            <p>Avg. Difficulty: 2</p>
+            <p>Avg. Time: 4:00:00</p>
+            <hr />
+            <h5>Normal:</h5>
+            <p>Played: 3</p>
+            <p>Avg. Difficulty: 1.5</p>
+            <p>Avg. Time: 4:00:00</p>
+            <hr />
+            <h5>Samurai:</h5>
+            <p>Played: 1</p>
+            <p>Avg. Difficulty: 3</p>
+            <p>Avg. Time: 25:32:10</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
