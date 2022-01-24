@@ -4,7 +4,7 @@ import {Key} from 'protractor';
 @Component({
   selector: 'pic-uploader-component',
   templateUrl: `pic-uploader.component.html`,
-  styles: [`h1 { font-family: Lato; }`]
+  styleUrls: ['./pic-uploader.component.css']
 })
 export class PicUploaderComponent  {
   @Input() name: string | undefined;
