@@ -4,6 +4,7 @@ import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import at.birnbaua.sudoku_service.jpa.jpaservice.DifficultyService
 import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
 import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
@@ -85,6 +86,7 @@ class StartupScheduler {
         }
 
         val sudoku = Sudoku()
+        sudoku.type = SudokuType.NORMAL
         sudoku.difficulty = Difficulty(1)
         sudoku.unsolved = "530070000" +
                 "600195000" +

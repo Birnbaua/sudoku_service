@@ -101,7 +101,7 @@ class SudokuController {
      * @since 1.0
      * @param sudoku RequestBody with the sudoku to be saved.
      */
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping
     fun post(@RequestBody sudoku: Sudoku, auth: Authentication) : ResponseEntity<Sudoku> {
         sudoku.owner = User(auth.name)

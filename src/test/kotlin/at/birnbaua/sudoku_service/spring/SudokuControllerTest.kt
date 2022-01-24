@@ -1,15 +1,19 @@
 package at.birnbaua.sudoku_service.spring
 
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.Role
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
+import at.birnbaua.sudoku_service.auth.user.jpa.service.RoleService
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.controller.SudokuController
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import at.birnbaua.sudoku_service.jpa.jpaservice.DifficultyService
+import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.spring.config.SpringSecurityMVCTestConfig
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
+import com.jayway.jsonpath.JsonPath
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
 import org.junit.jupiter.api.BeforeEach
@@ -42,10 +46,14 @@ class SudokuControllerTest {
     @Autowired
     private lateinit var us: UserService
 
+    @Autowired
+    private lateinit var rs: RoleService
+
     @BeforeEach
     fun before() {
         ds.save(Difficulty(1,"easy","description for 1",39,47))
-        us.insert(User("admin","admin"))
+        rs.save(Role("ADMIN"))
+        us.insert(User("admin","max","admin","andre@gmx.at","max","muster",null))
     }
 
 
@@ -66,18 +74,20 @@ class SudokuControllerTest {
                 "200100004" +
                 "003040087" +
                 "070053006"
+        var id: Int = -1
         mvc.perform(post("/sudoku").content(ObjectMapper().writeValueAsString(sudoku))
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isCreated)
             .andDo { x ->
-                sudoku = ObjectMapper().readValue(x.response.contentAsString, Sudoku::class.java)
+                id = JsonPath.read<Int>(x.response.contentAsString, "id")
             }
 
-        mvc.perform(get("/sudoku/${sudoku.id}")
+        mvc.perform(get("/sudoku/$id")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
-            .andExpect(jsonPath<Sudoku>("id", `is`("${sudoku.id}".toLong())))
+            .andExpect(jsonPath<Sudoku>("id", `is`("$id".toInt())))
             .andExpect(jsonPath<Sudoku>("unsolved", `is` (sudoku.unsolved)))
+
 
     }
 
