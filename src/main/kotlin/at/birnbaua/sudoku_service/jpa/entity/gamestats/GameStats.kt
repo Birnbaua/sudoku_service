@@ -35,7 +35,7 @@ open class GameStats(
     open var currentResult: String? = null,
 
     @Column(name = "`is_finished`")
-    open var isFinished: Boolean? = false,
+    open var finished: Boolean? = false,
 
     @Lob
     @Column(name = "`preview`")
@@ -50,6 +50,7 @@ open class GameStats(
             SudokuValidation.validateUnfinishedStructure(currentResult!!)
         }
          */
+        this.updatedAt = Timestamp.valueOf(LocalDateTime.now())
         this.createdAt = Timestamp.valueOf(LocalDateTime.now())
     }
 

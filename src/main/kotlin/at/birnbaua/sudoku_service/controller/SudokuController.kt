@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 /**
  * This controller is responsible for all  sudoku interaction.
@@ -100,11 +101,11 @@ class SudokuController {
      * @since 1.0
      * @param sudoku RequestBody with the sudoku to be saved.
      */
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     @PostMapping
     fun post(@RequestBody sudoku: Sudoku, auth: Authentication) : ResponseEntity<Sudoku> {
         sudoku.owner = User(auth.name)
-        return ResponseEntity.ok(ss.save(sudoku))
+        return ResponseEntity.created(URI("/sudoku/${sudoku.id}")).body(ss.save(sudoku))
     }
 
     /**

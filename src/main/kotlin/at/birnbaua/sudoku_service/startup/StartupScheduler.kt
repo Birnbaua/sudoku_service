@@ -105,7 +105,7 @@ class StartupScheduler {
         stats.sudoku = sudoku
         stats.currentResult = sudoku.unsolved.toString()
         stats.duration = Time.valueOf("00:25:12")
-        stats.isFinished = false
+        stats.finished = false
         stats.preview = sps.toImage(sps.parseThymeleafTemplate(stats.currentResult!!))
 
         gss.saveInfo(stats)

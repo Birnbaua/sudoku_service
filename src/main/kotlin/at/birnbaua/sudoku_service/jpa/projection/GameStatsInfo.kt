@@ -2,7 +2,6 @@ package at.birnbaua.sudoku_service.jpa.projection
 
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
-import java.sql.Time
 import java.sql.Timestamp
 
 interface GameStatsInfo {
@@ -10,6 +9,7 @@ interface GameStatsInfo {
     val currentResult: String?
     val preview: ByteArray?
     val updatedAt: Timestamp?
+    val finished: Boolean?
     val sudoku: SudokuInfo?
     val user: UserInfo?
 
