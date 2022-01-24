@@ -23,6 +23,7 @@ export class PlayComponent implements OnInit {
   timerOn: boolean = false;
   user : User | undefined;
   sudoku : Sudoku | undefined;
+  standing : string | undefined;
 
   ngOnInit(): void {
     this.userDataService.getUser().subscribe(user => this.user = user)
@@ -58,6 +59,10 @@ export class PlayComponent implements OnInit {
     return time;
   }
 
+  pauseGame(){
+    this.toggleTimer()
+  }
+
   toggleTimer() {
     if(this.timerOn){
       clearInterval(this.interval);
@@ -67,7 +72,14 @@ export class PlayComponent implements OnInit {
     }
   }
 
+  receiveStanding(newStanding: string) {
+    this.standing = newStanding
+  }
+
   saveGame(){
-    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!)
+    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!, this.time!, this.standing!)
+  }
+
+  endGame(){
   }
 }
