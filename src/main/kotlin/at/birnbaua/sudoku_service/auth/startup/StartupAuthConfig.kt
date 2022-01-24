@@ -27,6 +27,7 @@ class StartupAuthConfig {
 
     @Scheduled(initialDelay = 500, fixedRate = 1000*60*9999)
     fun startup() {
+        print("Startup Auth Scheduler")
         val modifyPrivilege = Privilege("MODIFY_PRIVILEGE")
         val viewPrivilege = Privilege("VIEW_PRIVILEGE")
         val modifyRolePrivilege = Privilege("MODIFY_USER_ROLE")
@@ -50,7 +51,7 @@ class StartupAuthConfig {
         rs.save(adminRole)
         rs.save(guestRole)
 
-        if(us.existsById("admin")) {
+        if(!us.existsById("admin")) {
             val admin = User()
             admin.username = "admin"
             admin.nickname = "admin"

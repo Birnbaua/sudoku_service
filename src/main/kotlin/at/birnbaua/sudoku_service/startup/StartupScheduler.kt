@@ -97,7 +97,6 @@ class StartupScheduler {
                 "060000280" +
                 "000419005" +
                 "000080079"
-        sudoku.id = 2
         sudoku.desc = "This is a sample sudoku!"
 
         ss.save(sudoku)
