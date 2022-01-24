@@ -1,3 +1,4 @@
+import { GameStatDataService } from './../../core/services/gamestat.data.service';
 import { Router } from '@angular/router';
 import { Sudoku } from './../../core/interfaces/Sudoku';
 import { SudokuDataService } from './../../core/services/sudoku.data.service';
@@ -15,7 +16,8 @@ export class PlayComponent implements OnInit {
   constructor(
     private gameStatsRequestService: GameStatsRequestService,
     private userDataService: UserDataService,
-    private SudokuDataService: SudokuDataService,
+    private sudokuDataService: SudokuDataService,
+    private gameStatDataService: GameStatDataService,
     private router: Router
   ) {   }
 
@@ -26,10 +28,18 @@ export class PlayComponent implements OnInit {
   user : User | undefined;
   sudoku : Sudoku | undefined;
   standing : string | undefined;
+  current : string = "";
 
   ngOnInit(): void {
     this.userDataService.getUser().subscribe(user => this.user = user)
-    this.SudokuDataService.getSudoku().subscribe(sudoku => this.sudoku = sudoku)
+    this.sudokuDataService.getSudoku().subscribe(sudoku => this.sudoku = sudoku)
+    this.gameStatDataService.getGameStat().subscribe( (stat) => {
+      if(stat.currentResult){
+        this.display = stat.duration
+        this.time = this.backTransform(stat.duration)
+        this.current = stat.currentResult
+      }
+    })
     this.startTimer()
   }
 
@@ -59,6 +69,13 @@ export class PlayComponent implements OnInit {
     }
     time = time  + (value - minutes * 60) 
     return time;
+  }
+
+  backTransform(display: string): number{
+    let hours: number = +display.split(":")[0]
+    let mins: number = +display.split(":")[1]
+    let secs: number = +display.split(":")[2]
+    return secs + 60*mins + 3600*hours
   }
 
   pauseGame(){

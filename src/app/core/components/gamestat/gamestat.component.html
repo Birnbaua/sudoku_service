@@ -5,7 +5,7 @@
 <div *ngIf="finished; then historyBlock; else openBlock"></div>
 <ng-template #openBlock>
   <td>
-    <button type="button" class="btn btn-success">Play</button>
+    <button type="button" (click)="resumeSudoku()" class="btn btn-success">Resume</button>
     <button type="button" class="btn btn-danger">Delete</button>
   </td>
 </ng-template>

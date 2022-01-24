@@ -1,3 +1,4 @@
+import { GameStatDataService } from './core/services/gamestat.data.service';
 import { GameStatsRequestService } from './core/services/gamestats.request.service';
 import { ProfileComponent } from './core/components/profile/profile.component';
 import { UserRequestService } from './core/services/user.request.service';
@@ -49,6 +50,7 @@ import { Gamestat } from './core/components/gamestat/gamestat.component';
   providers: [
     SudokuRequestService,
     SudokuDataService,
+    GameStatDataService,
     AuthService,
     AuthGuard,
     UserRequestService,

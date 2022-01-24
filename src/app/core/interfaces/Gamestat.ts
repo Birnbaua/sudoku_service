@@ -7,8 +7,8 @@ export interface GameStat{
     preview : string
     sudoku : Sudoku
     user : User
-    createdAt : Time
-    updatedAt : Time
+    createdAt? : Time
+    updatedAt? : Time
     duration : string
     finished : boolean
 }

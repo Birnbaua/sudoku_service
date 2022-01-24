@@ -12,7 +12,15 @@
           </ng-template>
           <ng-template #playBlock>
             <td *ngIf="startGrid[k + i*9] != '0' " class="cell sud-bold" type="text"> {{currentSud[k + i*9]}}</td>
-            <td *ngIf="startGrid[k + i*9] == '0' " class="cell"> <input id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1"></td>
+            <td *ngIf="startGrid[k + i*9] == '0' " class="cell"> 
+              <div *ngIf="currentSud[k + i*9] != '0'; then isBlock else notBlock"></div>
+              <ng-template #isBlock>
+                <input [(ngModel)]="currentSud[k + i*9]" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
+              </ng-template>
+              <ng-template #notBlock>
+                <input id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
+              </ng-template>
+            </td>
           </ng-template>
         </ng-container>
       </tr>
