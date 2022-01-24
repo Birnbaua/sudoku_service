@@ -50,7 +50,11 @@ open class Sudoku(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "`type`")
-    open var type: SudokuType? = null
+    open var type: SudokuType? = null,
+
+    @Lob
+    @Column(name = "`preview`")
+    open var preview: ByteArray? = null
 
 ) : Ownership() {
 

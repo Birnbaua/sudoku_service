@@ -9,6 +9,7 @@ import at.birnbaua.sudoku_service.jpa.validation.SudokuValidator
 import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
 import at.birnbaua.sudoku_service.jpa.solver.Hint
 import at.birnbaua.sudoku_service.jpa.solver.HintService
+import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

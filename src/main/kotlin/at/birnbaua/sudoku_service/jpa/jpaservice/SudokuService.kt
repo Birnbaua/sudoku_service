@@ -6,6 +6,7 @@ import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.repository.SudokuRepository
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -16,6 +17,9 @@ import java.util.*
 
 @Service
 class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaService<Sudoku, Int>(rep) {
+
+    @Autowired
+    private lateinit var sps: SudokuPreviewService
 
     fun overview(difficulty: Int?, page: Int?, size: Int?) : Page<SudokuInfo> {
         var requestPage: Int? = page
@@ -31,6 +35,31 @@ class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaServi
         } else {
             rep.overview(PageRequest.of(requestPage!!,requestSize!!))
         }
+    }
+
+    override fun saveAll(entities: MutableIterable<Sudoku>) : MutableList<Sudoku> {
+        for(entity in entities) {
+            if(entity.unsolved != null) {
+                entity.preview = sps.toImage(sps.parseThymeleafTemplate(entity.unsolved!!))
+            }
+        }
+        return super.saveAll(entities)
+    }
+
+    override fun saveAllAndFlush(entities: MutableIterable<Sudoku>) : MutableList<Sudoku> {
+        for(entity in entities) {
+            if(entity.unsolved != null) {
+                entity.preview = sps.toImage(sps.parseThymeleafTemplate(entity.unsolved!!))
+            }
+        }
+        return super.saveAllAndFlush(entities)
+    }
+
+    override fun save(entity: Sudoku) : Sudoku {
+        if(entity.unsolved != null) {
+            entity.preview = sps.toImage(sps.parseThymeleafTemplate(entity.unsolved!!))
+        }
+        return super.save(entity)
     }
 
     fun findByIdGetInfo(id: Int) : Optional<SudokuGetInfo> {

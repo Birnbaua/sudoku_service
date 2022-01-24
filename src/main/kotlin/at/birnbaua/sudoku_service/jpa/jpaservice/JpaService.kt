@@ -10,11 +10,11 @@ import java.util.*
 @Suppress("unused")
 abstract class JpaService<T: Any,ID: Any> (private val repository: JpaRepository<T, ID>) {
 
-    fun save(entity: T): T {
+    open fun save(entity: T): T {
         return repository.save(entity)
     }
 
-    fun saveAll(entities: MutableIterable<T>): MutableList<T> {
+    open fun saveAll(entities: MutableIterable<T>): MutableList<T> {
         return repository.saveAll(entities)
     }
 
@@ -98,7 +98,7 @@ abstract class JpaService<T: Any,ID: Any> (private val repository: JpaRepository
         return repository.saveAndFlush(entity)
     }
 
-    fun saveAllAndFlush(entities: MutableIterable<T>): MutableList<T> {
+    open fun saveAllAndFlush(entities: MutableIterable<T>): MutableList<T> {
         return repository.saveAllAndFlush(entities)
     }
 

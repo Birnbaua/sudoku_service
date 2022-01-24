@@ -1,5 +1,6 @@
 package at.birnbaua.sudoku_service.startup
 
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
@@ -98,6 +99,7 @@ class StartupScheduler {
                 "000419005" +
                 "000080079"
         sudoku.desc = "This is a sample sudoku!"
+        sudoku.owner = User("admin")
 
         ss.save(sudoku)
 
