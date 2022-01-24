@@ -32,13 +32,13 @@ class HintService {
         return Hint(
             (no/9).toByte(),
             (no%9).toByte(),
-            solver.solveNormal(id,sudoku)[arr[no]].code.toByte()
+            solver.solveNormal(id,sudoku)[arr[no]].toByte()
         )
     }
 
     private fun emptyCellArray(sudoku: String) : List<Int> {
         return sudoku.mapIndexed { index, c ->
-            if(c.code.toByte() == empty) {
+            if(c.toByte() == empty) {
                 index
             } else {
                 -1
@@ -51,7 +51,7 @@ class HintService {
      */
     private fun compareUnsolvedAndSolvedSudoku(unsolved: String, solved: String) : Boolean {
         return unsolved.filterIndexed{ index, c ->
-            if(c.code.toByte() == empty) {
+            if(c.toByte() == empty) {
                 true
             } else {
                 c == solved[index]
