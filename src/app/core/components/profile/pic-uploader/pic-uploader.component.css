@@ -9,13 +9,10 @@ ngx-dropzone,
 
 .custom-dropzone {
   height: 100px;
-  background: #333;
-  color: #fff;
-  border: 5px dashed rgb(235, 79, 79);
+  width: 100px;
+  background: rgb(255, 255, 255);
+  color: rgb(131, 131, 131);
+  border: 2px dashed rgb(218, 218, 218);
   border-radius: 5px;
-  font-size: 20px;
-}
-
-.custom-dropzone.ngx-dz-hovered {
-  border: 10px solid rgb(235, 79, 79);
+  font-size: 10px;
 }
