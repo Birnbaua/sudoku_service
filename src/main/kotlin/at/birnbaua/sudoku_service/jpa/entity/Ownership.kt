@@ -6,6 +6,11 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.MappedSuperclass
 
+/**
+ * Superclass for entities where a owner is needed.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @MappedSuperclass
 abstract class Ownership(
 

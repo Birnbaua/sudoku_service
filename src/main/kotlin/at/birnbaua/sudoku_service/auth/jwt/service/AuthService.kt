@@ -10,19 +10,30 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.RequestMapping
 import java.util.*
 
+/**
+ * This service handles the generation and refreshing of JWTs.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Service
 @Suppress("unused")
 @EnableConfigurationProperties(JwtProperties::class)
 class AuthService {
 
     @Autowired
-    lateinit var us: UserService
+    private lateinit var us: UserService
 
     @Autowired
-    lateinit var ts: TokenService
+    private lateinit var ts: TokenService
 
+    /**
+     * @return a valid JWT
+     * @since 1.0
+     * @throws [UserNotFoundException]
+     */
     fun genToken(username: String, password: String = "") : JWTToken {
         val user = us.findUserByUsername(username)
         if(BCryptPasswordEncoder().matches(password.subSequence(0,password.length),user.password)) {
@@ -31,6 +42,12 @@ class AuthService {
         throw UserNotFoundException("No user with username: <$username> present")
     }
 
+    /**
+     * @return a valid JWT
+     * @since 1.0
+     * @throws [TokenTimeoutException]
+     * @param token a JWT
+     */
     fun refresh(token: String) : JWTToken {
         if(ts.getExpiryDateFromToken(token) < Date()) {
             return genToken(ts.getUsernameFromToken(token))

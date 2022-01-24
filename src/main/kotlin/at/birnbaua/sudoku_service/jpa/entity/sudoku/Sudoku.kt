@@ -6,6 +6,11 @@ import org.slf4j.LoggerFactory
 import javax.persistence.*
 import javax.validation.constraints.Size
 
+/**
+ * Entity for storing a sudoku and all additional information with reference to other entities like [Difficulty]
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Entity
 @Table(name = "`sudoku`")
 open class Sudoku(
@@ -26,6 +31,9 @@ open class Sudoku(
     @Column(name = "`desc`")
     open var desc: String? = null,
 
+    /**
+     * Not used but the idea is that we can use this for weird substructures in different sudoku types.
+     */
     @Size(min = 81, max = 81)
     @Column(name = "`grouping`", length = 81, nullable = false)
     open var grouping: String? = "111222333" +

@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.CachePut
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 @Suppress("unused")
@@ -43,6 +44,13 @@ class UserService {
         } catch(e: Exception) {
             throw UserNotFoundException(username)
         }
+    }
+
+    fun updateProfilePicture(username: String, image: MultipartFile) : PrivateUserInfo {
+        val user = ur.findUserByUsername(username).orElseThrow { UserNotFoundException(username) }
+        user.profilePicture = image.bytes
+        ur.save(user)
+        return findPrivateUserInfoById(username)
     }
 
     fun findPrivateUserInfoById(username: String) : PrivateUserInfo {

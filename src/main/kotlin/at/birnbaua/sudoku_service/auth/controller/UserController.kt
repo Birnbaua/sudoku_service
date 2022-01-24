@@ -10,9 +10,16 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.net.URI
 import javax.validation.Valid
 
+/**
+ * This controller is responsible for all user data interaction.
+ * The [RequestMapping] is /user
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/user")
@@ -30,7 +37,8 @@ class UserController {
     }
 
     /**
-     * Returns the info of the currently authenticated user
+     * @return The private info of the currently authenticated user
+     * @since 1.0
      */
     @PreAuthorize("isAuthenticated()")
     @GetMapping
@@ -38,6 +46,11 @@ class UserController {
         return ResponseEntity.ok(us.findPrivateUserInfoById(auth.name))
     }
 
+    /**
+     * @return The info of the requested user
+     * @since 1.0
+     * @param username The username of the requested user
+     */
     @GetMapping("/{username}")
     fun get(@PathVariable username: String, auth: Authentication) : ResponseEntity<UserInfo> {
         return ResponseEntity.ok(
@@ -49,6 +62,12 @@ class UserController {
         )
     }
 
+    /**
+     * @return Saves the updated infos about the user
+     * @since 1.0
+     * @param username The username of the modified user
+     * @param user An instance of class [User] with the filled fields which should be updated
+     */
     @PreAuthorize("isAuthenticated() AND (#username==#auth.name OR hasRole('ROLE_ADMIN'))")
     @PutMapping("/{username}")
     fun put(@RequestBody user: User, @PathVariable username: String, auth: Authentication) : ResponseEntity<PrivateUserInfo> {
@@ -56,10 +75,27 @@ class UserController {
         return ResponseEntity.ok(us.findPrivateUserInfoById(us.update(user).username!!))
     }
 
+    /**
+     * @return nothing.
+     * @since 1.0
+     * @param username The username of the requested user to be deleted
+     */
     @PreAuthorize("isAuthenticated() AND (#username==#auth.name OR hasRole('ROLE_ADMIN'))")
     @DeleteMapping("/{username}")
     fun delete(@PathVariable username: String, auth: Authentication) : ResponseEntity<Any> {
         us.deleteById(username)
         return ResponseEntity.ok().build()
+    }
+
+    /**
+     * @return Saves the profile picture to the user
+     * @since 1.0
+     * @param username The username of the modified user's profile picture
+     * @param image A file of class [MultipartFile] which should be set as the new profile picture
+     */
+    @PreAuthorize("isAuthenticated() AND (#username==#auth.name OR hasRole('ROLE_ADMIN'))")
+    @PostMapping("/{username}/picture")
+    fun  uploadProfilePicture(@PathVariable username: String, @RequestParam image: MultipartFile) : ResponseEntity<PrivateUserInfo> {
+        return ResponseEntity.ok(us.updateProfilePicture(username,image))
     }
 }

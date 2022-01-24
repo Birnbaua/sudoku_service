@@ -1,5 +1,6 @@
 package at.birnbaua.sudoku_service.auth.user.jpa.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
@@ -32,11 +33,15 @@ open class User(
     @Column(name = "`last_name`")
     open var lastName: String? = null,
 
+    @Lob
+    @Column(name = "`profile_picture`")
+    open var profilePicture: ByteArray? = null,
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = [JoinColumn(name = "user", referencedColumnName = "username")], inverseJoinColumns = [JoinColumn(name = "role", referencedColumnName = "name")])
     open var roles: MutableSet<Role> = mutableSetOf()
 ) {
-    constructor(user: User) : this(user.username,user.nickname,user.password,user.email,user.firstName,user.lastName,user.roles)
+    constructor(user: User) : this(user.username,user.nickname,user.password,user.email,user.firstName,user.lastName,user.profilePicture,user.roles)
 
     @PrePersist
     private fun initSave() {

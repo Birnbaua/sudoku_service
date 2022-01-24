@@ -6,6 +6,11 @@ import java.sql.Timestamp
 import javax.persistence.Column
 import javax.persistence.MappedSuperclass
 
+/**
+ * Superclass for entities where time logging is wanted.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @MappedSuperclass
 abstract class AbstractEntity(
 

@@ -11,6 +11,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
 import java.io.Serializable
 
+//TODO Test and complete hasPermission() method.
+/**
+ * This is a custom permission evaluator for evaluating permissions of users used in the Pre and Post Authorize Annotations.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Component
 class CustomPermissionEvaluator : PermissionEvaluator {
 

@@ -3,50 +3,60 @@ package at.birnbaua.sudoku_service.jpa.generator
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
-import at.birnbaua.sudoku_service.jpa.entity.sudoku.validation.SudokuValidation
-import at.birnbaua.sudoku_service.jpa.solver.Solver
+import at.birnbaua.sudoku_service.jpa.solver.SudokuSolver
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import kotlin.random.Random
 
+/**
+ * This class is there for generating sudokus automatically.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Component
 class SudokuGenerator {
 
-    @Autowired
-    private lateinit var solver: Solver
-
-    private val normalSize = 3
+    private val normalSize = 5
     private val numbers = listOf<Byte>(1,2,3,4,5,6,7,8,9)
 
+    /**
+     * Generate a classic Sudoku with given difficulty constrains
+     * @return A generated sudoku
+     * @since 1.0
+     * @param seed Seed for random numbers generator
+     * @param difficulty Needed for constraints, how many starting numbers should be present
+     */
     fun genRandomSudoku(seed: Long, difficulty: Difficulty) : String {
         val sudoku = Array(9) { ByteArray(9) }
         gen(sudoku)
         val random = Random(seed)
         val solved = sudoku.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","").toCharArray()
-        for(i in 0..40) {
+        val reduce = difficulty.max!! - random.nextInt(difficulty.max!! - difficulty.min!!)
+        for(i in 0..reduce) {
             solved[random.nextInt(81)] = '0'
         }
         return solved.concatToString()
     }
 
-    fun genRandomSudokuWithDiagonalApproach(seed: Long, difficulty: Difficulty) : String {
-        var independentSubSections = listOf(Pair(0,0),Pair(0,2),Pair(1,1),Pair(2,0),Pair(2,2))
-        return ""
-    }
-
-    private fun gen(solve: Array<ByteArray>) : Boolean {
+    /**
+     * Helper method for filling sudoku with backtracking approach like in the [SudokuSolver]
+     * @return A generated sudoku
+     * @since 1.0
+     * @param sudoku The 2D array for filling in the sudoku
+     */
+    private fun gen(sudoku: Array<ByteArray>) : Boolean {
         for (row in 0..8) {
             for (column in 0..8) {
-                if(solve[row][column] == 0.toByte()) {
+                if(sudoku[row][column] == 0.toByte()) {
                     val numbers = mutableListOf<Byte>(1,2,3,4,5,6,7,8,9).shuffled()
                     for (i in numbers) {
-                        solve[row][column] = i
-                        if(Solver.isCellValid(solve, row, column)) {
-                            if(gen(solve)) {
+                        sudoku[row][column] = i
+                        if(SudokuSolver.isCellValid(sudoku, row, column)) {
+                            if(gen(sudoku)) {
                                 return true
                             }
                         }
-                        solve[row][column] = 0.toByte()
+                        sudoku[row][column] = 0.toByte()
                     }
                     return false
                 }
@@ -55,10 +65,10 @@ class SudokuGenerator {
         return true
     }
 
-
-    /*
-    not working
+    /**
+     * Second try of sudoku generator
      */
+    @Deprecated("generates invalid sudokus")
     fun genRandomSudokuString(seed: Long, difficulty: Difficulty) : String {
         val sudoku = Array(9) { ByteArray(9) }
         val random = Random(seed)
@@ -73,11 +83,15 @@ class SudokuGenerator {
                     break
                 }
                 sudoku[i/9][i%9] = possibleNumbers.removeAt(random.nextInt(possibleNumbers.size))
-            } while (!Solver.isCellValid(sudoku,i/9,i%9))
+            } while (!SudokuSolver.isCellValid(sudoku,i/9,i%9))
         }
         return sudoku.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","")
     }
 
+    /**
+     * First try of generating sudoku
+     */
+    @Deprecated("Runs extremely long")
     fun genRandomSudokuStringExhaustive(seed: Long, difficulty: Difficulty) : String {
         val random = Random(seed)
         val sudoku = Array(9) { ByteArray(9) }
@@ -97,15 +111,11 @@ class SudokuGenerator {
             column = emptyCells[index]%9
             do {
                 sudoku[row][column] = possibleNumbers.removeAt(random.nextInt(possibleNumbers.size))
-            } while (!Solver.isSolvable(sudoku))
+            } while (!SudokuSolver.isSolvable(sudoku))
             emptyCells.removeAt(index)
             number = number.inc()
         } while (number < normalSize)
         return sudoku.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","")
-    }
-
-    fun genRandomSudoku(sudoku: String, difficulty: Difficulty) : Sudoku {
-        return Sudoku(null,difficulty,null,sudoku,"",SudokuType.NORMAL)
     }
 
 }

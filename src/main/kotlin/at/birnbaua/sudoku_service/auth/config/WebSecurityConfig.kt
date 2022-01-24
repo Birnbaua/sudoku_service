@@ -17,33 +17,55 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
-
+/**
+ * HTTP-Security configuration class. Pre- and Post-authorization is enabled because we decided to do the API-Securing on method level in the different
+ * controllers and not in this class.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
-    lateinit var userDetailsService: CustomUserDetailsService
+    private lateinit var userDetailsService: CustomUserDetailsService
 
     @Autowired
-    lateinit var unauthorizedHandler: JwtAuthEntryPoint
+    private lateinit var unauthorizedHandler: JwtAuthEntryPoint
 
     @Autowired
-    lateinit var authTokenFilter: JwtAuthTokenFilter
+    private lateinit var authTokenFilter: JwtAuthTokenFilter
 
+    /**
+     * Telling the authentication manager builder that we want to use the [BCryptPasswordEncoder] as our password encoder/decoder.
+     * @since 1.0
+     * @throws Exception
+     */
     @Throws(Exception::class)
     override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
         authenticationManagerBuilder.userDetailsService<UserDetailsService?>(userDetailsService)
             .passwordEncoder(BCryptPasswordEncoder(8))
     }
 
+    /**
+     * Creating the authentication manager bean for spring security
+     * @since 1.0
+     * @throws Exception
+     */
     @Bean
     @Throws(Exception::class)
     override fun authenticationManagerBean(): AuthenticationManager? {
         return super.authenticationManagerBean()
     }
 
+    /**
+     * Configuring our general security method. We've disabled cors and crsf for all API-endpoints, defined the sessionManagement as Stateless (Do not exactly know if this is necessary when using JWT).
+     * We also defined that all endpoints are accessible by everybody until further notice. (-> in the RestController)
+     * To finish, we added our [JwtAuthTokenFilter] to the filterchain.
+     * @since 1.0
+     * @throws Exception
+     */
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable()

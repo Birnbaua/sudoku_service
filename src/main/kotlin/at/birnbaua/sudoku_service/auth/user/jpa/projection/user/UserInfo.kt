@@ -5,4 +5,5 @@ interface UserInfo {
     val firstName: String?
     val lastName: String?
     val nickname: String?
+    val profilePicture: ByteArray?
 }

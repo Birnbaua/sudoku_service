@@ -15,7 +15,7 @@ class HintService {
     private val random = Random(System.currentTimeMillis())
 
     @Autowired
-    private lateinit var solver: Solver
+    private lateinit var solver: SudokuSolver
 
     @Autowired
     private lateinit var ss: SudokuService

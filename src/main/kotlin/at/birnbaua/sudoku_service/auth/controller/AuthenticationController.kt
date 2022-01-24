@@ -11,6 +11,12 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
+/**
+ * This controller is responsible for the JWT generation and the refresh
+ * The [RequestMapping] is /auth
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/auth")
@@ -18,16 +24,27 @@ import javax.servlet.http.HttpServletRequest
 class AuthenticationController {
 
     @Autowired
-    lateinit var authService: AuthService
+    private lateinit var authService: AuthService
 
     @Autowired
-    lateinit var jwtProperties: JwtProperties
+    private lateinit var jwtProperties: JwtProperties
 
+    /**
+     * @return a valid JWT
+     * @since 1.0
+     * @throws [at.birnbaua.sudoku_service.auth.exception.UserNotFoundException]
+     */
     @PostMapping("/authenticate")
     fun getToken(@RequestBody request: AuthRequest) : ResponseEntity<JWTToken> {
         return ResponseEntity.ok(authService.genToken(request.username,request.password))
     }
 
+    /**
+     * Refresh a JWT token with an existing, valid JWT token
+     * @return a valid JWT
+     * @since 1.0
+     * @throws [at.birnbaua.sudoku_service.auth.exception.TokenTimeoutException]
+     */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/refresh")
     fun getToken(request: HttpServletRequest, @RequestBody token: JWTToken) : ResponseEntity<JWTToken> {

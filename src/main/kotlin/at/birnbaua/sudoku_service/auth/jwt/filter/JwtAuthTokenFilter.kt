@@ -15,19 +15,30 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * Request filter for all requests.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Component
 @EnableConfigurationProperties(JwtProperties::class)
 class JwtAuthTokenFilter : OncePerRequestFilter() {
 
     @Autowired
-    lateinit var tokenService: TokenService
+    private lateinit var tokenService: TokenService
 
     @Autowired
-    lateinit var userDetailsService: CustomUserDetailsService
+    private lateinit var userDetailsService: CustomUserDetailsService
 
     @Autowired
-    lateinit var jwtProperties: JwtProperties
+    private lateinit var jwtProperties: JwtProperties
 
+    /**
+     * If a token is present, it validates the token and puts an authentication object into the [SecurityContextHolder]
+     * If no token is present, the filter will put the request/response without any work to the filterchain.
+     * @since 1.0
+     * @author Andreas Bachl
+     */
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,

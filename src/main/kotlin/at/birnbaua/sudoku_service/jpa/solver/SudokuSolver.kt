@@ -1,13 +1,24 @@
 package at.birnbaua.sudoku_service.jpa.solver
 
 import at.birnbaua.sudoku_service.exception.NoValidSolutionException
-import at.birnbaua.sudoku_service.jpa.entity.sudoku.validation.SudokuValidation
+import at.birnbaua.sudoku_service.jpa.validation.SudokuValidator
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
+/**
+ * This class is there for solving incomplete sudokus automatically.
+ * @since 1.0
+ * @author Andreas Bachl
+ */
 @Service
-class Solver {
+class SudokuSolver {
 
+    /**
+     * @return The solved sudoku.
+     * @since 1.0
+     * @param id Id of the sudoku (important for caching)
+     * @param sudoku The incomplete Sudoku which should be solved
+     */
     @Cacheable("solved")
     fun solveNormal(id: Int, sudoku: String) : String {
         return Companion.solveNormal(sudoku)
@@ -16,14 +27,34 @@ class Solver {
     companion object {
 
         private val empty = "0".toByte()
+        private val validator = SudokuValidator()
 
+        /**
+         * @return true if there is one (or more) solutions for the given (incomplete) sudoku
+         * @since 1.0
+         * @param solve Sudoku which should be checked
+         */
         fun isSolvable(solve: Array<ByteArray>) : Boolean {
             val clonedSudoku = Array(9) { ByteArray(9) }
             solve.forEachIndexed { index, bytes ->  bytes.forEachIndexed{ index1, byte -> clonedSudoku[index][index1] = byte }}
             return solve(clonedSudoku)
         }
 
-        fun solveNormal(solve: Array<ByteArray>) : String {
+        /**
+         * @return true if there is one (or more) solutions for the given (incomplete) sudoku
+         * @since 1.0
+         * @param solve Sudoku which should be checked
+         */
+        fun solveNormal(solve: String) : String {
+            SudokuValidator.validateUnfinishedStructure(solve)
+            val arr = SudokuValidator.to2DArray(solve)
+            return solveNormal(arr)
+        }
+
+        /**
+         * Helper function for formatting output
+         */
+        private fun solveNormal(solve: Array<ByteArray>) : String {
             if(solve(solve)) {
                 return solve.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","")
             } else {
@@ -31,12 +62,12 @@ class Solver {
             }
         }
 
-        fun solveNormal(solve: String) : String {
-            SudokuValidation.validateUnfinishedStructure(solve)
-            val arr = SudokuValidation.to2DArray(solve)
-            return solveNormal(arr)
-        }
-
+        /**
+         * Backtracking method for solving a given incomplete sudoku
+         * @return true if solving was successfully (or if sudoku was already finished)
+         * @since 1.0
+         * @param solve Sudoku which should be solved
+         */
         private fun solve(solve: Array<ByteArray>) : Boolean {
             for (row in 0..8) {
                 for (column in 0..8) {
@@ -57,37 +88,28 @@ class Solver {
             return true
         }
 
+        /**
+         * Checks if for a specific cell: Row, Column and Substructure constraint is fulfilled.
+         * @return Boolean if valid
+         * @since 1.0
+         * @param sudoku 2D representation of sudoku
+         * @param row Row no of cell. Starting with 0
+         * @param row Column no of cell. Starting with 0
+         */
         fun isCellValid(sudoku: Array<ByteArray>, row: Int, column: Int) : Boolean {
             return incompleteRowValid(sudoku, row) && incompleteColumnValid(sudoku, column) && incompleteSubsectionValid(sudoku,row/3,column/3)
         }
 
         fun incompleteSubsectionValid(sudoku: Array<ByteArray>, cellRow: Int, cellColumn: Int) : Boolean {
-            var emptyCells = 0
-            val arr = sudoku.filterIndexed{ index, x -> index/3 == cellRow}.map { x ->
-                x.copyOfRange(cellColumn*3,cellColumn*3+3)
-            }.flatMap { x -> x.asList()
-            }.toByteArray()
-            arr.forEach {x -> if(x==empty) {emptyCells = emptyCells.inc()}}
-            if(emptyCells != 0) {
-                return arr.distinct().size == 9-emptyCells+1
-            }
-            return arr.distinct().size == 9
+            return validator.validateIncompleteSubstructure(sudoku,cellRow,cellColumn)
         }
 
         fun incompleteRowValid(sudoku: Array<ByteArray>, row: Int) : Boolean {
-            val emptyCells = sudoku[row].filter { x -> x == empty }.size
-            if(emptyCells != 0) {
-                return sudoku[row].distinct().size == 9-emptyCells+1
-            }
-            return sudoku[row].distinct().size == 9
+            return validator.validateIncompleteRow(sudoku,row)
         }
 
         fun incompleteColumnValid(sudoku: Array<ByteArray>, column: Int) : Boolean {
-            val emtpyCells = sudoku.map { x -> x[column] }.filter { x -> x == empty }.size
-            if(emtpyCells != 0) {
-                return sudoku.map { x -> x[column] }.distinct().size == 9-emtpyCells+1
-            }
-            return sudoku.map { x -> x[column] }.distinct().size == 9
+            return validator.validateIncompleteColumn(sudoku,column)
         }
 
         fun printSudoku(sudoku: Array<ByteArray>) {

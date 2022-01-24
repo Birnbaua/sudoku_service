@@ -8,8 +8,6 @@ import java.sql.Timestamp
 interface GameStatsInfo {
     val createdAt: Timestamp?
     val currentResult: String?
-    val duration: Time?
-    val isFinished: Boolean?
     val preview: ByteArray?
     val updatedAt: Timestamp?
     val sudoku: SudokuInfo?
