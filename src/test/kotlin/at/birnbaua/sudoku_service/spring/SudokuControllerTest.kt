@@ -87,8 +87,32 @@ class SudokuControllerTest {
             .andExpect(status().isOk)
             .andExpect(jsonPath<Sudoku>("id", `is`("$id".toInt())))
             .andExpect(jsonPath<Sudoku>("unsolved", `is` (sudoku.unsolved)))
+    }
 
+    @Test
+    @WithUserDetails("Birnbaua")
+    fun saveNewSudokuFail() {
 
+        var sudoku = Sudoku()
+        sudoku.type = SudokuType.NORMAL
+        sudoku.desc = "Testdesc"
+        sudoku.difficulty = Difficulty(1)
+        sudoku.unsolved = "509000400" +
+                "708304900" +
+                "601000730" +
+                "462500000" +
+                "385720649" +
+                "107408200" +
+                "200100004" +
+                "003040087" +
+                "070053006"
+        var id: Int = -1
+        mvc.perform(post("/sudoku").content(ObjectMapper().writeValueAsString(sudoku))
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isCreated)
+            .andDo { x ->
+                id = JsonPath.read<Int>(x.response.contentAsString, "id")
+            }
     }
 
 }

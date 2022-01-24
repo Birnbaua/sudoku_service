@@ -18,6 +18,7 @@ interface GameStatsInfo {
     interface SudokuInfo {
         val id: Int?
         val difficulty: Difficulty?
+        val desc: String?
         val type: SudokuType?
     }
 
