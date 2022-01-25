@@ -50,7 +50,7 @@ export class Gamestat implements OnInit{
     }
 
     deleteStat(){
-        this.gameStatRequestService.deleteGamestat(this.stat!.sudoku ,this.stat!.user).subscribe(x => console.log(x))
+        this.gameStatRequestService.deleteGamestat(this.stat!.sudoku ,this.stat!.user).subscribe(x => window.location.reload())
     }
 
     getImage(arr : any){

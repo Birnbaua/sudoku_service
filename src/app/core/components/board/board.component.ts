@@ -23,6 +23,8 @@ export class BoardComponent implements OnInit {
   startGrid: string[] = [];
   currentSud: string[] = [];
 
+  diagonals: number[] = [0,8,10,16,20,24,30,32,40,40,50,48,60,56,70,64,72,80]
+
   ngOnInit() {
     this.sudokuDataService.getSudoku().subscribe((sudoku: Sudoku) => {
       this.sudoku = sudoku;
@@ -46,5 +48,15 @@ export class BoardComponent implements OnInit {
     let val = event.target.value;
     this.currentSud[id] = val;
     this.sudokuOutput.emit(this.currentSud.join(''));
+  }
+
+  isDiag(pos: number): boolean{
+    if(this.sudoku.type != "DIAGONAL"){
+      return false
+    }
+    if(this.diagonals.lastIndexOf(pos) !=  -1){
+      return true
+    }
+    return false
   }
 }

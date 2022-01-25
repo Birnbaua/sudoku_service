@@ -22,6 +22,7 @@ import { GameStat } from 'src/app/core/interfaces/Gamestat';
     user: User | undefined;
     statArray: GameStat[] | undefined;
     title = 'Sudoku';
+
     
     ngOnInit(): void {
       this.userDataService.getUser().subscribe((user) => {
@@ -32,5 +33,7 @@ import { GameStat } from 'src/app/core/interfaces/Gamestat';
         })
       })
     }
+
+    
   }
   

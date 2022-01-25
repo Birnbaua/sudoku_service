@@ -37,3 +37,7 @@ input:hover {
 .sud-bold {
 	font-weight: bold;
 }
+
+.diag-cell {
+	background-color: grey;
+}

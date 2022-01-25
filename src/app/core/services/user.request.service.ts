@@ -21,5 +21,17 @@ export class UserRequestService {
         }
         return this.http.get<User>(this.userUrl,httpOptions)
     }
-    
+
+    createUser(username: string, password: string, mail: string, firstname: string | undefined, lastname: string | undefined){
+        let url = this.userUrl
+        const jsonBody = {
+            username: username,
+            nickname: username,
+            password: password,
+            email: mail,
+            firstName: firstname,
+            lastName: lastname
+        }
+        return this.http.post<User>(url,jsonBody)
+    }
 }

@@ -30,15 +30,25 @@ export class SudokuRequestService{
 
     getSudokuIdsBySettings(diff : string | undefined, mode : string){
         let url : string = this.url
+        let first = true
         if(diff != ''){
             diff = this.difficultyMap.get(diff!)
             url = url + "?difficulty="+ diff
+            first = false
+        }
+        if(mode != ''){
+            if(first){
+                url = url + "?type="+ mode.toUpperCase()
+            }else{
+                url = url + "&type="+ mode.toUpperCase()
+            }
+            
         }
         console.log(url)
         return this.http.get<SudokuWrapper>(url);
     }
 
-    validateSudoku(id: number, current: string){
+    validateSudoku(id: number, current: string, type: string){
         let token = localStorage.getItem('token')
         const httpOptions = {
             headers: new HttpHeaders({
@@ -46,7 +56,7 @@ export class SudokuRequestService{
             })
         }
         let url : string = this.url
-        url = url + id + "/" + "validate" + "/?solved=" + current
+        url = url + id + "/" + "validate" + "/?solved=" + current + "&type=" + type.toUpperCase()
         return this.http.get<any>(url,httpOptions)
     }
     
