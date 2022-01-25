@@ -24,6 +24,8 @@ import {DigitOnlyDirective} from './core/components/board/digit-only.directive';
 import { PicUploaderComponent } from './core/components/profile/pic-uploader/pic-uploader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Gamestat } from './core/components/gamestat/gamestat.component';
+import {MatDividerModule} from '@angular/material/divider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { Gamestat } from './core/components/gamestat/gamestat.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    BrowserAnimationsModule,
+    MatDividerModule
   ],
   providers: [
     SudokuRequestService,

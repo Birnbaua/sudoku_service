@@ -4,7 +4,7 @@
       Drop your Avatar
     </div>
   </ngx-dropzone-label>
-  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+  <ngx-dropzone-image-preview class="custom-dropzone-preview" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" multiple=false [removable]="false" (removed)="onRemove(f)">
     <!--ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label-->
   </ngx-dropzone-image-preview>
 </div>
