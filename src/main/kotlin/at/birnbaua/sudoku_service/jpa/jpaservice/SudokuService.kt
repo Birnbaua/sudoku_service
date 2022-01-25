@@ -6,6 +6,7 @@ import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.repository.SudokuRepository
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import at.birnbaua.sudoku_service.thymeleaf.SudokuPreviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -53,6 +54,10 @@ class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaServi
             }
         }
         return super.saveAllAndFlush(entities)
+    }
+
+    fun findAllByType(type: SudokuType, page: Int = 0, size: Int = 10) : Page<Sudoku> {
+        return rep.findAllByType(type,PageRequest.of(page,size))
     }
 
     override fun save(entity: Sudoku) : Sudoku {

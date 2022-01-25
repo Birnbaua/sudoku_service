@@ -77,9 +77,6 @@ class SudokuValidator {
      * @param type The [SudokuType] of the sudoku (important for checking different constraints!)
      */
     fun validate(id: Int, check: String, type: SudokuType = SudokuType.NORMAL) : Boolean {
-        if(validateFinishedStructure(check)) {
-            return false
-        }
 
         //check other constraints
         return when(type) {
@@ -146,18 +143,19 @@ class SudokuValidator {
     }
 
     fun validateRow(sudoku: Array<ByteArray>, row: Int) : Boolean {
-        return sudoku[row].distinct().size == 9
+        return sudoku[row].distinct().size == 9 && sudoku[row].contains(0).not()
     }
 
     fun validateColumn(sudoku: Array<ByteArray>, column: Int) : Boolean {
-        return sudoku.map { x -> x[column] }.distinct().size == 9
+        return sudoku.map { x -> x[column] }.distinct().size == 9 && sudoku[column].contains(0).not()
     }
 
     fun validateSubstructure(sudoku: Array<ByteArray>, cellRow: Int, cellColumn: Int) : Boolean {
-        return sudoku.filterIndexed{ index, x -> index/3 == cellRow}.map { x ->
+        val str = sudoku.filterIndexed{ index, x -> index/3 == cellRow}.map { x ->
             x.copyOfRange(cellColumn*3,cellColumn*3+3)
         }.flatMap { x -> x.asList()
-        }.toByteArray().distinct().size == 9
+        }.toByteArray().distinct()
+        return str.size == 9  && str.contains(0).not()
     }
 
     fun validateIncompleteSubstructure(sudoku: Array<ByteArray>, subsectionRow: Int, subsectionColumn: Int) : Boolean {
@@ -217,6 +215,11 @@ class SudokuValidator {
                 return false
             }
         }
+        log.debug("Compare First: ${compareFirst(sudokus[0],sudokus[2])}")
+        log.debug("Compare Second: ${compareSecond(sudokus[1],sudokus[2])}")
+        log.debug("Compare Fourth: ${compareFourth(sudokus[3],sudokus[2])}")
+        log.debug("Compare Fifth: ${compareFifth(sudokus[4],sudokus[2])}")
+
         return compareFirst(sudokus[0],sudokus[2]) && compareSecond(sudokus[1],sudokus[2]) && compareFourth(sudokus[3],sudokus[2]) && compareFifth(sudokus[4],sudokus[2])
     }
 
@@ -264,15 +267,15 @@ class SudokuValidator {
 
     private fun compareFifth(fifth: Array<ByteArray>, third: Array<ByteArray>) : Boolean {
         return (
-            fifth[0][0] == third[6][0] &&
-            fifth[0][1] == third[6][1] &&
-            fifth[0][2] == third[6][2] &&
-            fifth[1][0] == third[7][0] &&
-            fifth[1][1] == third[7][1] &&
-            fifth[1][2] == third[7][2] &&
-            fifth[2][0] == third[8][0] &&
-            fifth[2][1] == third[8][1] &&
-            fifth[2][2] == third[8][2]
+            fifth[0][0] == third[6][6] &&
+            fifth[0][1] == third[6][7] &&
+            fifth[0][2] == third[6][8] &&
+            fifth[1][0] == third[7][6] &&
+            fifth[1][1] == third[7][7] &&
+            fifth[1][2] == third[7][8] &&
+            fifth[2][0] == third[8][6] &&
+            fifth[2][1] == third[8][7] &&
+            fifth[2][2] == third[8][8]
         )
     }
 }

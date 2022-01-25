@@ -74,12 +74,15 @@ class SudokuController {
      * @param solvedParam Query parameter for transmitting the sudoku which should be validated. Use like following: ?solved=...
      */
     @GetMapping("/{id}/validate")
-    fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved") solvedParam: String?) : ResponseEntity<Boolean> {
-        return if(solvedParam != null) {
+    fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved", defaultValue = "") solvedParam: String?) : ResponseEntity<Boolean> {
+        return if(solvedParam != null && solvedParam.isNotEmpty()) {
+            log.debug("Sudoku with solution: $solvedParam")
             ResponseEntity.ok(sv.validate(id,solvedParam,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
         } else if(solved != null) {
+            log.debug("Input in request body!")
             ResponseEntity.ok(sv.validate(id,solved,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
         } else {
+            log.debug("No input received!")
             ResponseEntity.ok(false)
         }
     }

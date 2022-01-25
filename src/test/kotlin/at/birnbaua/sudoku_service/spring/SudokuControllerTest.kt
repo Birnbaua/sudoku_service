@@ -162,8 +162,8 @@ class SudokuControllerTest {
 
     @Test
     fun testValidate() {
-        val sudoku = ss.findAll()[ss.findAll().size-1]
-        mvc.perform(get("/sudoku/${sudoku.id}?solved=${SudokuSolver.solveNormal(sudoku.unsolved!!)}")
+        val sudoku = ss.findAllByType(SudokuType.NORMAL).content[ss.findAllByType(SudokuType.NORMAL).size-1]
+        mvc.perform(get("/sudoku/${sudoku.id}/validate?solved=${SudokuSolver.solveNormal(sudoku.unsolved!!)}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(jsonPath<Boolean>("\$",`is`(true)))
@@ -171,8 +171,8 @@ class SudokuControllerTest {
 
     @Test
     fun testValidateIncomplete() {
-        val sudoku = ss.findAll()[ss.findAll().size-1]
-        mvc.perform(get("/sudoku/${sudoku.id}?solved=${sudoku.unsolved!!}")
+        val sudoku = ss.findAllByType(SudokuType.NORMAL).content[ss.findAllByType(SudokuType.NORMAL).size-1]
+        mvc.perform(get("/sudoku/${sudoku.id}/validate?solved=${sudoku.unsolved!!}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(jsonPath<Boolean>("\$",`is`(false)))

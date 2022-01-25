@@ -5,6 +5,7 @@ import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
@@ -27,4 +28,6 @@ interface SudokuRepository : JpaRepository<Sudoku, Int> {
     fun findSudokusByDifficulty(difficulty: Difficulty, pageable: Pageable) : Page<SudokuInfo>
 
     fun existsSudokuByIdAndOwner(id: Int, owner: User) : Boolean
+
+    fun findAllByType(type: SudokuType, pageable: Pageable) : Page<Sudoku>
 }
