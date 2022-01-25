@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration
  * @since 1.0
  * @author Andreas Bachl
  */
-@Configuration
 @EnableCaching
+@Configuration
 class CachingConfig {
 
     /**
