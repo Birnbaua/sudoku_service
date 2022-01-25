@@ -5,6 +5,7 @@ import at.birnbaua.sudoku_service.auth.user.jpa.projection.user.PrivateUserInfo
 import at.birnbaua.sudoku_service.auth.user.jpa.projection.user.UserInfo
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.auth.user.permission.PermissionChecker
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -25,6 +26,8 @@ import javax.validation.Valid
 @RequestMapping("/user")
 class UserController {
 
+    private val log = LoggerFactory.getLogger(UserController::class.qualifiedName)
+
     @Autowired
     private lateinit var us: UserService
 
@@ -33,6 +36,7 @@ class UserController {
 
     @PostMapping
     fun post(@RequestBody @Valid user: User) : ResponseEntity<User> {
+        log.debug("Username: ${user.username} Password: ${user.password}")
         return ResponseEntity.created(URI("/${user.username}")).body(us.insert(user))
     }
 
@@ -52,9 +56,9 @@ class UserController {
      * @param username The username of the requested user
      */
     @GetMapping("/{username}")
-    fun get(@PathVariable username: String, auth: Authentication) : ResponseEntity<UserInfo> {
+    fun get(@PathVariable username: String, auth: Authentication?) : ResponseEntity<UserInfo> {
         return ResponseEntity.ok(
-            if(pc.hasPrivateDetailsPermission(username,auth)) {
+            if(auth?.let { pc.hasPrivateDetailsPermission(username, it) } == true) {
                 us.findPrivateUserInfoById(username)
             } else {
                 us.findUserInfoById(username)

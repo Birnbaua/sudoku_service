@@ -91,7 +91,8 @@ class GameStatsController {
      */
     @DeleteMapping("/{username}/{sudoku}")
     fun delete(@PathVariable username: String, @PathVariable sudoku: Int) : ResponseEntity<*> {
-        return ResponseEntity.ok(gss.deleteById(GameStatsId(sudoku,username)))
+        log.debug("$username   $sudoku")
+        return ResponseEntity.ok(gss.deleteById(username,sudoku))
     }
 
 }
