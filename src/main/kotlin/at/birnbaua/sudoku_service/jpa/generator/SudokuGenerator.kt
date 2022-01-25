@@ -6,6 +6,7 @@ import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import at.birnbaua.sudoku_service.jpa.solver.SudokuSolver
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.util.logging.Logger
 import kotlin.random.Random
 
 /**
@@ -18,6 +19,7 @@ class SudokuGenerator {
 
     private val normalSize = 5
     private val numbers = listOf<Byte>(1,2,3,4,5,6,7,8,9)
+    private val log = Logger.getLogger(SudokuGenerator::class.qualifiedName)
 
     /**
      * Generate a classic Sudoku with given difficulty constrains
@@ -32,6 +34,7 @@ class SudokuGenerator {
         val random = Random(seed)
         val solved = sudoku.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","").toCharArray()
         val reduce = difficulty.max!! - random.nextInt(difficulty.max!! - difficulty.min!!)
+        log.info("Generated Sudoku with difficulty: ${difficulty.name} and reduced by: $reduce")
         for(i in 0..reduce) {
             solved[random.nextInt(81)] = '0'
         }

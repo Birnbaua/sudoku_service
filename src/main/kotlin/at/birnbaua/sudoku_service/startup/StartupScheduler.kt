@@ -51,6 +51,8 @@ class StartupScheduler {
             easy.no = 1
             easy.name = "easy"
             easy.desc = "The lowest difficulty"
+            easy.min = 40
+            easy.max = 45
             ds.save(easy)
         }
 
@@ -59,6 +61,8 @@ class StartupScheduler {
             moderate.no = 2
             moderate.name = "moderate"
             moderate.desc = "For guys who don't like challenges"
+            moderate.min = 35
+            moderate.max = 39
             ds.save(moderate)
         }
 
@@ -67,6 +71,8 @@ class StartupScheduler {
             challenging.no = 3
             challenging.name = "challenging"
             challenging.desc = "The lowest difficulty"
+            challenging.min = 30
+            challenging.max = 34
             ds.save(challenging)
         }
 
@@ -75,6 +81,8 @@ class StartupScheduler {
             hard.no = 4
             hard.name = "hard"
             hard.desc = "The hard sudoku"
+            hard.min = 25
+            hard.max = 29
             ds.save(hard)
         }
 
@@ -83,6 +91,8 @@ class StartupScheduler {
             impossible.no = 5
             impossible.name = "impossible"
             impossible.desc = "Impossible sudokus"
+            impossible.min = 23
+            impossible.max = 24
             ds.save(impossible)
         }
 

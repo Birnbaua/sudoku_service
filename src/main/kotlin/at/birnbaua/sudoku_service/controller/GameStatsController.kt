@@ -3,6 +3,7 @@ package at.birnbaua.sudoku_service.controller
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
+import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStatsId
 import at.birnbaua.sudoku_service.jpa.projection.GameStatsInfo
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.jpaservice.GameStatsService
@@ -70,7 +71,7 @@ class GameStatsController {
     }
 
     /**
-     * THIS API CAN BE USED BY NOT RECOMMENDED SINCE IT WAS ONLY FOR TESTING PURPOSES!
+     * THIS API CAN BE USED BUT IS NOT RECOMMENDED SINCE IT WAS ONLY FOR TESTING PURPOSES!
      * @return The preview picture of the saved GameStats sudoku.
      * @since 1.0
      * @param username The username of the user the GameStats-preview is requested of.
@@ -80,4 +81,16 @@ class GameStatsController {
     fun getPreview(@PathVariable sudoku: String, @PathVariable username: String) : ResponseEntity<ByteArray> {
         return ResponseEntity.ok(gss.findGameStatsByUser(username,0,1).first().preview)
     }
+
+    /**
+     * @return nothing
+     * @since 1.0
+     * @param username The username of the user the GameStats are requested of.
+     * @param sudoku ID of the corresponding sudoku
+     */
+    @DeleteMapping("/{username}/{sudoku}")
+    fun delete(@PathVariable username: String, @PathVariable sudoku: Int) : ResponseEntity<*> {
+        return ResponseEntity.ok(gss.deleteById(GameStatsId(sudoku,username)))
+    }
+
 }

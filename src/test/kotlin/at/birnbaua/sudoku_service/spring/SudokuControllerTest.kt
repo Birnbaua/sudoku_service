@@ -11,6 +11,7 @@ import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import at.birnbaua.sudoku_service.jpa.jpaservice.DifficultyService
 import at.birnbaua.sudoku_service.jpa.jpaservice.SudokuService
 import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
+import at.birnbaua.sudoku_service.jpa.solver.SudokuSolver
 import at.birnbaua.sudoku_service.spring.config.SpringSecurityMVCTestConfig
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
@@ -158,5 +159,25 @@ class SudokuControllerTest {
             .andExpect(status().isAccepted)
         assert(ss.existsById(id).not())
     }
+
+    @Test
+    fun testValidate() {
+        val sudoku = ss.findAll()[ss.findAll().size-1]
+        mvc.perform(get("/sudoku/${sudoku.id}?solved=${SudokuSolver.solveNormal(sudoku.unsolved!!)}")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath<Boolean>("\$",`is`(true)))
+    }
+
+    @Test
+    fun testValidateIncomplete() {
+        val sudoku = ss.findAll()[ss.findAll().size-1]
+        mvc.perform(get("/sudoku/${sudoku.id}?solved=${sudoku.unsolved!!}")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath<Boolean>("\$",`is`(false)))
+    }
+
+
 
 }
