@@ -19,6 +19,7 @@ open class User(
     open var nickname: String? = null,
 
     @NotNull
+    @JsonIgnore
     @Column(name = "`password`", nullable = false)
     @get:JvmName("getUserPassword") open var password: String? = null,
 
@@ -42,6 +43,7 @@ open class User(
     open var roles: MutableSet<Role> = mutableSetOf()
 ) {
     constructor(user: User) : this(user.username,user.nickname,user.password,user.email,user.firstName,user.lastName,user.profilePicture,user.roles)
+    constructor(user: UserDTO) : this(user.username,user.nickname,user.password,user.email,user.firstName,user.lastName,user.profilePicture,user.roles)
 
     @PrePersist
     private fun initSave() {

@@ -1,6 +1,7 @@
 package at.birnbaua.sudoku_service.auth.controller
 
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.UserDTO
 import at.birnbaua.sudoku_service.auth.user.jpa.projection.user.PrivateUserInfo
 import at.birnbaua.sudoku_service.auth.user.jpa.projection.user.UserInfo
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
@@ -35,9 +36,9 @@ class UserController {
     private lateinit var pc: PermissionChecker
 
     @PostMapping
-    fun post(@RequestBody @Valid user: User) : ResponseEntity<User> {
-        log.debug("Username: ${user.username} Password: ${user.password}")
-        return ResponseEntity.created(URI("/${user.username}")).body(us.insert(user))
+    fun post(@RequestBody user: UserDTO) : ResponseEntity<User> {
+        log.debug("Username: ${user.username} Password: ${user.password}  Email: ${user.email}")
+        return ResponseEntity.created(URI("/${user.username}")).body(us.insert(User(user)))
     }
 
     /**
@@ -74,9 +75,9 @@ class UserController {
      */
     @PreAuthorize("isAuthenticated() AND (#username==#auth.name OR hasRole('ROLE_ADMIN'))")
     @PutMapping("/{username}")
-    fun put(@RequestBody user: User, @PathVariable username: String, auth: Authentication) : ResponseEntity<PrivateUserInfo> {
+    fun put(@RequestBody user: UserDTO, @PathVariable username: String, auth: Authentication) : ResponseEntity<PrivateUserInfo> {
         user.username = username
-        return ResponseEntity.ok(us.findPrivateUserInfoById(us.update(user).username!!))
+        return ResponseEntity.ok(us.findPrivateUserInfoById(us.update(User(user)).username!!))
     }
 
     /**

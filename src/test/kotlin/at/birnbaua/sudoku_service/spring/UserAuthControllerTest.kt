@@ -1,6 +1,7 @@
 package at.birnbaua.sudoku_service.spring
 
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
+import at.birnbaua.sudoku_service.auth.user.jpa.entity.UserDTO
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.spring.config.SpringSecurityMVCTestConfig
@@ -34,7 +35,7 @@ class UserAuthControllerTest {
 
     @Test
     fun testCreationOfNewUser() {
-        val user = User("chrisi","Big boy Christoph","longdong","long@dong.at","Christoph","Großauer",null)
+        val user = UserDTO("chrisi","Big boy Christoph","longdong","long@dong.at","Christoph","Großauer",null)
         mvc.perform(MockMvcRequestBuilders.post("/user").content(ObjectMapper().writeValueAsString(user))
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isCreated)
@@ -42,7 +43,7 @@ class UserAuthControllerTest {
             MockMvcRequestBuilders.get("/user/chrisi")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk)
-            .andExpect(MockMvcResultMatchers.jsonPath<Sudoku>("nickname", Matchers.`is`("Big boy Chrisi")))
+            .andExpect(MockMvcResultMatchers.jsonPath<Sudoku>("nickname", Matchers.`is`("Big boy Christoph")))
     }
 
 }
