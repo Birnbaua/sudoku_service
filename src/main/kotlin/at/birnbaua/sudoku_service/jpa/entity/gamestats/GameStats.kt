@@ -4,6 +4,8 @@ import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.jpa.entity.AbstractEntity
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.sql.Time
 import java.sql.Timestamp
 import java.time.LocalDateTime
@@ -18,12 +20,14 @@ open class GameStats(
     @Id
     @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "`sudoku`", referencedColumnName = "`id`")
     open var sudoku: Sudoku? = null,
 
     @Id
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "`user`", referencedColumnName = "`username`")
     open var user: User? = null,
 

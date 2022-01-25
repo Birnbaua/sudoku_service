@@ -6,6 +6,7 @@ interface SudokuInfo {
     val id: Int?
     val desc: String?
     val type: SudokuType?
+    val preview: ByteArray?
     val difficulty: DifficultyInfo?
 
     interface DifficultyInfo {

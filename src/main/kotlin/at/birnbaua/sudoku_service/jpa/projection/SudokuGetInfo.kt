@@ -8,6 +8,7 @@ interface SudokuGetInfo {
     val type: SudokuType?
     val unsolved: String?
     val grouping: String?
+    val preview: ByteArray?
     val difficulty: DifficultyInfo?
 
     interface DifficultyInfo {
