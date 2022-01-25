@@ -3,6 +3,7 @@ package at.birnbaua.sudoku_service.controller
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.exception.SudokuNotExistingException
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
+import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
 import at.birnbaua.sudoku_service.jpa.projection.SudokuGetInfo
 import at.birnbaua.sudoku_service.jpa.projection.SudokuInfo
 import at.birnbaua.sudoku_service.jpa.validation.SudokuValidator
@@ -74,13 +75,22 @@ class SudokuController {
      * @param solvedParam Query parameter for transmitting the sudoku which should be validated. Use like following: ?solved=...
      */
     @GetMapping("/{id}/validate")
-    fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved", defaultValue = "") solvedParam: String?) : ResponseEntity<Boolean> {
+    fun validate(@PathVariable id: Int, @RequestBody(required = false) solved: String?, @RequestParam(required = false, name = "solved", defaultValue = "") solvedParam: String?,
+                 @RequestParam(required = false, name = "type") type: SudokuType?) : ResponseEntity<Boolean> {
         return if(solvedParam != null && solvedParam.isNotEmpty()) {
             log.debug("Sudoku with solution: $solvedParam")
-            ResponseEntity.ok(sv.validate(id,solvedParam,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
+            if(type != null) {
+                ResponseEntity.ok(sv.validate(id,solvedParam,type))
+            } else {
+                ResponseEntity.ok(sv.validate(id,solvedParam,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
+            }
         } else if(solved != null) {
             log.debug("Input in request body!")
-            ResponseEntity.ok(sv.validate(id,solved,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
+            if(type != null) {
+                ResponseEntity.ok(sv.validate(id,solved,type))
+            } else {
+                ResponseEntity.ok(sv.validate(id,solved,ss.findById(id).orElseThrow { SudokuNotExistingException(id,log) }.type!!))
+            }
         } else {
             log.debug("No input received!")
             ResponseEntity.ok(false)

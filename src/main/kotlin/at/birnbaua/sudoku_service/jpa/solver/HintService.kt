@@ -30,15 +30,15 @@ class HintService {
         val arr = emptyCellArray(sudoku)
         val no = random.nextInt(arr.size)
         return Hint(
-            (no/9).toByte(),
-            (no%9).toByte(),
-            solver.solveNormal(id,sudoku)[arr[no]].toByte()
+            (arr[no]/9).toByte(),
+            (arr[no]%9).toByte(),
+            solver.solveNormal(id,sudoku)[arr[no]].toString().toByte()
         )
     }
 
     private fun emptyCellArray(sudoku: String) : List<Int> {
         return sudoku.mapIndexed { index, c ->
-            if(c.toByte() == empty) {
+            if(c.toString().toByte() == empty) {
                 index
             } else {
                 -1
@@ -51,7 +51,7 @@ class HintService {
      */
     private fun compareUnsolvedAndSolvedSudoku(unsolved: String, solved: String) : Boolean {
         return unsolved.filterIndexed{ index, c ->
-            if(c.toByte() == empty) {
+            if(c.toString().toByte() == empty) {
                 true
             } else {
                 c == solved[index]
