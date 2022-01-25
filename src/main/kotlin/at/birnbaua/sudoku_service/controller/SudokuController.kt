@@ -51,8 +51,8 @@ class SudokuController {
      * @param size The number of the size of the requested page. If null then size=6
      */
     @GetMapping
-    fun all(@RequestParam(required = false) difficulty: Int?, @RequestParam(required = false) page: Int?, @RequestParam(required = false) size: Int?) : ResponseEntity<Page<SudokuInfo>> {
-        return ResponseEntity.ok(ss.overview(difficulty,page,size))
+    fun all(@RequestParam(required = false) difficulty: Int?, @RequestParam(required = false) page: Int?, @RequestParam(required = false) size: Int?, @RequestParam(required = false) type: SudokuType?) : ResponseEntity<Page<SudokuInfo>> {
+        return ResponseEntity.ok(ss.overview(difficulty,type,page,size))
     }
 
     /**

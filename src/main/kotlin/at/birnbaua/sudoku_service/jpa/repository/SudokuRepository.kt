@@ -30,4 +30,10 @@ interface SudokuRepository : JpaRepository<Sudoku, Int> {
     fun existsSudokuByIdAndOwner(id: Int, owner: User) : Boolean
 
     fun findAllByType(type: SudokuType, pageable: Pageable) : Page<Sudoku>
+
+    @Query("SELECT s FROM Sudoku s WHERE s.type=?1")
+    fun overview(type: SudokuType, pageable: Pageable) : Page<SudokuInfo>
+
+    @Query("SELECT s FROM Sudoku s WHERE s.type=?2 AND s.difficulty.no=?1")
+    fun overview(difficulty: Int, type: SudokuType, pageable: Pageable) : Page<SudokuInfo>
 }

@@ -32,6 +32,7 @@ class UserService {
             throw UserAlreadyExistsException("User with username: ${user.username} already exists!")
         }
         if(user.nickname == null) user.nickname = user.username
+        if(user.username == null) user.username = user.nickname
         user.password = BCryptPasswordEncoder().encode(user.password)
         return ur.save(user)
     }

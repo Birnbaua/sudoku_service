@@ -22,7 +22,7 @@ class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaServi
     @Autowired
     private lateinit var sps: SudokuPreviewService
 
-    fun overview(difficulty: Int?, page: Int?, size: Int?) : Page<SudokuInfo> {
+    fun overview(difficulty: Int?, type: SudokuType?, page: Int?, size: Int?) : Page<SudokuInfo> {
         var requestPage: Int? = page
         var requestSize: Int? = size
         if(page == null) {
@@ -32,7 +32,13 @@ class SudokuService @Autowired constructor(val rep: SudokuRepository) : JpaServi
             requestSize = 30
         }
         return if(difficulty != null) {
-            rep.overview(difficulty, PageRequest.of(requestPage!!,requestSize!!))
+            if(type != null) {
+                rep.overview(difficulty,type, PageRequest.of(requestPage!!,requestSize!!))
+            } else {
+                rep.overview(difficulty, PageRequest.of(requestPage!!,requestSize!!))
+            }
+        } else if(type != null) {
+            rep.overview(type, PageRequest.of(requestPage!!,requestSize!!))
         } else {
             rep.overview(PageRequest.of(requestPage!!,requestSize!!))
         }

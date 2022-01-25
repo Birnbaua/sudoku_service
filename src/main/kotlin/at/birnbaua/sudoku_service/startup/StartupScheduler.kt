@@ -129,14 +129,14 @@ class StartupScheduler {
         diagonalSudoku.type = SudokuType.DIAGONAL
         diagonalSudoku.owner = us.findUserByUsername("admin")
         diagonalSudoku.unsolved = "639841275" +
-                "724953168" +
-                "185726394" +
-                "256137489" +
-                "491582637" +
-                "873469521" +
-                "542398716" +
+                "724950008" +
+                "180006394" +
+                "256130009" +
+                "400582637" +
+                "873469001" +
+                "500398716" +
                 "318675942" +
-                "967214853"
+                "900014053"
         diagonalSudoku.preview = sps.toImage(sps.parseThymeleafTemplate(diagonalSudoku.unsolved!!))
         diagonalSudoku.difficulty = Difficulty(3)
         diagonalSudoku.desc = "I am a Diagonal Sudoku lol"
