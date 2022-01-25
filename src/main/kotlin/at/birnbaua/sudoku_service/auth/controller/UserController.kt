@@ -32,7 +32,7 @@ class UserController {
     private lateinit var pc: PermissionChecker
 
     @PostMapping
-    fun post(@RequestBody @Valid user: User, auth: Authentication) : ResponseEntity<User> {
+    fun post(@RequestBody @Valid user: User) : ResponseEntity<User> {
         return ResponseEntity.created(URI("/${user.username}")).body(us.insert(user))
     }
 

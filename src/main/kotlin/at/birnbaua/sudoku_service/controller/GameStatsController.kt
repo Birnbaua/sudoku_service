@@ -53,6 +53,7 @@ class GameStatsController {
     fun save(@RequestBody @Valid stats: GameStats, @PathVariable username: String, @PathVariable sudoku: Int, auth: Authentication) : ResponseEntity<GameStatsInfo> {
         stats.user = User(username)
         stats.sudoku = Sudoku(sudoku)
+        log.debug("Is finished in requestbody: ${stats.finished}")
         stats.preview = sps.toImage(sps.parseThymeleafTemplate(stats.currentResult!!))
         return ResponseEntity.status(HttpStatus.CREATED).body(gss.saveInfo(stats))
     }
