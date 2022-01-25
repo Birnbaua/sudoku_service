@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="background: #c8d8e4;">
   <div class="row">
     <div class="col-2">
       <sidebar></sidebar>
@@ -19,6 +19,7 @@
                 id="difficultyButton"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style="background: #2b6777; border:none"
               >
                 <div
                   *ngIf="
@@ -64,6 +65,7 @@
                 id="gamemodeButton"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style="background: #2b6777; border:none"
               >
                 <div
                   *ngIf="mode == ''; then thenBlockMode; else elseBlockMode"
@@ -94,6 +96,7 @@
               (click)="fetchSudokus()"
               type="button"
               class="btn btn-secondary full-width"
+              style="background: #2b6777; border:none"
             >
               Fetch Sudokus
             </button>
@@ -124,7 +127,8 @@
             <button
               [routerLink]="'/play'"
               type="button"
-              class="btn btn-secondary full-width"
+              class="btn btn-secondary full-width menu"
+              style="background: #52ab98; border:none"
             >
               Play
             </button>

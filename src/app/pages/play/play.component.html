@@ -1,6 +1,6 @@
-<div class="container play-page">
-  <div class="row">
-    <div class="col-2">
+<div class="container play-page" style="background: #c8d8e4;">
+  <div class="row" >
+    <div class="col-2" >
       <sidebar></sidebar>
     </div>
     <div class="col-7">
@@ -54,7 +54,7 @@
             Pause
           </button>
           <br />
-          <button (click)="saveGame()" type="button" class="btn btn-primary" [disabled]="!playable">
+          <button (click)="saveGame()" type="button" class="btn btn-primary" style="background: #52ab98; border:none" [disabled]="!playable">
             Save
           </button>
           <br />
@@ -63,9 +63,11 @@
             (click)="validateGame()"
             type="button"
             class="btn btn-success"
+            style="background: #367b88; border:none"
           >
             Validate
           </button>
+          <br>
         </div>
       </div>
     </div>
