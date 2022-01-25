@@ -42,6 +42,17 @@
     margin: auto !important;
 }
 
+.sud-preview-home{
+    margin: auto;
+    width: 6rem;
+    height: 6rem;
+    display: inline-block;
+    margin: 0.5rem;
+}
+.table > tbody{
+    vertical-align: middle !important;
+}
+
 /* Profile */
 .username{
     font-size: large;
@@ -66,9 +77,12 @@
     margin: 0.5rem;
 }
 .sud-prev-btn{
-    background-color:lightpink;
     height:100%;
     width:100%;
+}
+
+.sud-prev-bg{
+    background-color: white;
 }
 
 .sud-scrollable-panel{

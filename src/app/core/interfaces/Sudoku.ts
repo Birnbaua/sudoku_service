@@ -7,4 +7,5 @@ export interface Sudoku{
     unsolved?: string;
     grouping?: string;
     type? : string;
+    preview? : string; 
 }

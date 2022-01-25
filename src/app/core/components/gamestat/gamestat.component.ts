@@ -1,3 +1,4 @@
+import { ImgService } from './../../services/img.service';
 import { GameStatDataService } from './../../services/gamestat.data.service';
 import { Router } from '@angular/router';
 import { SudokuDataService } from './../../services/sudoku.data.service';
@@ -16,7 +17,8 @@ export class Gamestat implements OnInit{
         private sudokuRequestService: SudokuRequestService,
         private sudokuDataService: SudokuDataService,
         private gameStatDataService: GameStatDataService,
-        private router: Router
+        private router: Router,
+        private imgServie: ImgService
     ) {}
 
     @Input() stat: GameStat | undefined;
@@ -26,6 +28,7 @@ export class Gamestat implements OnInit{
     diff: string = ""; 
     mode: string = "";
     time: string = "";
+    preview: string = ""
 
     ngOnInit(): void {
         this.sudoku = this.stat!.sudoku!
@@ -35,6 +38,7 @@ export class Gamestat implements OnInit{
         let last = this.sudoku.type!.substring(1).toLowerCase()
         this.mode = this.sudoku.type!.substring(0,1) + last
         this.time = this.stat!.duration
+        this.preview = this.stat!.preview
     }
 
     resumeSudoku(){
@@ -45,6 +49,10 @@ export class Gamestat implements OnInit{
 
     deleteStat(){
 
+    }
+
+    getImage(arr : any){
+        return this.imgServie.byteArrayToImage(arr)
     }
 
 }

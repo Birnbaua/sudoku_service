@@ -109,9 +109,9 @@
                 <div class="sud-preview">
                   <button
                     (click)="getSudokuById(sudoku.id!)"
-                    class="sud-prev-btn"
+                    class = "sud-prev-bg"
                   >
-                    Preview
+                  <img [src]="getImage(sudoku.preview)" class="sud-prev-btn" />
                   </button>
                 </div>
               </ng-container>

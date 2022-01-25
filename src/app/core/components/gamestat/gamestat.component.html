@@ -5,7 +5,9 @@
 <div *ngIf="finished; then historyBlock; else openBlock"></div>
 <ng-template #openBlock>
   <td>
-    <button type="button" (click)="resumeSudoku()" class="btn btn-success">Resume</button>
+    <button type="button" (click)="resumeSudoku()" class="btn btn-success">
+      Resume
+    </button>
     <button type="button" class="btn btn-danger">Delete</button>
   </td>
 </ng-template>
@@ -14,3 +16,8 @@
     <button type="button" class="btn btn-primary">View</button>
   </td>
 </ng-template>
+<td>
+  <div class="sud-preview-home sud-prev-bg">
+    <img [src]="getImage(preview)" class="sud-prev-btn" />
+  </div>
+</td>

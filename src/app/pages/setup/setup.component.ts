@@ -1,9 +1,8 @@
+import { ImgService } from './../../core/services/img.service';
 import { SudokuDataService } from './../../core/services/sudoku.data.service';
 import { SudokuRequestService } from '../../core/services/sudoku.request.service';
 import { Component, OnInit } from '@angular/core';
 import { Sudoku } from './../../core/interfaces/Sudoku';
-import { Difficulty } from 'src/app/core/interfaces/Difficulty';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'setup-page',
@@ -14,7 +13,8 @@ import { Observable } from 'rxjs';
 export class SetupPageComponent{
   constructor(
       private sudokuRequestService: SudokuRequestService,
-      private sudokuDataService: SudokuDataService
+      private sudokuDataService: SudokuDataService,
+      private imgService: ImgService
     ) {}
   
   sudokuPreviewList : Sudoku[] = []
@@ -36,12 +36,18 @@ export class SetupPageComponent{
   fetchSudokus(){
     console.log('In Function: SetupPageComponent.fetchSudokus()')
     this.sudokuPreviewList = []
-    this.sudokuRequestService.getSudokuIdsBySettings(this.difficulty, this.mode).subscribe(sudokuList => sudokuList.content.forEach(sudoku => this.sudokuPreviewList.push(sudoku)))
+    this.sudokuRequestService.getSudokuIdsBySettings(this.difficulty, this.mode).subscribe((sudokuList) => {
+      console.log(sudokuList.content[0])
+      sudokuList.content.forEach(sudoku => this.sudokuPreviewList.push(sudoku))
+    })
   }
 
   getSudokuById(id: number): void{
     console.log('In Function: SetupPageComponent.getSudokuById()')
     this.sudokuRequestService.getSudokuById(id).subscribe(sudoku => this.sudokuDataService.setSudoku(sudoku));
   }
-  
+
+  getImage(arr: any){
+    return this.imgService.byteArrayToImage(arr)
+  }
 }

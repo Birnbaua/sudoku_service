@@ -1,3 +1,4 @@
+import { ImgService } from './core/services/img.service';
 import { GameStatDataService } from './core/services/gamestat.data.service';
 import { GameStatsRequestService } from './core/services/gamestats.request.service';
 import { ProfileComponent } from './core/components/profile/profile.component';
@@ -54,7 +55,8 @@ import { Gamestat } from './core/components/gamestat/gamestat.component';
     AuthService,
     AuthGuard,
     UserRequestService,
-    GameStatsRequestService
+    GameStatsRequestService,
+    ImgService
   ],
   bootstrap: [AppComponent]
 })

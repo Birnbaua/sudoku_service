@@ -49,4 +49,5 @@ export class GameStatsRequestService{
         let url : string = this.url + user.username
         return this.http.get<GameStatsContent>(url, httpOptions)
     }
+
 }
