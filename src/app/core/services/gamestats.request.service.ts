@@ -21,7 +21,7 @@ export class GameStatsRequestService{
 
     url = environment.serviceDomain + '/gamestats/'
 
-    saveGame(user : User, sudoku : Sudoku, duration : string, currentResult : string){
+    saveGame(user : User, sudoku : Sudoku, duration : string, currentResult : string, finished: number){
         let token = localStorage.getItem('token')
         const httpOptions = {
             headers: new HttpHeaders({
@@ -31,7 +31,8 @@ export class GameStatsRequestService{
         console.log(httpOptions)
         const request : GameStatsRequest = {
             duration : duration,
-            currentResult : currentResult
+            currentResult : currentResult,
+            finished : finished
         }
         let url : string = this.url + user.username + "/" + sudoku.id
         console.log(url)
@@ -48,6 +49,17 @@ export class GameStatsRequestService{
         }
         let url : string = this.url + user.username
         return this.http.get<GameStatsContent>(url, httpOptions)
+    }
+
+    deleteGamestat(sudoku : Sudoku, user : User){
+        let token = localStorage.getItem('token')
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authentication: token!
+            })
+        }
+        let url : string = this.url + user.username + "/" + sudoku.id
+        return this.http.delete(url, httpOptions)
     }
 
 }

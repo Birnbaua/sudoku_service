@@ -1,3 +1,4 @@
+import { SudokuRequestService } from './../../core/services/sudoku.request.service';
 import { GameStatDataService } from './../../core/services/gamestat.data.service';
 import { Router } from '@angular/router';
 import { Sudoku } from './../../core/interfaces/Sudoku';
@@ -18,6 +19,7 @@ export class PlayComponent implements OnInit {
     private userDataService: UserDataService,
     private sudokuDataService: SudokuDataService,
     private gameStatDataService: GameStatDataService,
+    private sudokuRequestService: SudokuRequestService,
     private router: Router
   ) {   }
 
@@ -29,6 +31,10 @@ export class PlayComponent implements OnInit {
   sudoku : Sudoku | undefined;
   standing : string | undefined;
   current : string = "";
+  validate : boolean = false;
+  isSaved : boolean = false ;
+  isWrong : boolean = false;
+  playable : boolean = true;
 
   ngOnInit(): void {
     this.userDataService.getUser().subscribe(user => this.user = user)
@@ -39,8 +45,13 @@ export class PlayComponent implements OnInit {
         this.time = this.backTransform(stat.duration)
         this.current = stat.currentResult
       }
+      if(stat.finished){
+        this.playable = false
+      }
     })
-    this.startTimer()
+    if(this.playable){
+      this.startTimer()
+    }
   }
 
   startTimer(){
@@ -96,13 +107,36 @@ export class PlayComponent implements OnInit {
   }
 
   saveGame(){
-    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!, this.display!, this.standing!)
-      .subscribe((res) => {
-        console.log(res)
-        this.router.navigate(['home'])
+    this.gameStatsRequestService.saveGame(this.user!, this.sudoku!, this.display!, this.standing!, 0)
+      .subscribe(() => {
+        this.setAlert(false,false,true)
       }) 
   }
 
-  endGame(){
+  validateGame(){
+    this.sudokuRequestService.validateSudoku(this.sudoku?.id!, this.current).subscribe((ret) => {
+      if (ret){
+        if (this.timerOn){
+          this.toggleTimer()
+        }
+        this.setAlert(true,false,false)
+        this.gameStatsRequestService.saveGame(this.user!, this.sudoku!, this.display!, this.standing!, 1).subscribe(() => {
+          this.playable = false
+        })
+      } else {
+        this.setAlert(false,true,false)
+      }
+    })
+  }
+
+  setAlert(isValid: boolean, isWrong: boolean, isSaved: boolean){
+    this.validate = isValid
+    this.isWrong = isWrong
+    this.isSaved = isSaved
+    setTimeout(() => {
+      this.validate = false
+      this.isWrong = false
+      this.isSaved = false
+    }, 5000)
   }
 }

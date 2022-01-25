@@ -4,8 +4,32 @@
       <sidebar></sidebar>
     </div>
     <div class="col-7">
-      <div class="p-3"><p class="username">Standard-Sudoku</p></div>
-      <sudoku-board (sudokuOutput)="receiveStanding($event)" [currentInp]="current" [paused]=!timerOn></sudoku-board>
+      <sudoku-board
+        (sudokuOutput)="receiveStanding($event)"
+        [currentInp]="current"
+        [paused]="!timerOn"
+      ></sudoku-board>
+      <div class="row" *ngIf="validate">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+            <strong>Sudoku solved!</strong> Sudoku has now been saved.
+          </p>
+        </div>
+      </div>
+      <div class="row" *ngIf="isWrong">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Solution not correct!</strong> Try to correct your mistake.
+          </p>
+        </div>
+      </div>
+      <div class="row" *ngIf="isSaved">
+        <div class="col-xs-12">
+          <p class="alert alert-info">
+            <strong>Sudoku saved!</strong> You can now leave the site or keep playing.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div class="col-3 px-5">
@@ -23,15 +47,25 @@
           <button
             (click)="pauseGame()"
             [class.active]="!timerOn"
+            [disabled]="!playable"
             type="button"
             class="btn btn-outline-info"
           >
             Pause
           </button>
           <br />
-          <button (click) = "saveGame()" type="button" class="btn btn-primary">Save</button>
+          <button (click)="saveGame()" type="button" class="btn btn-primary" [disabled]="!playable">
+            Save
+          </button>
           <br />
-          <button type="button" class="btn btn-success">Finish</button>
+          <button
+            [disabled]="!playable"
+            (click)="validateGame()"
+            type="button"
+            class="btn btn-success"
+          >
+            Validate
+          </button>
         </div>
       </div>
     </div>

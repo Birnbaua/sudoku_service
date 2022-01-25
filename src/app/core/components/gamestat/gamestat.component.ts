@@ -7,6 +7,7 @@ import { Difficulty } from './../../interfaces/Difficulty';
 import { Sudoku } from './../../interfaces/Sudoku';
 import { Component, Input, OnInit } from '@angular/core';
 import { GameStat } from '../../interfaces/Gamestat';
+import { GameStatsRequestService } from '../../services/gamestats.request.service';
 @Component({
     selector: '[gamestat]',
     templateUrl: './gamestat.component.html',
@@ -18,7 +19,8 @@ export class Gamestat implements OnInit{
         private sudokuDataService: SudokuDataService,
         private gameStatDataService: GameStatDataService,
         private router: Router,
-        private imgServie: ImgService
+        private imgServie: ImgService,
+        private gameStatRequestService: GameStatsRequestService
     ) {}
 
     @Input() stat: GameStat | undefined;
@@ -48,7 +50,7 @@ export class Gamestat implements OnInit{
     }
 
     deleteStat(){
-
+        this.gameStatRequestService.deleteGamestat(this.stat!.sudoku ,this.stat!.user).subscribe(x => console.log(x))
     }
 
     getImage(arr : any){

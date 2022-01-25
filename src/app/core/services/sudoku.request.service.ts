@@ -37,4 +37,17 @@ export class SudokuRequestService{
         console.log(url)
         return this.http.get<SudokuWrapper>(url);
     }
+
+    validateSudoku(id: number, current: string){
+        let token = localStorage.getItem('token')
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authentication: token!
+            })
+        }
+        let url : string = this.url
+        url = url + id + "/" + "validate" + "/?solved=" + current
+        return this.http.get<any>(url,httpOptions)
+    }
+    
 }
