@@ -1,5 +1,6 @@
 package at.birnbaua.sudoku_service.auth.user.jpa.service
 
+import at.birnbaua.sudoku_service.auth.exception.UserAlreadyExistsException
 import at.birnbaua.sudoku_service.auth.exception.UserNotFoundException
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.auth.user.jpa.projection.user.PrivateUserInfo
@@ -27,6 +28,10 @@ class UserService {
 
     @CachePut(value = ["users"], key = "#user.getUserUsername")
     fun insert(user: User) : User {
+        if(ur.existsById(user.username!!)) {
+            throw UserAlreadyExistsException("User with username: ${user.username} already exists!")
+        }
+        if(user.nickname == null) user.nickname = user.username
         user.password = BCryptPasswordEncoder().encode(user.password)
         return ur.save(user)
     }
