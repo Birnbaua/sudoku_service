@@ -33,9 +33,9 @@ class SudokuGenerator {
         gen(sudoku)
         val random = Random(seed)
         val solved = sudoku.map { x -> x.asList() }.flatten().toList().joinToString().replace(", ","").toCharArray()
-        val reduce = difficulty.max!! - random.nextInt(difficulty.max!! - difficulty.min!!)
+        val reduce = 81-difficulty.max!! - random.nextInt(difficulty.max!! - difficulty.min!!)
         log.info("Generated Sudoku with difficulty: ${difficulty.name} and reduced by: $reduce")
-        for(i in 0..reduce) {
+        for(i in 1..reduce) {
             solved[random.nextInt(81)] = '0'
         }
         return solved.concatToString()
