@@ -123,5 +123,87 @@ class StartupScheduler {
 
         gss.saveInfo(stats)
 
+
+
+        val diagonalSudoku = Sudoku()
+        diagonalSudoku.type = SudokuType.DIAGONAL
+        diagonalSudoku.owner = us.findUserByUsername("admin")
+        diagonalSudoku.unsolved = "639841275" +
+                "724953168" +
+                "185726394" +
+                "256137489" +
+                "491582637" +
+                "873469521" +
+                "542398716" +
+                "318675942" +
+                "967214853"
+        diagonalSudoku.preview = sps.toImage(sps.parseThymeleafTemplate(diagonalSudoku.unsolved!!))
+        diagonalSudoku.difficulty = Difficulty(3)
+        diagonalSudoku.desc = "I am a Diagonal Sudoku lol"
+        ss.save(diagonalSudoku)
+
+        val samuraiSudoku = Sudoku()
+        samuraiSudoku.type = SudokuType.SAMURAI
+        samuraiSudoku.owner = us.findUserByUsername("admin")
+        samuraiSudoku.unsolved = "00000"
+
+        samuraiString().forEachIndexed{index, x ->
+            val part = Sudoku()
+            part.type = samuraiSudoku.type
+            part.owner = samuraiSudoku.owner
+            part.unsolved = x
+            samuraiSudoku.desc = samuraiSudoku.desc + ss.save(part).id
+            if(samuraiString().size -1 > index) samuraiSudoku.desc = samuraiSudoku.desc + ";"
+        }
+        ss.save(samuraiSudoku)
+    }
+
+    private fun samuraiString() : Array<String> {
+        val sudoku1 = "924538617" +
+                "358617924" +
+                "716492853" +
+                "635789241" +
+                "297146538" +
+                "481325796" +
+                "873254169" +
+                "162973485" +
+                "549861372"
+        val sudoku2 = "731246895" +
+                "259813467" +
+                "684975312" +
+                "398524176" +
+                "126739584" +
+                "547168239" +
+                "472681953" +
+                "913457628" +
+                "865392741"
+        val sudoku3 = "169538472" +
+                "485627913" +
+                "372941865" +
+                "654719328" +
+                "218364759" +
+                "793852641" +
+                "547293186" +
+                "921486537" +
+                "836175294"
+        val sudoku4 = "189326547" +
+                "346587921" +
+                "527914836" +
+                "238659174" +
+                "765841293" +
+                "491273658" +
+                "612435789" +
+                "873192465" +
+                "954768312"
+        val sudoku5 = "186495732" +
+                "537281694" +
+                "294763581" +
+                "453819267" +
+                "628537419" +
+                "719642853" +
+                "861374925" +
+                "342956178" +
+                "975128346"
+        return arrayOf(sudoku1,sudoku2,sudoku3,sudoku4,sudoku5)
     }
 }
