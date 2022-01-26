@@ -47,7 +47,7 @@ class AuthenticationController {
      */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/refresh")
-    fun getToken(request: HttpServletRequest, @RequestBody token: JWTToken) : ResponseEntity<JWTToken> {
+    fun getToken(request: HttpServletRequest, @RequestBody(required = false) token: JWTToken?) : ResponseEntity<JWTToken> {
         return ResponseEntity.ok(authService.refresh(request.getHeader(jwtProperties.header).replace(jwtProperties.prefix,"")))
     }
 }

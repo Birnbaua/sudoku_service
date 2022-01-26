@@ -34,9 +34,16 @@ class AuthService {
      * @since 1.0
      * @throws [UserNotFoundException]
      */
-    fun genToken(username: String, password: String = "") : JWTToken {
+    fun genToken(username: String, password: String) : JWTToken {
         val user = us.findUserByUsername(username)
         if(BCryptPasswordEncoder().matches(password.subSequence(0,password.length),user.password)) {
+            return JWTToken(ts.genToken(username))
+        }
+        throw UserNotFoundException("No user with username: <$username> present")
+    }
+
+    fun genRefreshToken(username: String) : JWTToken {
+        if(us.existsById(username)) {
             return JWTToken(ts.genToken(username))
         }
         throw UserNotFoundException("No user with username: <$username> present")
@@ -49,8 +56,8 @@ class AuthService {
      * @param token a JWT
      */
     fun refresh(token: String) : JWTToken {
-        if(ts.getExpiryDateFromToken(token) > Date()) {
-            return genToken(ts.getUsernameFromToken(token))
+        if(ts.validateToken(token)) {
+            return genRefreshToken(ts.getUsernameFromToken(token))
         }
         throw TokenTimeoutException()
     }
