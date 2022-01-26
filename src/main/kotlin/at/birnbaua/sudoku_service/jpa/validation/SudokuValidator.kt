@@ -77,7 +77,7 @@ class SudokuValidator {
      * @param type The [SudokuType] of the sudoku (important for checking different constraints!)
      */
     fun validate(id: Int, check: String, type: SudokuType = SudokuType.NORMAL) : Boolean {
-
+        log.debug("Validate: $type")
         //check other constraints
         return when(type) {
             SudokuType.NORMAL -> validateNormal(to2DArray(check))

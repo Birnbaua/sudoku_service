@@ -63,7 +63,9 @@ abstract class JpaService<T: Any,ID: Any> (private val repository: JpaRepository
     }
 
     fun deleteById(id: ID) {
-        repository.deleteById(id)
+        if(repository.existsById(id)) {
+            repository.deleteById(id)
+        }
     }
 
     fun delete(entity: T) {
