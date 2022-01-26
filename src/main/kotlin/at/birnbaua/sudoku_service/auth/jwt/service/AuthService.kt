@@ -49,7 +49,7 @@ class AuthService {
      * @param token a JWT
      */
     fun refresh(token: String) : JWTToken {
-        if(ts.getExpiryDateFromToken(token) < Date()) {
+        if(ts.getExpiryDateFromToken(token) > Date()) {
             return genToken(ts.getUsernameFromToken(token))
         }
         throw TokenTimeoutException()
