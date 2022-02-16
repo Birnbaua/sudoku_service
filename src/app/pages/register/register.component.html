@@ -1,4 +1,6 @@
-<section class="vh-100" style="background-color: #508bfc;">
+<section class="vh-100" style="background: #c8d8e4;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c8d8e4, #c8d8e4, #c8d8e4);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c8d8e4, #ffffff, #c8d8e4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ #c8d8e4 */">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -6,7 +8,7 @@
             <div class="card-body p-5 text-center">
               <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
                 <h3 class="mb-4">Create new account</h3>
-    
+
                 <div class="form-group mb-2">
                   <input type="username" id="name-input" class="form-control form-control-lg" placeholder="Username *" formControlName="username"/>
                   <div class="text-danger" *ngIf="invalidForm">
@@ -16,7 +18,7 @@
                     Username already taken!
                   </div>
                 </div>
-    
+
                 <div class="form-group mb-2">
                   <input type="password" id="password-input" class="form-control form-control-lg" placeholder="Password *" formControlName="password" />
                   <div class="text-danger" *ngIf="invalidForm">
@@ -48,16 +50,16 @@
                 <div class="form-group mb-3">
                     <input type="name" id="lastname-input" class="form-control form-control-lg" placeholder="Lastname" formControlName="lastname" />
                 </div>
-    
-                <div class="text-primary mb-2">
+
+                <div class="mb-2" style="color: grey">
                     Fields marked  with '*' are mandatory
                 </div>
 
                 <div class="btn-group full-width">
-                  <button class="btn btn-primary btn-lg btn-block" type="submit">Create Account</button>
+                  <button class="btn btn-primary btn-lg btn-block" style="background:#52ab98; border:none" type="submit">Create Account</button>
                 </div>
                 <div class ="mt-2">
-                  <a href="/login">Back to login page</a>
+                  <a href="/login" style="color: grey">Back to login page</a>
                 </div>
               </form>
             </div>
