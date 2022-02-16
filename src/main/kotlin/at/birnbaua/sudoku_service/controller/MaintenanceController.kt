@@ -18,6 +18,7 @@ import kotlin.random.Random
 
 @RestController
 @RequestMapping("/maintenance")
+@CrossOrigin
 class MaintenanceController {
 
     @Autowired
@@ -33,7 +34,7 @@ class MaintenanceController {
     private lateinit var ds: DifficultyService
 
     @PreAuthorize("isAuthenticated() AND hasRole('ROLE_ADMIN')")
-    @DeleteMapping
+    @DeleteMapping("/gamestats")
     fun deleteAllGameStats() : ResponseEntity<*> {
         return ResponseEntity.ok(gss.deleteAll())
     }
