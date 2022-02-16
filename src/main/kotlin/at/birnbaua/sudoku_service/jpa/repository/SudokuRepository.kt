@@ -16,7 +16,7 @@ import java.util.*
 
 @Repository
 interface SudokuRepository : JpaRepository<Sudoku, Int> {
-    @Query("SELECT s FROM Sudoku s")
+    @Query("SELECT s FROM Sudoku s ORDER BY s.id DESC")
     fun overview(pageable: Pageable): Page<SudokuInfo>
 
     @Query("SELECT s FROM Sudoku s WHERE s.difficulty.no=?1")
