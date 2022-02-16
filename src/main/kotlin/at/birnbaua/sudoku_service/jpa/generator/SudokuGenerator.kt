@@ -36,7 +36,14 @@ class SudokuGenerator {
         val reduce = 81-difficulty.max!! - random.nextInt(difficulty.max!! - difficulty.min!!)
         log.info("Generated Sudoku with difficulty: ${difficulty.name} and reduced by: $reduce")
         for(i in 1..reduce) {
-            solved[random.nextInt(81)] = '0'
+            do {
+                var substituted = false
+                val next = random.nextInt(81)
+                if(solved[next] != '0') {
+                    solved[next] = '0'
+                    substituted = true
+                }
+            } while (!substituted)
         }
         return solved.concatToString()
     }
