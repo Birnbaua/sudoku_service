@@ -149,7 +149,7 @@ class StartupScheduler {
 
         samuraiString().forEachIndexed{index, x ->
             val part = Sudoku()
-            part.type = samuraiSudoku.type
+            part.type = SudokuType.NORMAL
             part.owner = samuraiSudoku.owner
             part.unsolved = x
             samuraiSudoku.desc = samuraiSudoku.desc + ss.save(part).id
@@ -160,14 +160,14 @@ class StartupScheduler {
 
     private fun samuraiString() : Array<String> {
         val sudoku1 = "924538617" +
-                "358617924" +
+                "358617024" +
                 "716492853" +
-                "635789241" +
+                "600089241" +
                 "297146538" +
-                "481325796" +
+                "481300096" +
                 "873254169" +
                 "162973485" +
-                "549861372"
+                "549861302"
         val sudoku2 = "731246895" +
                 "259813467" +
                 "684975312" +
@@ -177,7 +177,7 @@ class StartupScheduler {
                 "472681953" +
                 "913457628" +
                 "865392741"
-        val sudoku3 = "169538472" +
+        val sudoku3 = "169538402" +
                 "485627913" +
                 "372941865" +
                 "654719328" +

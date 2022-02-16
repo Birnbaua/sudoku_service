@@ -39,12 +39,16 @@ class MaintenanceController {
     }
 
     @GetMapping("/sudoku/generate")
-    fun generate(@RequestParam(required = false, defaultValue = "5") amount: Int? ) : ResponseEntity<MutableList<Sudoku>> {
+    fun generate(@RequestParam(required = false, defaultValue = "5") amount: Int?, @RequestParam(required = false) difficulty: Int? = null) : ResponseEntity<MutableList<Sudoku>> {
         val sudokus = mutableListOf<Sudoku>()
         val difficulties = ds.findAll()
         val random = Random(System.currentTimeMillis())
         for(i in 1..amount!!) {
-            val dif =  difficulties[random.nextInt(difficulties.size-1)]
+            val dif: Difficulty = if(difficulty==null) {
+                difficulties[random.nextInt(difficulties.size-1)]
+            } else {
+                Difficulty(difficulty)
+            }
             val sudoku = Sudoku(
                 null,
                 dif,
