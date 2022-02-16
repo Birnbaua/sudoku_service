@@ -87,20 +87,30 @@
             <br>
             <h4>Stats</h4>
             <hr />
-            <h5>All:</h5>
-            <p>Finished: 3</p>
-            <p>Avg. Difficulty: 2</p>
-            <p>Avg. Time: 4:00:00</p>
-            <hr />
-            <h5>Normal:</h5>
-            <p>Played: 3</p>
-            <p>Avg. Difficulty: 1.5</p>
-            <p>Avg. Time: 4:00:00</p>
-            <hr />
-            <h5>Samurai:</h5>
-            <p>Played: 1</p>
-            <p>Avg. Difficulty: 3</p>
-            <p>Avg. Time: 25:32:10</p>
+            <div>
+              <div class="stat-filter-select-group input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text stat-filter-label" for="inputGroupSelect01">Difficulty</label>
+                </div>
+                <select [(ngModel)]="currDiff" (change)='updateStats()' class="custom-select" id="inputGroupSelect01">
+                  <option value="All" selected>All</option>
+                  <option *ngFor="let diff of difficultyArray" value="{{getDiffName(diff).toLowerCase()}}">{{getDiffName(diff)}}</option>
+                </select>
+              </div>
+              <div class="stat-filter-select-group input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="stat-filter-label input-group-text" for="inputGroupSelect02">Sudoku-Type</label>
+                </div>
+                <select [(ngModel)]="currType" (change)='updateStats()' class="custom-select" id="inputGroupSelect02">
+                  <option value="All">All</option>
+                  <option *ngFor="let type of sudokuTypes" value="{{type.toUpperCase()}}">{{type}}</option>
+                </select>
+              </div>
+            </div>
+            <hr>
+            <p>Finished: {{nrFinished}}</p>
+            <p>Avg. Difficulty: {{avgDiff}}</p>
+            <p>Avg. Time: {{avgTime}}</p>
           </div>
         </div>
       </div>

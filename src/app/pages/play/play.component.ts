@@ -1,3 +1,4 @@
+import { TimeService } from './../../core/services/time.service';
 import { SudokuRequestService } from './../../core/services/request/sudoku.request.service';
 import { GameStatDataService } from './../../core/services/data/gamestat.data.service';
 import { Router } from '@angular/router';
@@ -20,7 +21,7 @@ export class PlayComponent implements OnInit {
     private sudokuDataService: SudokuDataService,
     private gameStatDataService: GameStatDataService,
     private sudokuRequestService: SudokuRequestService,
-    private router: Router
+    private timeService: TimeService
   ) {   }
 
   time: number = 0;
@@ -42,7 +43,7 @@ export class PlayComponent implements OnInit {
     this.gameStatDataService.getGameStat().subscribe( (stat) => {
       if(stat.currentResult){
         this.display = stat.duration
-        this.time = this.backTransform(stat.duration)
+        this.time = this.timeService.backTransform(stat.duration)
         this.current = stat.currentResult
       }
       if(stat.finished){
@@ -59,34 +60,8 @@ export class PlayComponent implements OnInit {
     this.timerOn = true;
     this.interval = setInterval(() => {
       this.time++;
-      this.display=this.transform(this.time)
+      this.display=this.timeService.transform(this.time)
     }, 1000);
-  }
-
-  transform(value: number): string{
-    const minutes: number = Math.floor(value / 60);
-    const hours: number = Math.floor(value / 3600);
-    let time: string = ""
-    if(hours < 10 ){
-      time = time + 0 
-    }
-    time = time + hours + ':'
-    if(minutes - hours * 60 < 10){
-      time = time + 0 
-    }
-    time = time + (minutes - hours * 60) + ':'
-    if(value - minutes * 60 < 10){
-      time = time + 0
-    }
-    time = time  + (value - minutes * 60) 
-    return time;
-  }
-
-  backTransform(display: string): number{
-    let hours: number = +display.split(":")[0]
-    let mins: number = +display.split(":")[1]
-    let secs: number = +display.split(":")[2]
-    return secs + 60*mins + 3600*hours
   }
 
   pauseGame(){

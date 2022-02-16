@@ -1,3 +1,6 @@
+import { TimeService } from './core/services/time.service';
+import { StaticListsService } from './core/services/staticlists.service';
+import { DifficultyRequestService } from './core/services/request/difficulty.request.service';
 import { ImgService } from './core/services/img.service';
 import { GameStatDataService } from './core/services/data/gamestat.data.service';
 import { GameStatsRequestService } from './core/services/request/gamestats.request.service';
@@ -14,17 +17,17 @@ import { BoardComponent } from './core/components/board/board.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlayComponent } from './pages/play/play.component';
 import { AuthService } from './core/services/request/auth.request.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DigitOnlyDirective} from './core/components/board/digit-only.directive';
+import { DigitOnlyDirective } from './core/components/board/digit-only.directive';
 import { PicUploaderComponent } from './core/components/profile/pic-uploader/pic-uploader.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Gamestat } from './core/components/gamestat/gamestat.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -40,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterPageComponent,
     ProfileComponent,
     DigitOnlyDirective,
-    PicUploaderComponent
+    PicUploaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     NgxDropzoneModule,
     BrowserAnimationsModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   providers: [
     SudokuRequestService,
@@ -60,8 +63,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthGuard,
     UserRequestService,
     GameStatsRequestService,
-    ImgService
+    ImgService,
+    DifficultyRequestService,
+    StaticListsService,
+    TimeService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

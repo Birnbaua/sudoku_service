@@ -17,10 +17,10 @@
               <td [ngClass]="{'diag-cell' : isDiag(k + i*9)}" *ngIf="startGrid[k + i*9] == '0' " class="cell"> 
                 <div *ngIf="currentSud[k + i*9] != '0'; then isBlock else notBlock"></div>
                 <ng-template #isBlock>
-                  <input [(ngModel)]="currentSud[k + i*9]" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
+                  <input autocomplete="off" [(ngModel)]="currentSud[k + i*9]" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
                 </ng-template>
                 <ng-template #notBlock>
-                  <input id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
+                  <input autocomplete="off" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
                 </ng-template>
               </td>
             </ng-template>
@@ -46,10 +46,10 @@
               <td *ngIf="startGrid[k + i*9] == '0' " class="cell"> 
                 <div *ngIf="currentSud[k + i*9] != '0'; then isBlock else notBlock"></div>
                 <ng-template #isBlock>
-                  <input [(ngModel)]="currentSud[k + i*9]" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
+                  <input autocomplete="off" [(ngModel)]="currentSud[k + i*9]" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
                 </ng-template>
                 <ng-template #notBlock>
-                  <input id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
+                  <input autocomplete="off" id="{{k+i*9}}" [attr.disabled]="paused? true : null" (input)="sudokuChange($event)" type="text" digitOnly placeholder="" maxlength="1">
                 </ng-template>
               </td>
             </ng-template>
