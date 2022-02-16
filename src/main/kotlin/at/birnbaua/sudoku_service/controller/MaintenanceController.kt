@@ -1,6 +1,7 @@
 package at.birnbaua.sudoku_service.controller
 
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
+import at.birnbaua.sudoku_service.exception.EntityNotFoundException
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.SudokuType
@@ -48,7 +49,7 @@ class MaintenanceController {
             val dif: Difficulty = if(difficulty==null) {
                 difficulties[random.nextInt(difficulties.size-1)]
             } else {
-                Difficulty(difficulty)
+                ds.findById(difficulty).orElseThrow { EntityNotFoundException("No difficulty with number: $difficulty exisitng!") }
             }
             val sudoku = Sudoku(
                 null,
