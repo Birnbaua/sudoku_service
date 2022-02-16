@@ -61,7 +61,8 @@ class MaintenanceController {
             sudoku.owner = User("admin")
             sudokus.add(sudoku)
         }
-        return ResponseEntity.ok(ss.saveAllAndFlush(sudokus))
+        //return ResponseEntity.ok(ss.saveAllAndFlush(sudokus))
+        return ResponseEntity.ok(sudokus)
     }
 
 }
