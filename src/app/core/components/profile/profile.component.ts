@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserDataService } from '../../services/data/user.data.service';
 import { UserRequestService } from '../../services/request/user.request.service';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
@@ -11,7 +12,8 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit{
   constructor(
       private userRequestService: UserRequestService,
-      private userDataServkce: UserDataService
+      private userDataServkce: UserDataService,
+      private router: Router
     ) {}
 
     username : string = "";
@@ -22,6 +24,11 @@ export class ProfileComponent implements OnInit{
       this.userRequestService.getUserByToken(jwtToken).subscribe(res => this.userDataServkce.setUser(res))
       this.userDataServkce.getUser().subscribe(user => this.username = user.username)
     }
+  }
+
+  logout(){
+    localStorage.clear()
+    this.router.navigateByUrl("/login")
   }
 
 }
