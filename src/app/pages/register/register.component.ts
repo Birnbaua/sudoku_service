@@ -1,4 +1,4 @@
-import { UserRequestService } from './../../core/services/user.request.service';
+import { UserRequestService } from '../../core/services/request/user.request.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

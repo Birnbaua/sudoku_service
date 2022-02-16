@@ -1,13 +1,13 @@
 import { ImgService } from './../../services/img.service';
-import { GameStatDataService } from './../../services/gamestat.data.service';
+import { GameStatDataService } from './../../services/data/gamestat.data.service';
 import { Router } from '@angular/router';
-import { SudokuDataService } from './../../services/sudoku.data.service';
-import { SudokuRequestService } from './../../services/sudoku.request.service';
+import { SudokuDataService } from './../../services/data/sudoku.data.service';
+import { SudokuRequestService } from './../../services/request/sudoku.request.service';
 import { Difficulty } from './../../interfaces/Difficulty';
 import { Sudoku } from './../../interfaces/Sudoku';
 import { Component, Input, OnInit } from '@angular/core';
 import { GameStat } from '../../interfaces/Gamestat';
-import { GameStatsRequestService } from '../../services/gamestats.request.service';
+import { GameStatsRequestService } from '../../services/request/gamestats.request.service';
 @Component({
     selector: '[gamestat]',
     templateUrl: './gamestat.component.html',

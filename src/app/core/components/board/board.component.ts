@@ -1,5 +1,5 @@
-import { GameStatDataService } from './../../services/gamestat.data.service';
-import { SudokuDataService } from './../../services/sudoku.data.service';
+import { GameStatDataService } from './../../services/data/gamestat.data.service';
+import { SudokuDataService } from './../../services/data/sudoku.data.service';
 import { Sudoku } from './../../interfaces/Sudoku';
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { mergeMap } from 'rxjs/operators';

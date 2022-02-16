@@ -1,4 +1,4 @@
-import { User } from './../interfaces/User';
+import { User } from '../../interfaces/User';
 import { Injectable } from "@angular/core";
 import { Subject, BehaviorSubject } from 'rxjs';
 

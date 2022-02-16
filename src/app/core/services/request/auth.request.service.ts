@@ -1,5 +1,5 @@
-import { LoginCreds } from './../interfaces/LoginCreds';
-import { ResponseToken } from '../interfaces/ResponseToken'
+import { LoginCreds } from '../../interfaces/LoginCreds';
+import { ResponseToken } from '../../interfaces/ResponseToken'
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { environment } from 'src/environments/environment';

@@ -1,6 +1,6 @@
 import { ImgService } from './../../core/services/img.service';
-import { SudokuDataService } from './../../core/services/sudoku.data.service';
-import { SudokuRequestService } from '../../core/services/sudoku.request.service';
+import { SudokuDataService } from './../../core/services/data/sudoku.data.service';
+import { SudokuRequestService } from '../../core/services/request/sudoku.request.service';
 import { Component, OnInit } from '@angular/core';
 import { Sudoku } from './../../core/interfaces/Sudoku';
 

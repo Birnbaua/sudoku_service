@@ -1,5 +1,5 @@
-import { UserDataService } from './../../services/user.data.service';
-import { UserRequestService } from './../../services/user.request.service';
+import { UserDataService } from '../../services/data/user.data.service';
+import { UserRequestService } from '../../services/request/user.request.service';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({

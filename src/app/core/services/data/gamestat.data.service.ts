@@ -1,7 +1,7 @@
-import { Sudoku } from './../interfaces/Sudoku';
+import { Sudoku } from './../../interfaces/Sudoku';
 import { Injectable } from "@angular/core";
 import { Subject, BehaviorSubject } from 'rxjs';
-import { GameStat } from '../interfaces/Gamestat';
+import { GameStat } from '../../interfaces/Gamestat';
 
 @Injectable({
     providedIn: 'root'

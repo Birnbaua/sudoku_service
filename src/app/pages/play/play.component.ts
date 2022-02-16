@@ -1,10 +1,10 @@
-import { SudokuRequestService } from './../../core/services/sudoku.request.service';
-import { GameStatDataService } from './../../core/services/gamestat.data.service';
+import { SudokuRequestService } from './../../core/services/request/sudoku.request.service';
+import { GameStatDataService } from './../../core/services/data/gamestat.data.service';
 import { Router } from '@angular/router';
 import { Sudoku } from './../../core/interfaces/Sudoku';
-import { SudokuDataService } from './../../core/services/sudoku.data.service';
-import { UserDataService } from './../../core/services/user.data.service';
-import { GameStatsRequestService } from './../../core/services/gamestats.request.service';
+import { SudokuDataService } from './../../core/services/data/sudoku.data.service';
+import { UserDataService } from '../../core/services/data/user.data.service';
+import { GameStatsRequestService } from './../../core/services/request/gamestats.request.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/core/interfaces/User';
 

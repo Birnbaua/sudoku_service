@@ -1,10 +1,10 @@
-import { SudokuWrapper } from '../interfaces/SudokuWrapper';
-import { Difficulty } from '../interfaces/Difficulty';
+import { SudokuWrapper } from '../../interfaces/SudokuWrapper';
+import { Difficulty } from '../../interfaces/Difficulty';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError, map, retry } from 'rxjs/operators';
-import { Sudoku } from "../interfaces/Sudoku";
+import { Sudoku } from "../../interfaces/Sudoku";
 import { Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 

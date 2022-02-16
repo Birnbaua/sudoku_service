@@ -1,8 +1,8 @@
 import { catchError } from 'rxjs/operators';
-import { SudokuRequestService } from '../../core/services/sudoku.request.service';
+import { SudokuRequestService } from '../../core/services/request/sudoku.request.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/services/request/auth.request.service';
 import { Router } from '@angular/router';
 
 @Component({

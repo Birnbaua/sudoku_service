@@ -1,15 +1,15 @@
 import { catchError } from 'rxjs/operators';
-import { Duration } from './../interfaces/Durration';
-import { GameStatsRequest } from '../interfaces/GameStatsRequest';
+import { Duration } from './../../interfaces/Durration';
+import { GameStatsRequest } from '../../interfaces/GameStatsRequest';
 import { Observable } from 'rxjs';
-import { Sudoku } from "../interfaces/Sudoku";
+import { Sudoku } from "../../interfaces/Sudoku";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from 'src/environments/environment';
-import { User } from "../interfaces/User";
+import { User } from "../../interfaces/User";
 import { duration } from 'moment';
-import { Gamestat } from '../components/gamestat/gamestat.component';
-import { GameStatsContent } from '../interfaces/GameStatsContent';
+import { Gamestat } from '../../components/gamestat/gamestat.component';
+import { GameStatsContent } from '../../interfaces/GameStatsContent';
 
 @Injectable({
     providedIn: 'root'
