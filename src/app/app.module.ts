@@ -1,3 +1,5 @@
+import { GeneratorRequestService } from './core/services/request/generator.request.service';
+import { CreatePageComponent } from './pages/create/create.component';
 import { TimeService } from './core/services/time.service';
 import { StaticListsService } from './core/services/staticlists.service';
 import { DifficultyRequestService } from './core/services/request/difficulty.request.service';
@@ -44,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProfileComponent,
     DigitOnlyDirective,
     PicUploaderComponent,
+    CreatePageComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ImgService,
     DifficultyRequestService,
     StaticListsService,
-    TimeService
+    TimeService,
+    GeneratorRequestService
   ],
   bootstrap: [AppComponent],
 })

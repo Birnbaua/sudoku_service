@@ -1,3 +1,4 @@
+import { CreatePageComponent } from './pages/create/create.component';
 import { RegisterPageComponent } from './pages/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { SetupPageComponent } from './pages/setup/setup.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterPageComponent},
   {path: 'play', component: PlayComponent, canActivate:[AuthGuard]},
   {path: 'setup', component: SetupPageComponent, canActivate:[AuthGuard]},
+  {path: 'create', component: CreatePageComponent, canActivate:[AuthGuard]},
   {path: '**', component: HomePageComponent, canActivate:[AuthGuard]}
 ];
 

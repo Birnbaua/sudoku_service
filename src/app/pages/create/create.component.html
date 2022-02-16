@@ -1,0 +1,60 @@
+<div class="container" style="background: #c8d8e4">
+    <div class="row">
+        <div class="col-2">
+            <sidebar></sidebar>
+        </div>
+        <div class="col-6">
+            <sudoku-board [preview]="true"></sudoku-board>
+        </div>
+        <div class="col-4">
+            <div class="card mt-3">
+                <div class="row text-center">
+                    <h3>Random Sudoku Creation</h3>
+                    <div class="gen-inp-grp input-group mb-3 mt-3">
+                        <div class="input-group-prepend">
+                            <label class="gen-inp-label input-group-text" id=select-label for="inputGroupSelect01">Difficulty
+                            </label>
+                        </div>
+                        <select [(ngModel)]="currDiff" class="gen-inp-sel custom-select" id="inputGroupSelect01">
+                            <option value="Random">Random</option>
+                            <option *ngFor="let diff of difficultyArray" value="{{ getDiffName(diff) }}">
+                                {{ getDiffName(diff) }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col text-center mx-2 mb-2">
+                        <button (click)="generateSudoku()" type="button" class="btn btn-secondary full-width"
+                            style="background: #2b6777; border: none">
+                            Generate Random Sudoku
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mt-2">
+                    <div class="gen-inp-grp-inp input-group mb-3 mt-3">
+                        <div class="input-group-prepend">
+                            <label class="gen-inp-label input-group-text" for="inputGroup02">Short Description
+                            </label>
+                        </div>
+                        <input [(ngModel)]="custTitle" class="gen-inp-inp" value="" id="inputGroup02">
+                    </div>
+                    <div class="col text-center mx-2 mb-2">
+                        <button [ngClass]="{'disabled': !loaded}" (click)="saveSudoku()" type="button" class="btn btn-secondary full-width"
+                            style="background: #2b6777; border: none">
+                            Save to Webservice
+                        </button>
+                    </div>
+                </div>
+                <hr />
+                <div class="row mt-2"></div>
+                <div class="col text-center mx-2 mb-2">
+                    <button [ngClass]="{'disabled': !saved}" [routerLink]="'/play'" type="button" class="enabled btn btn-secondary full-width"
+                        style="background: #2b6777; border: none">
+                        Play
+                    </button>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>

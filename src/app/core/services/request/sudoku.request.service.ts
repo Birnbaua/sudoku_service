@@ -21,6 +21,7 @@ export class SudokuRequestService{
         ["Medium", '2'],
         ["Hard", '3']
     ])
+
     url = environment.serviceDomain + '/sudoku/'
 
     getSudokuById(id: number): Observable<Sudoku>{
@@ -46,6 +47,17 @@ export class SudokuRequestService{
         }
         console.log(url)
         return this.http.get<SudokuWrapper>(url);
+    }
+
+    postSudoku(sud : Sudoku){
+        let token = localStorage.getItem('token')
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authentication: token!
+            })
+        }
+        console.log(sud)
+        return this.http.post<Sudoku>(this.url, sud, httpOptions)
     }
 
     validateSudoku(id: number, current: string, type: string){
