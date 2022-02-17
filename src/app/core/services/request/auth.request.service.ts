@@ -1,6 +1,6 @@
 import { LoginCreds } from '../../interfaces/LoginCreds';
 import { ResponseToken } from '../../interfaces/ResponseToken'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { environment } from 'src/environments/environment';
 import * as moment from "moment";
@@ -24,6 +24,18 @@ export class AuthService {
             password: password
         }
         return this.http.post<ResponseToken>(this.authUrl + "authenticate", creds);
+    }
+
+    refresh(token : string){
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authentication: token!
+            })
+        }
+        const tok = {
+            token: token
+        }
+        return this.http.post<ResponseToken>(this.authUrl + "refresh",tok,httpOptions);
     }
 
     setSession(authResult : ResponseToken) {
