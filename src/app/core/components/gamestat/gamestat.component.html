@@ -5,15 +5,15 @@
 <div *ngIf="finished; then historyBlock; else openBlock"></div>
 <ng-template #openBlock>
   <td>
-    <button type="button" (click)="resumeSudoku()" class="btn btn-success">
+    <button type="button" (click)="resumeSudoku()" class="accept-col btn btn-success">
       Resume
     </button>
-    <button type="button" (click)="deleteStat()" class="btn btn-danger">Delete</button>
+    <button type="button" (click)="deleteStat()" class="danger-col btn btn-danger">Delete</button>
   </td>
 </ng-template>
 <ng-template #historyBlock>
   <td>
-    <button type="button" (click)="resumeSudoku()" class="btn btn-primary">View</button>
+    <button type="button" (click)="resumeSudoku()" class="view-col btn btn-primary">View</button>
   </td>
 </ng-template>
 <td>

@@ -1,3 +1,4 @@
+import { Difficulty } from './../../interfaces/Difficulty';
 import { GameStatDataService } from './../../services/data/gamestat.data.service';
 import { SudokuDataService } from './../../services/data/sudoku.data.service';
 import { Sudoku } from './../../interfaces/Sudoku';
@@ -59,4 +60,9 @@ export class BoardComponent implements OnInit {
     }
     return false
   }
+
+  printFirstUpper(text: string){
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
 }

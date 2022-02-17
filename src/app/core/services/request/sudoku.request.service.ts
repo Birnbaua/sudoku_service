@@ -16,12 +16,6 @@ export class SudokuRequestService{
         private http: HttpClient
         ) { }
 
-    difficultyMap = new Map([
-        ["Easy", '1'],
-        ["Medium", '2'],
-        ["Hard", '3']
-    ])
-
     url = environment.serviceDomain + '/sudoku/'
 
     getSudokuById(id: number): Observable<Sudoku>{
@@ -29,12 +23,12 @@ export class SudokuRequestService{
         return this.http.get<Sudoku>(this.url+ id);
     }
 
-    getSudokuIdsBySettings(diff : string | undefined, mode : string){
+    getSudokuIdsBySettings(diff : number, mode : string){
         let url : string = this.url
         let first = true
-        if(diff != ''){
-            diff = this.difficultyMap.get(diff!)
-            url = url + "?difficulty="+ diff
+        console.log(diff)
+        if(diff != 0){
+            url = url + "?difficulty="+ diff.toString()
             first = false
         }
         if(mode != ''){

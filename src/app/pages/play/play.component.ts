@@ -89,7 +89,8 @@ export class PlayComponent implements OnInit {
   }
 
   validateGame(){
-    this.sudokuRequestService.validateSudoku(this.sudoku?.id!, this.current, this.sudoku?.type!).subscribe((ret) => {
+    console.log(this.standing)
+    this.sudokuRequestService.validateSudoku(this.sudoku?.id!, this.standing!, this.sudoku?.type!).subscribe((ret) => {
       if (ret){
         if (this.timerOn){
           this.toggleTimer()

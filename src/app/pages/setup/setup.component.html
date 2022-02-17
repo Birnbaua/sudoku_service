@@ -29,30 +29,17 @@
                   "
                 ></div>
                 <ng-template #thenBlockDiff>Difficulty</ng-template>
-                <ng-template #elseBlockDiff>{{ difficulty }}</ng-template>
+                <ng-template #elseBlockDiff>{{ printFirstUpper(difficulty) }}</ng-template>
               </button>
               <div class="dropdown-menu" aria-labelledby="difficultyButton">
                 <button (click)="changeDifficulty('All')" class="dropdown-item">
                   All
                 </button>
-                <button
-                  (click)="changeDifficulty('Easy')"
-                  class="dropdown-item"
-                >
-                  Easy
-                </button>
-                <button
-                  (click)="changeDifficulty('Medium')"
-                  class="dropdown-item"
-                >
-                  Medium
-                </button>
-                <button
-                  (click)="changeDifficulty('Hard')"
-                  class="dropdown-item"
-                >
-                  Hard
-                </button>
+                <ng-template ngFor let-diff [ngForOf]="difficultyArray" let-i="index">
+                  <button (click)="changeDifficulty(diff!.name!)" class="dropdown-item">
+                    {{printFirstUpper(diff.name!)}}
+                  </button>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -73,19 +60,15 @@
                 <ng-template #thenBlockMode>Sudoku-Mode</ng-template>
                 <ng-template #elseBlockMode>{{ mode }}</ng-template>
               </button>
-              <div class="dropdown-menu" aria-labelledby="difficultyButton">
-                <button (click)="changeMode('All')" class="dropdown-item">
+              <div class="dropdown-menu" aria-labelledby="typeButton">
+                <button (click)="changeMode('')" class="dropdown-item">
                   All
                 </button>
-                <button (click)="changeMode('Normal')" class="dropdown-item">
-                  Normal
-                </button>
-                <button (click)="changeMode('Diagonal')" class="dropdown-item">
-                  Diagonal
-                </button>
-                <button (click)="changeMode('Samurai')" class="dropdown-item">
-                  Samurai
-                </button>
+                <ng-template ngFor let-mode [ngForOf]="typeArray" let-i="index">
+                  <button (click)="changeMode(mode.toString())" class="dropdown-item">
+                    {{mode}}
+                  </button>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -110,6 +93,7 @@
                 *ngFor="let sudoku of sudokuPreviewList; index as i"
               >
                 <div class="sud-preview">
+                  ID: {{sudoku.id}}
                   <button
                     (click)="getSudokuById(sudoku.id!)"
                     class = "sud-prev-bg"

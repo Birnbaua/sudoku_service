@@ -41,3 +41,6 @@ input:hover {
 .diag-cell {
 	background-color: grey;
 }
+.inline {
+	display:inline;
+}

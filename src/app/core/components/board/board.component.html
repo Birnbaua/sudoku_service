@@ -1,5 +1,6 @@
-<h3>{{sudoku.desc}}</h3>
-<h4>{{sudoku.difficulty?.name}}</h4>
+<h4 >Type: {{sudoku.type}}</h4>
+<h4 >Description: {{sudoku.desc}}</h4>
+<h4>Difficulty: {{sudoku.difficulty?.name}}</h4>
 <div *ngIf="sudoku.type == 'SAMURAI' then samuraiBlock else normalBlock"></div>
 <ng-template #normalBlock>
   <table>
