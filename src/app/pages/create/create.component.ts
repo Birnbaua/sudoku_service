@@ -49,7 +49,9 @@ export class CreatePageComponent implements OnInit {
 
   saveSudoku(){
       this.loaded = false
-      this.sudoku!.desc = this.custTitle
+      if(this.custTitle !==''){
+        this.sudoku!.desc = this.custTitle
+      }
       this.sudokuRequestService.postSudoku(this.sudoku!)
         .subscribe(
             (sudoku) => {
