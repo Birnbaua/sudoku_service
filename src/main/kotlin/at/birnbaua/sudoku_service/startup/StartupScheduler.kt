@@ -2,6 +2,7 @@ package at.birnbaua.sudoku_service.startup
 
 import at.birnbaua.sudoku_service.auth.user.jpa.entity.User
 import at.birnbaua.sudoku_service.auth.user.jpa.service.UserService
+import at.birnbaua.sudoku_service.controller.MaintenanceController
 import at.birnbaua.sudoku_service.jpa.entity.gamestats.GameStats
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Difficulty
 import at.birnbaua.sudoku_service.jpa.entity.sudoku.Sudoku
@@ -35,6 +36,9 @@ class StartupScheduler {
 
     @Autowired
     lateinit var sps: SudokuPreviewService
+
+    @Autowired
+    lateinit var mc: MaintenanceController
 
     @Autowired
     private lateinit var cacheManager: CacheManager
@@ -156,6 +160,8 @@ class StartupScheduler {
             if(samuraiString().size -1 > index) samuraiSudoku.desc = samuraiSudoku.desc + ";"
         }
         ss.save(samuraiSudoku)
+
+        ss.saveAll(mc.generate(10,null).body!!)
     }
 
     private fun samuraiString() : Array<String> {
