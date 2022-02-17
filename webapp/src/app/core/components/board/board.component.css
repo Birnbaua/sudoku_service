@@ -1,0 +1,46 @@
+* { 
+    box-sizing: border-box; 
+}
+table { 
+    margin: 10px; 
+}
+tr:first-child td {
+	border-top-color: black;
+}
+tr:nth-child(3n) td {
+	border-bottom-color: black;
+}
+td {
+	border: 1px solid #52ab98;
+	height: 60px;
+	width: 60px;
+}
+td:first-child {
+	border-left-color: black;
+}
+td:nth-child(3n) {
+	border-right-color: black;
+}
+input {
+	padding: 0;
+	text-align: center;
+	border: 0;
+	height: 60px;
+	width: 60px;
+	text-align: center;
+}
+
+input:hover {
+	background: #ffffff;
+}
+
+.sud-bold {
+	font-weight: bold;
+}
+
+.diag-cell {
+	background-color: grey;
+}
+.inline {
+	display:inline;
+}

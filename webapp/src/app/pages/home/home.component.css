@@ -1,0 +1,13 @@
+.stat-filter-select-group{
+    width: 50%;
+    display: inline-grid;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.stat-filter-label{
+    background-color: #357c8f;
+    color:white;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}

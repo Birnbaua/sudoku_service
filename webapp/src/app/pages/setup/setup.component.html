@@ -1,0 +1,124 @@
+<div class="container" style="background: #c8d8e4;">
+  <div class="row">
+    <div class="col-2">
+      <sidebar></sidebar>
+    </div>
+    <div class="col-6">
+      <sudoku-board [preview]="true"></sudoku-board>
+    </div>
+    <div class="col-4">
+      <div class="card mt-3">
+        <div class="row text-center">
+          <h3>Game Settings</h3>
+          <div class="col">
+            <div class="dropdown mx-2">
+              <button
+                data-bs-toggle="dropdown"
+                class="btn btn-secondary dropdown-toggle full-width"
+                type="button"
+                id="difficultyButton"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="background: #2b6777; border:none"
+              >
+                <div
+                  *ngIf="
+                    difficulty == '';
+                    then thenBlockDiff;
+                    else elseBlockDiff
+                  "
+                ></div>
+                <ng-template #thenBlockDiff>Difficulty</ng-template>
+                <ng-template #elseBlockDiff>{{ printFirstUpper(difficulty) }}</ng-template>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="difficultyButton">
+                <button (click)="changeDifficulty('All')" class="dropdown-item">
+                  All
+                </button>
+                <ng-template ngFor let-diff [ngForOf]="difficultyArray" let-i="index">
+                  <button (click)="changeDifficulty(diff!.name!)" class="dropdown-item">
+                    {{printFirstUpper(diff.name!)}}
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="dropdown mx-2">
+              <button
+                data-bs-toggle="dropdown"
+                class="btn btn-secondary dropdown-toggle full-width"
+                type="button"
+                id="gamemodeButton"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="background: #2b6777; border:none"
+              >
+                <div
+                  *ngIf="mode == ''; then thenBlockMode; else elseBlockMode"
+                ></div>
+                <ng-template #thenBlockMode>Sudoku-Mode</ng-template>
+                <ng-template #elseBlockMode>{{ mode }}</ng-template>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="typeButton">
+                <button (click)="changeMode('')" class="dropdown-item">
+                  All
+                </button>
+                <ng-template ngFor let-mode [ngForOf]="typeArray" let-i="index">
+                  <button (click)="changeMode(mode.toString())" class="dropdown-item">
+                    {{mode}}
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center mx-2 mb-2">
+            <button
+              (click)="fetchSudokus()"
+              type="button"
+              class="btn btn-secondary full-width"
+              style="background: #2b6777; border:none"
+            >
+              Fetch Sudokus
+            </button>
+          </div>
+        </div>
+        <hr />
+        <div class="row mt-2">
+          <div class="panel panel-primary">
+            <div class="panel-body sud-scrollable-panel">
+              <ng-container
+                *ngFor="let sudoku of sudokuPreviewList; index as i"
+              >
+                <div class="sud-preview">
+                  ID: {{sudoku.id}}
+                  <button
+                    (click)="getSudokuById(sudoku.id!)"
+                    class = "sud-prev-bg"
+                  >
+                  <img [src]="getImage(sudoku.preview)" class="sud-prev-btn" />
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row mt-2">
+          <div class="col text-center mx-2 mb-2">
+            <button
+              [routerLink]="'/play'"
+              type="button"
+              class="btn btn-secondary full-width menu"
+              style="background: #52ab98; border:none"
+            >
+              Play
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

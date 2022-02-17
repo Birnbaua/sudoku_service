@@ -1,0 +1,75 @@
+<div class="container play-page" style="background: #c8d8e4;">
+  <div class="row" >
+    <div class="col-2" >
+      <sidebar></sidebar>
+    </div>
+    <div class="col-7">
+      <sudoku-board
+        (sudokuOutput)="receiveStanding($event)"
+        [currentInp]="current"
+        [paused]="!timerOn"
+      ></sudoku-board>
+      <div class="row" *ngIf="validate">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+            <strong>Sudoku solved!</strong> Sudoku has now been saved.
+          </p>
+        </div>
+      </div>
+      <div class="row" *ngIf="isWrong">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Solution not correct!</strong> Try to correct your mistake.
+          </p>
+        </div>
+      </div>
+      <div class="row" *ngIf="isSaved">
+        <div class="col-xs-12">
+          <p class="alert alert-info">
+            <strong>Sudoku saved!</strong> You can now leave the site or keep playing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 px-5">
+      <div class="row">
+        <profile></profile>
+      </div>
+
+      <div class="row">
+        <div class="card mt-5">
+          <div class="d-flex flex-column">
+            <hr />
+            <h4>Timer: {{ display }}</h4>
+            <hr />
+          </div>
+          <button
+            (click)="pauseGame()"
+            [class.active]="!timerOn"
+            [disabled]="!playable"
+            type="button"
+            class="btn btn-outline-info"
+          >
+            Pause
+          </button>
+          <br />
+          <button (click)="saveGame()" type="button" class="btn btn-primary" style="background: #52ab98; border:none" [disabled]="!playable">
+            Save
+          </button>
+          <br />
+          <button
+            [disabled]="!playable"
+            (click)="validateGame()"
+            type="button"
+            class="btn btn-success"
+            style="background: #367b88; border:none"
+          >
+            Validate
+          </button>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

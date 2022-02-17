@@ -1,0 +1,126 @@
+/* Sidebar */
+
+.sidebar
+{
+  width:15%;
+  top:0px;
+  left:0px;
+  bottom:0px;
+  position:absolute;
+  background: -webkit-linear-gradient(to right, #2b6777, #357c8f, #2b6777);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2b6777, #357c8f, #2b6777); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ #c8d8e4 background-color:#2b6777; */
+
+  color: white;
+}
+
+sidebar-item{
+  color:white;
+}
+
+main-menu-buttons{
+  color:white;
+}
+
+b{
+  font-size: 1.4rem;
+  color: white;
+}
+
+mat-divider{
+  border: 5px solid rgba(255, 255, 255, 0.45);
+}
+
+h1{
+  color: white;
+}
+
+.sb-icon{
+    width: 16px;
+    height: 16px;
+}
+
+/*Generals */
+.full-width{
+    width:100% !important;
+}
+
+.background{
+  background: #c8d8e4;
+}
+
+/* Home Page */
+.home-page{
+  max-width: 100% !important;
+}
+
+.sud-hist-table{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem
+}
+
+.ctrl-btn{
+    display: flex;
+    background-color: #0d6efd;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    opacity: 1;
+    width: 300px;
+    height: 100px;
+    border-radius: 1rem;
+}
+.ctrl-btn > p{
+    margin: auto !important;
+}
+
+.sud-preview-home{
+    margin: auto;
+    width: 6rem;
+    height: 6rem;
+    display: inline-block;
+    margin: 0.5rem;
+}
+.table > tbody{
+    vertical-align: middle !important;
+}
+
+/* Profile */
+.username{
+    font-size: large;
+    font-weight: bold;
+}
+
+.profile-pic{
+    width:100px;
+    height:100px;
+}
+
+.logout{
+    font-weight: bold;
+}
+
+/* Setup Page */
+.sud-preview{
+    margin: auto;
+    width: 10rem;
+    height: 10rem;
+    display: inline-block;
+    margin: 0.5rem;
+}
+.sud-prev-btn{
+    height:100%;
+    width:100%;
+}
+
+.sud-prev-bg{
+    background-color: white;
+}
+
+.sud-scrollable-panel{
+    height: 100%;
+    max-height: 30rem;
+    overflow-y: scroll;
+    text-align: center;
+    width: 100%;
+}

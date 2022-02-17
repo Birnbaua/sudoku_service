@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { SidebarComponent } from './core/components/sidebar/sidebar.component';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Sudoku';
+
 }

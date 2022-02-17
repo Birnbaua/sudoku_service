@@ -1,0 +1,12 @@
+<div class="card mt-5">
+    <div class="d-flex flex-row">
+      <div class="p-2">
+        <app-pic-uploader-component></app-pic-uploader-component>
+      </div>
+        <div class="profile-container d-flex align-items-start flex-column ">
+            <div class="p-2"><p class="username">{{username}}</p></div>
+
+            <button type="button" (click)="logout()" class="logout-col btn btn-danger">Logout</button>
+        </div>
+    </div>
+</div>

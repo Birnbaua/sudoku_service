@@ -1,0 +1,32 @@
+.gen-inp-grp{
+    margin: auto;
+}
+
+.gen-inp-inp{
+    width:100%;
+    height: 2rem;
+    margin: auto;
+    display: grid;
+}
+
+.gen-inp-sel{
+    width:70%;
+    height: 2rem;
+    margin: auto;
+    display: grid;
+}
+
+.gen-inp-label{
+    background-color: #52ab98;
+    color:white;
+}
+
+#select-label{
+    margin-left: 0.5rem;
+}
+
+.gen-inp-grp-inp{
+    margin: auto;
+    display:inline-grid;
+    width:95%
+}
