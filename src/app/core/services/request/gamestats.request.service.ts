@@ -47,7 +47,7 @@ export class GameStatsRequestService{
                 Authentication: token!
             })
         }
-        let url : string = this.url + user.username + "?size=50"
+        let url : string = this.url + user.username + "?size=1000"
         return this.http.get<GameStatsContent>(url, httpOptions)
     }
 
