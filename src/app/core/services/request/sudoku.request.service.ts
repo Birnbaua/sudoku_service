@@ -25,21 +25,13 @@ export class SudokuRequestService{
 
     getSudokuIdsBySettings(diff : number, mode : string){
         let url : string = this.url
-        let first = true
-        console.log(diff)
+        url = url + "?size=100"
         if(diff != 0){
-            url = url + "?difficulty="+ diff.toString()
-            first = false
+            url = url + "&difficulty="+ diff.toString()
         }
         if(mode != ''){
-            if(first){
-                url = url + "?type="+ mode.toUpperCase()
-            }else{
-                url = url + "&type="+ mode.toUpperCase()
-            }
-            
+            url = url + "&type="+ mode.toUpperCase()
         }
-        console.log(url)
         return this.http.get<SudokuWrapper>(url);
     }
 
