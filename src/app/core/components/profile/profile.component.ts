@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/request/auth.request.service';
 import { Router } from '@angular/router';
 import { UserDataService } from '../../services/data/user.data.service';
 import { UserRequestService } from '../../services/request/user.request.service';
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit{
   constructor(
       private userRequestService: UserRequestService,
       private userDataServkce: UserDataService,
-      private router: Router
+      private router: Router,
+      private authService: AuthService
     ) {}
 
     username : string = "";
@@ -27,7 +29,7 @@ export class ProfileComponent implements OnInit{
   }
 
   logout(){
-    localStorage.clear()
+    this.authService.logout()
     this.router.navigateByUrl("/login")
   }
 
